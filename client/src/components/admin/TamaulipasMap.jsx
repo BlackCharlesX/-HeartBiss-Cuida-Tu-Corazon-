@@ -7,14 +7,77 @@ import {
 import api from '../../services/api'
 import {
   TAMAULIPAS_MUNICIPALITIES,
-  TAMAULIPAS_REGIONS
+  TAMAULIPAS_REGIONS,
+  TAMAULIPAS_MAP_CONFIG
 } from '../../data/tamaulipasMunicipalities'
+
+// ══════════════════════════════════════════════════════════════════
+// OFFICIAL CARTOGRAPHIC PALETTE (43 MUNICIPIOS DE TAMAULIPAS)
+// Paleta fidedigna basada en la cartografía de división política oficial
+// ══════════════════════════════════════════════════════════════════
+
+const OFFICIAL_MAP_COLORS = {
+  abasolo: '#e1a3c6',
+  aldama: '#9e67be',
+  altamira: '#d0df6c',
+  antiguo_morelos: '#985f83',
+  burgos: '#eeb288',
+  bustamante: '#f19582',
+  camargo: '#fca5b9',
+  casas: '#bed299',
+  ciudad_madero: '#72cfc8',
+  cruillas: '#f3cc7a',
+  el_mante: '#68cf5b',
+  gomez_farias: '#a87da9',
+  gonzalez: '#d785e2',
+  guemez: '#b8df98',
+  guerrero: '#88cca0',
+  gustavo_diaz_ordaz: '#f8cfa5',
+  hidalgo: '#b5e2b4',
+  jaumave: '#9ec8a7',
+  jimenez: '#f2aed0',
+  llera: '#9de38b',
+  mainero: '#ce9992',
+  matamoros: '#f089b8',
+  mendez: '#7dd9be',
+  mier: '#98e0c8',
+  miguel_aleman: '#a4deaf',
+  miquihuana: '#eeb390',
+  nuevo_laredo: '#f9c9b6',
+  nuevo_morelos: '#d5a4be',
+  ocampo: '#ce7a73',
+  padilla: '#f9e68c',
+  palmillas: '#dcbe8b',
+  reynosa: '#d8958c',
+  rio_bravo: '#b6f0d8',
+  san_carlos: '#dcb3ea',
+  san_fernando: '#f4b6e5',
+  san_nicolas: '#b786b8',
+  soto_la_marina: '#9bc39e',
+  tampico: '#46bfb7',
+  tula: '#ab8cb8',
+  valle_hermoso: '#a1f2aa',
+  victoria: '#e98bc5',
+  villagran: '#c78796',
+  xicotencatl: '#d59ca4'
+}
 
 // ══════════════════════════════════════════════════════════════════
 // MAP LAYERS CONFIGURATION
 // ══════════════════════════════════════════════════════════════════
 
 const LAYERS = [
+  {
+    id: 'political',
+    name: 'División Política Oficial (INEGI)',
+    shortName: 'División Política',
+    icon: FaMapMarkedAlt,
+    unit: 'municipios',
+    description: 'Cartografía oficial fidedigna con los 43 municipios y regiones',
+    colorScale: ['#88cca0', '#f4b6e5', '#f089b8'],
+    stops: [0, 20, 43],
+    legend: { min: 'Regiones', mid: 'Cartografía Oficial', max: '43 Municipios' }
+  },
   {
     id: 'users',
     name: 'Cobertura y Usuarios',
@@ -104,6 +167,8 @@ function interpolateColor(color1, color2, factor) {
 function getMunicipalityValue(m, layerId) {
   if (!m) return 0
   switch (layerId) {
+    case 'political':
+      return m.popYouth || 0
     case 'users':
       return m.totalBeneficiaries || (m.registeredUsers || 0) + (m.familyMembers || 0)
     case 'bmi':
@@ -120,6 +185,10 @@ function getMunicipalityValue(m, layerId) {
 }
 
 function getMunicipalityColor(m, layerId, isDark, minVal, maxVal) {
+  if (layerId === 'political') {
+    const color = OFFICIAL_MAP_COLORS[m.id] || (isDark ? '#383545' : '#cbd5e1')
+    return color
+  }
   const val = getMunicipalityValue(m, layerId)
   const layer = LAYERS.find(l => l.id === layerId) || LAYERS[0]
 
@@ -153,11 +222,12 @@ function getMunicipalityColor(m, layerId, isDark, minVal, maxVal) {
 export default function TamaulipasMap({ dark }) {
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
-  const [activeLayer, setActiveLayer] = useState('users')
+  const [activeLayer, setActiveLayer] = useState('political')
   const [selectedRegion, setSelectedRegion] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedMun, setSelectedMun] = useState(null)
   const [hoveredMun, setHoveredMun] = useState(null)
+  const [showLabels, setShowLabels] = useState(true)
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 })
   const [viewMode, setViewMode] = useState('map') // 'map' | 'table'
   const [sortBy, setSortBy] = useState('beneficiaries') // 'beneficiaries' | 'name' | 'risk' | 'bmi' | 'glucose'
@@ -786,49 +856,73 @@ export default function TamaulipasMap({ dark }) {
             })}
           </div>
 
-          {/* Search Box */}
-          <div style={{ position: 'relative', width: '260px' }}>
-            <FaSearch style={{
-              position: 'absolute',
-              left: '0.85rem',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              color: dark ? '#7e7a8c' : '#a89580',
-              fontSize: '0.8rem',
-            }} />
-            <input
-              type="text"
-              placeholder="Buscar municipio o cabecera..."
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+            {/* Toggle Labels */}
+            <button
+              onClick={() => setShowLabels(!showLabels)}
               style={{
-                width: '100%',
-                padding: '0.5rem 0.85rem 0.5rem 2.2rem',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                padding: '0.45rem 0.85rem',
                 borderRadius: '10px',
-                border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
-                background: dark ? '#1e1c25' : '#faf8f5',
-                color: dark ? '#fff' : '#1a1715',
-                fontSize: '0.8rem',
-                outline: 'none',
+                border: `1.5px solid ${showLabels ? (dark ? '#e03b60' : '#871233') : (dark ? '#272530' : '#e8ddd0')}`,
+                background: showLabels ? (dark ? 'rgba(224,59,96,0.15)' : 'rgba(135,18,51,0.08)') : 'transparent',
+                color: showLabels ? (dark ? '#e03b60' : '#871233') : (dark ? '#9ea4b0' : '#5c5248'),
+                fontSize: '0.75rem',
+                fontWeight: '700',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
               }}
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
+              title="Mostrar u ocultar los nombres de los municipios en el mapa"
+            >
+              <span>{showLabels ? '🏷️ Nombres: Visibles' : '🏷️ Nombres: Ocultos'}</span>
+            </button>
+
+            {/* Search Box */}
+            <div style={{ position: 'relative', width: '240px' }}>
+              <FaSearch style={{
+                position: 'absolute',
+                left: '0.85rem',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                color: dark ? '#7e7a8c' : '#a89580',
+                fontSize: '0.8rem',
+              }} />
+              <input
+                type="text"
+                placeholder="Buscar municipio o cabecera..."
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
                 style={{
-                  position: 'absolute',
-                  right: '0.6rem',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  background: 'none',
-                  border: 'none',
-                  color: dark ? '#7e7a8c' : '#a89580',
-                  cursor: 'pointer',
+                  width: '100%',
+                  padding: '0.5rem 0.85rem 0.5rem 2.2rem',
+                  borderRadius: '10px',
+                  border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
+                  background: dark ? '#1e1c25' : '#faf8f5',
+                  color: dark ? '#fff' : '#1a1715',
+                  fontSize: '0.8rem',
+                  outline: 'none',
                 }}
-              >
-                <FaTimes size={12} />
-              </button>
-            )}
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  style={{
+                    position: 'absolute',
+                    right: '0.6rem',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    background: 'none',
+                    border: 'none',
+                    color: dark ? '#7e7a8c' : '#a89580',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <FaTimes size={12} />
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -861,22 +955,46 @@ export default function TamaulipasMap({ dark }) {
           </span>
         </div>
 
-        {/* Gradient Legend */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <span style={{ fontSize: '0.72rem', fontWeight: '700', color: dark ? '#9ea4b0' : '#73665c' }}>
-            {currentLayerObj.legend.min}
-          </span>
-          <div style={{
-            width: '140px',
-            height: '10px',
-            borderRadius: '5px',
-            background: `linear-gradient(to right, ${currentLayerObj.colorScale[0]}, ${currentLayerObj.colorScale[1]}, ${currentLayerObj.colorScale[2]})`,
-            border: `1px solid ${dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
-          }} />
-          <span style={{ fontSize: '0.72rem', fontWeight: '700', color: dark ? '#9ea4b0' : '#73665c' }}>
-            {currentLayerObj.legend.max}
-          </span>
-        </div>
+        {/* Legend rendering */}
+        {currentLayerObj.id === 'political' ? (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+            <span style={{ fontSize: '0.72rem', fontWeight: '700', color: dark ? '#9ea4b0' : '#73665c' }}>
+              6 Regiones de Tamaulipas:
+            </span>
+            {TAMAULIPAS_REGIONS.filter(r => r.id !== 'all').map(reg => (
+              <span
+                key={reg.id}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.25rem',
+                  fontSize: '0.7rem',
+                  fontWeight: '600',
+                  color: dark ? '#cbd5e1' : '#475569',
+                }}
+              >
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: reg.color }} />
+                {reg.name}
+              </span>
+            ))}
+          </div>
+        ) : (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <span style={{ fontSize: '0.72rem', fontWeight: '700', color: dark ? '#9ea4b0' : '#73665c' }}>
+              {currentLayerObj.legend.min}
+            </span>
+            <div style={{
+              width: '140px',
+              height: '10px',
+              borderRadius: '5px',
+              background: `linear-gradient(to right, ${currentLayerObj.colorScale[0]}, ${currentLayerObj.colorScale[1]}, ${currentLayerObj.colorScale[2]})`,
+              border: `1px solid ${dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
+            }} />
+            <span style={{ fontSize: '0.72rem', fontWeight: '700', color: dark ? '#9ea4b0' : '#73665c' }}>
+              {currentLayerObj.legend.max}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* ── WORKSPACE: MAP VIEW OR TABLE VIEW ────────────────────── */}
@@ -957,53 +1075,177 @@ export default function TamaulipasMap({ dark }) {
               <div style={{ width: '0', height: '0', borderLeft: '3px solid transparent', borderRight: '3px solid transparent', borderBottom: '6px solid #871233' }} />
             </div>
 
-            {/* SVG MAP */}
+            {/* SVG MAP - EXACT CARTOGRAPHIC PROJECTION */}
             <svg
-              viewBox="0 0 700 920"
+              viewBox={TAMAULIPAS_MAP_CONFIG.viewBox}
               style={{
                 width: '100%',
                 height: 'auto',
-                maxHeight: '720px',
+                maxHeight: '820px',
                 margin: 'auto',
                 display: 'block',
               }}
             >
-              {/* Defs for Glow Filter & Gradients */}
+              {/* Defs for Glow Filter & Patterns */}
               <defs>
                 <filter id="mapGlow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="6" result="blur" />
+                  <feGaussianBlur stdDeviation="5" result="blur" />
                   <feComposite in="SourceGraphic" in2="blur" operator="over" />
                 </filter>
-                <pattern id="mapGrid" width="40" height="40" patternUnits="userSpaceOnUse">
-                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke={dark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.03)'} strokeWidth="1" />
+                <pattern id="seaPattern" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 0 10 Q 5 7 10 10 T 20 10" fill="none" stroke={dark ? 'rgba(56,189,248,0.06)' : 'rgba(2,132,199,0.08)'} strokeWidth="1" />
                 </pattern>
               </defs>
 
-              {/* Grid Background */}
-              <rect width="700" height="920" fill="url(#mapGrid)" />
+              {/* Ocean / Gulf of Mexico Water Background */}
+              <rect width="620" height="940" fill={dark ? '#0e0e13' : '#f8f6f0'} />
+              <rect x="420" y="0" width="200" height="940" fill="url(#seaPattern)" />
 
-              {/* Gulf of Mexico Coastline Cue */}
-              <path
-                d="M 500 120 Q 560 350 515 550 T 525 890"
-                fill="none"
-                stroke={dark ? 'rgba(59,130,246,0.15)' : 'rgba(59,130,246,0.2)'}
-                strokeWidth="2"
-                strokeDasharray="4 6"
-              />
-              <text
-                x="560"
-                y="520"
-                fill={dark ? 'rgba(59,130,246,0.3)' : 'rgba(59,130,246,0.45)'}
-                fontSize="12"
-                fontWeight="800"
-                letterSpacing="4"
-                transform="rotate(65 560 520)"
-                style={{ userSelect: 'none' }}
-              >
-                GOLFO DE MÉXICO
-              </text>
+              {/* Geographic Graticule Grid Lines */}
+              <g id="graticule-layer" opacity={dark ? 0.3 : 0.45}>
+                {/* Meridians (-100, -99, -98, -97) */}
+                {[
+                  { lon: '-100°', x: 117.2 },
+                  { lon: '-99°', x: 260.0 },
+                  { lon: '-98°', x: 402.9 },
+                  { lon: '-97°', x: 545.7 }
+                ].map(line => (
+                  <g key={`meridian-${line.lon}`}>
+                    <line x1={line.x} y1="30" x2={line.x} y2="910" stroke={dark ? '#52525b' : '#a1a1aa'} strokeWidth="0.75" strokeDasharray="3 4" />
+                    <text x={line.x} y="22" textAnchor="middle" fontSize="7.5" fontWeight="700" fill={dark ? '#a1a1aa' : '#71717a'}>{line.lon}</text>
+                    <text x={line.x} y="924" textAnchor="middle" fontSize="7.5" fontWeight="700" fill={dark ? '#a1a1aa' : '#71717a'}>{line.lon}</text>
+                  </g>
+                ))}
 
-              {/* Municipalities Polygons */}
+                {/* Parallels (27, 26, 25, 24, 23, 22) */}
+                {[
+                  { lat: '27°', y: 143.1 },
+                  { lat: '26°', y: 300.7 },
+                  { lat: '25°', y: 458.2 },
+                  { lat: '24°', y: 615.7 },
+                  { lat: '23°', y: 773.2 },
+                  { lat: '22°', y: 930.8 }
+                ].map(line => (
+                  <g key={`parallel-${line.lat}`}>
+                    <line x1="30" y1={line.y} x2="590" y2={line.y} stroke={dark ? '#52525b' : '#a1a1aa'} strokeWidth="0.75" strokeDasharray="3 4" />
+                    <text x="22" y={line.y + 2.5} textAnchor="end" fontSize="7.5" fontWeight="700" fill={dark ? '#a1a1aa' : '#71717a'}>{line.lat}</text>
+                    <text x="598" y={line.y + 2.5} textAnchor="start" fontSize="7.5" fontWeight="700" fill={dark ? '#a1a1aa' : '#71717a'}>{line.lat}</text>
+                  </g>
+                ))}
+
+                {/* Outer Map Border Frame */}
+                <rect x="30" y="30" width="560" height="880" fill="none" stroke={dark ? '#52525b' : '#27272a'} strokeWidth="1.5" />
+              </g>
+
+              {/* Surrounding Geographic Labels (Neighboring Entities) */}
+              <g id="surrounding-entities-layer" style={{ userSelect: 'none' }}>
+                {/* Estados Unidos de América */}
+                <g transform="translate(380, 110)">
+                  <text textAnchor="middle" fontSize="11" fontWeight="800" letterSpacing="2" fill={dark ? '#71717a' : '#52525b'}>
+                    ESTADOS UNIDOS
+                  </text>
+                  <text y="14" textAnchor="middle" fontSize="9" fontWeight="700" letterSpacing="1.5" fill={dark ? '#52525b' : '#71717a'}>
+                    DE AMÉRICA
+                  </text>
+                </g>
+
+                {/* Nuevo León */}
+                <text
+                  x="72"
+                  y="420"
+                  textAnchor="middle"
+                  fontSize="13"
+                  fontWeight="900"
+                  letterSpacing="2.5"
+                  fill={dark ? '#d97706' : '#b45309'}
+                  opacity="0.8"
+                >
+                  NUEVO LEÓN
+                </text>
+
+                {/* San Luis Potosí */}
+                <text
+                  x="78"
+                  y="905"
+                  textAnchor="middle"
+                  fontSize="9.5"
+                  fontWeight="900"
+                  letterSpacing="1.5"
+                  fill={dark ? '#d97706' : '#b45309'}
+                  opacity="0.8"
+                >
+                  SAN LUIS POTOSÍ
+                </text>
+
+                {/* Veracruz */}
+                <text
+                  x="385"
+                  y="928"
+                  textAnchor="middle"
+                  fontSize="9.5"
+                  fontWeight="900"
+                  letterSpacing="1.5"
+                  fill={dark ? '#d97706' : '#b45309'}
+                  opacity="0.8"
+                >
+                  VERACRUZ
+                </text>
+
+                {/* Golfo de México */}
+                <text
+                  x="565"
+                  y="520"
+                  textAnchor="middle"
+                  fontSize="14"
+                  fontStyle="italic"
+                  fontWeight="800"
+                  letterSpacing="2"
+                  fill={dark ? '#38bdf8' : '#0284c7'}
+                  opacity="0.85"
+                  transform="rotate(70 565 520)"
+                >
+                  Golfo de México
+                </text>
+              </g>
+
+              {/* Title Cartouche Box (Fiel a la Cartografía Oficial) */}
+              <g id="cartouche-header" transform="translate(200, 36)">
+                <rect
+                  x="0"
+                  y="0"
+                  width="180"
+                  height="44"
+                  rx="4"
+                  fill={dark ? 'rgba(20,19,25,0.92)' : '#ffffff'}
+                  stroke={dark ? '#383545' : '#18181b'}
+                  strokeWidth="1.5"
+                  style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }}
+                />
+                <rect x="2" y="2" width="176" height="40" rx="2" fill="none" stroke={dark ? '#272530' : '#e4e4e7'} strokeWidth="0.8" />
+                <text x="90" y="22" textAnchor="middle" fontFamily="'Times New Roman', Georgia, serif" fontSize="15" fontWeight="900" letterSpacing="3" fill={dark ? '#ffffff' : '#18181b'}>
+                  TAMAULIPAS
+                </text>
+                <text x="90" y="36" textAnchor="middle" fontSize="8" fontWeight="800" letterSpacing="2" fill={dark ? '#a1a1aa' : '#52525b'}>
+                  - MUNICIPIOS -
+                </text>
+              </g>
+
+              {/* North Compass Rose (Top Right) */}
+              <g id="compass-rose" transform="translate(565, 68)">
+                <circle cx="0" cy="0" r="16" fill={dark ? 'rgba(20,19,25,0.85)' : '#ffffff'} stroke={dark ? '#383545' : '#18181b'} strokeWidth="1" />
+                {/* 4 Points */}
+                <polygon points="0,-14 3,-3 0,0" fill={dark ? '#e03b60' : '#871233'} />
+                <polygon points="0,-14 -3,-3 0,0" fill={dark ? '#ffffff' : '#18181b'} />
+                <polygon points="14,0 3,3 0,0" fill={dark ? '#71717a' : '#a1a1aa'} />
+                <polygon points="14,0 3,-3 0,0" fill={dark ? '#ffffff' : '#18181b'} />
+                <polygon points="0,14 -3,3 0,0" fill={dark ? '#71717a' : '#a1a1aa'} />
+                <polygon points="0,14 3,3 0,0" fill={dark ? '#ffffff' : '#18181b'} />
+                <polygon points="-14,0 -3,-3 0,0" fill={dark ? '#71717a' : '#a1a1aa'} />
+                <polygon points="-14,0 -3,3 0,0" fill={dark ? '#ffffff' : '#18181b'} />
+                <text x="0" y="-17" textAnchor="middle" fontSize="8" fontWeight="900" fill={dark ? '#e03b60' : '#871233'}>N</text>
+              </g>
+
+              {/* ── 43 OFFICIAL INEGI MUNICIPALITIES POLYGONS ── */}
               <g id="municipalities-layer">
                 {enrichedMunicipalities.map(m => {
                   const isHovered = hoveredMun?.id === m.id
@@ -1012,15 +1254,15 @@ export default function TamaulipasMap({ dark }) {
                   const matchesSearch = !searchQuery || m.name.toLowerCase().includes(searchQuery.toLowerCase())
 
                   const fillColor = getMunicipalityColor(m, activeLayer, dark, minVal, maxVal)
+                  const opacity = (isInSelectedRegion && matchesSearch) ? 1 : 0.2
 
-                  const opacity = (isInSelectedRegion && matchesSearch) ? 1 : 0.22
                   const strokeColor = isSelected
-                    ? (dark ? '#ffffff' : '#1a1715')
+                    ? (dark ? '#ffffff' : '#000000')
                     : isHovered
-                    ? '#e03b60'
-                    : (dark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)')
+                    ? '#871233'
+                    : (activeLayer === 'political' ? (dark ? '#27272a' : '#3f3f46') : (dark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)'))
 
-                  const strokeWidth = isSelected ? 3 : isHovered ? 2.5 : 1
+                  const strokeWidth = isSelected ? 3 : isHovered ? 2.5 : (activeLayer === 'political' ? 1.2 : 0.9)
 
                   return (
                     <path
@@ -1034,7 +1276,7 @@ export default function TamaulipasMap({ dark }) {
                       filter={isSelected || isHovered ? 'url(#mapGlow)' : undefined}
                       style={{
                         cursor: 'pointer',
-                        transition: 'fill 0.3s ease, stroke 0.2s ease, opacity 0.2s ease, transform 0.2s ease',
+                        transition: 'fill 0.25s ease, stroke 0.2s ease, opacity 0.2s ease',
                       }}
                       onMouseEnter={() => setHoveredMun(m)}
                       onMouseLeave={() => setHoveredMun(null)}
@@ -1044,80 +1286,142 @@ export default function TamaulipasMap({ dark }) {
                 })}
               </g>
 
-              {/* Key Hubs Markers & Beacons */}
-              <g id="hubs-layer">
+              {/* ── MUNICIPALITY NAMES & CAPITAL MARKER ── */}
+              <g id="labels-layer" style={{ pointerEvents: 'none', userSelect: 'none' }}>
                 {enrichedMunicipalities.map(m => {
-                  const isHub = KEY_HUBS.includes(m.name)
-                  const isHovered = hoveredMun?.id === m.id
-                  const isSelected = selectedMun?.id === m.id
-                  const hasAlerts = (m.alerts?.critical || 0) > 0
-
                   if (!m.projX || !m.projY) return null
 
+                  const isSelected = selectedMun?.id === m.id
+                  const isHovered = hoveredMun?.id === m.id
+                  const isVictoria = m.name === 'Victoria'
+                  const isHub = KEY_HUBS.includes(m.name)
+                  const hasAlerts = (m.alerts?.critical || 0) > 0
+
+                  // Smart font sizes based on size of territory
+                  let fontSize = '8'
+                  if (['San Fernando', 'Soto La Marina', 'Matamoros', 'Reynosa', 'Aldama', 'Tula'].includes(m.name)) fontSize = '9.5'
+                  else if (['Tampico', 'Ciudad Madero', 'Mier', 'Mainero', 'Nuevo Morelos'].includes(m.name)) fontSize = '7'
+
+                  const shouldShowLabel = showLabels || isSelected || isHovered || isHub
+
                   return (
-                    <g
-                      key={`hub-${m.id}`}
-                      transform={`translate(${m.projX}, ${m.projY})`}
-                      style={{ cursor: 'pointer' }}
-                      onMouseEnter={() => setHoveredMun(m)}
-                      onMouseLeave={() => setHoveredMun(null)}
-                      onClick={() => setSelectedMun(m)}
-                    >
+                    <g key={`lbl-${m.id}`}>
                       {/* Critical Alert Beacon Pulse */}
                       {hasAlerts && (
                         <circle
+                          cx={m.projX}
+                          cy={m.projY}
                           r="14"
                           fill="none"
                           stroke="#ef4444"
                           strokeWidth="2"
                           opacity="0.8"
                         >
-                          <animate
-                            attributeName="r"
-                            values="6;18;24"
-                            dur="2s"
-                            repeatCount="indefinite"
-                          />
-                          <animate
-                            attributeName="opacity"
-                            values="0.9;0.3;0"
-                            dur="2s"
-                            repeatCount="indefinite"
-                          />
+                          <animate attributeName="r" values="5;16;22" dur="2s" repeatCount="indefinite" />
+                          <animate attributeName="opacity" values="0.9;0.3;0" dur="2s" repeatCount="indefinite" />
                         </circle>
                       )}
 
-                      {/* Main Node Center Dot */}
-                      <circle
-                        r={isSelected ? 7 : isHovered ? 6 : isHub ? 4.5 : 3}
-                        fill={isSelected ? '#ffffff' : hasAlerts ? '#ef4444' : isHub ? '#871233' : (dark ? '#c5bfae' : '#5c5248')}
-                        stroke={dark ? '#141319' : '#ffffff'}
-                        strokeWidth={isSelected ? 2.5 : 1.5}
-                        style={{ transition: 'all 0.2s ease' }}
-                      />
-
-                      {/* Node Label (Major Hubs or when hovered/selected) */}
-                      {(isHub || isHovered || isSelected) && (
-                        <text
-                          y={isSelected || isHovered ? -12 : -8}
-                          textAnchor="middle"
-                          fill={dark ? '#ffffff' : '#1a1715'}
-                          fontSize={isSelected ? '12' : isHovered ? '11' : '9.5'}
-                          fontWeight={isHub || isSelected ? '800' : '600'}
-                          stroke={dark ? '#141319' : '#ffffff'}
-                          strokeWidth="3"
-                          paintOrder="stroke"
-                          style={{
-                            pointerEvents: 'none',
-                            userSelect: 'none',
-                          }}
-                        >
-                          {m.name}
-                        </text>
+                      {/* Special Capital Marker for Ciudad Victoria */}
+                      {isVictoria ? (
+                        <g transform={`translate(${m.projX}, ${m.projY})`}>
+                          <circle cx="0" cy="0" r="6.5" fill="#facc15" stroke="#000000" strokeWidth="1.8" />
+                          <circle cx="0" cy="0" r="2" fill="#000000" />
+                          <text
+                            y="-9"
+                            textAnchor="middle"
+                            fill="#000000"
+                            fontSize="10"
+                            fontWeight="900"
+                            stroke="#facc15"
+                            strokeWidth="3.5"
+                            paintOrder="stroke"
+                          >
+                            Ciudad Victoria
+                          </text>
+                        </g>
+                      ) : (
+                        shouldShowLabel && (
+                          <g transform={`translate(${m.projX}, ${m.projY})`}>
+                            {/* Minor Hub center dot if hovered or selected */}
+                            {(isSelected || isHovered) && (
+                              <circle
+                                cx="0"
+                                cy="0"
+                                r="3.5"
+                                fill={isSelected ? '#ffffff' : '#871233'}
+                                stroke="#000000"
+                                strokeWidth="1.5"
+                              />
+                            )}
+                            <text
+                              y={isSelected || isHovered ? -7 : 3}
+                              textAnchor="middle"
+                              fill={dark ? '#ffffff' : '#0f172a'}
+                              fontSize={isSelected ? '11' : isHovered ? '10' : fontSize}
+                              fontWeight={isSelected || isHovered || isHub ? '800' : '600'}
+                              stroke={dark ? '#000000' : '#ffffff'}
+                              strokeWidth={isSelected || isHovered ? '3.5' : '2.8'}
+                              paintOrder="stroke"
+                            >
+                              {m.name}
+                            </text>
+                          </g>
+                        )
                       )}
                     </g>
                   )
                 })}
+              </g>
+
+              {/* Official Legend & Scale Box (Bottom Right - Exactly as in Official Map) */}
+              <g id="official-legend-box" transform="translate(445, 755)">
+                <rect
+                  x="0"
+                  y="0"
+                  width="135"
+                  height="140"
+                  rx="6"
+                  fill={dark ? 'rgba(20,19,25,0.94)' : 'rgba(255,255,255,0.96)'}
+                  stroke={dark ? '#383545' : '#d4d4d8'}
+                  strokeWidth="1.2"
+                  style={{ filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.12))' }}
+                />
+
+                {/* Capital City Symbol */}
+                <g transform="translate(14, 20)">
+                  <circle cx="6" cy="0" r="5" fill="#facc15" stroke="#000000" strokeWidth="1.5" />
+                  <circle cx="6" cy="0" r="1.5" fill="#000000" />
+                  <text x="20" y="3.5" fontSize="8" fontWeight="700" fill={dark ? '#ffffff' : '#18181b'}>Ciudad capital</text>
+                </g>
+
+                {/* State Boundary Symbol */}
+                <g transform="translate(14, 40)">
+                  <line x1="0" y1="0" x2="16" y2="0" stroke={dark ? '#a1a1aa' : '#52525b'} strokeWidth="1.5" strokeDasharray="4 2" />
+                  <text x="20" y="3.5" fontSize="8" fontWeight="600" fill={dark ? '#cbd5e1' : '#52525b'}>Límite estatal</text>
+                </g>
+
+                {/* Country Boundary Symbol */}
+                <g transform="translate(14, 60)">
+                  <line x1="0" y1="0" x2="16" y2="0" stroke={dark ? '#ffffff' : '#18181b'} strokeWidth="2.5" strokeDasharray="5 2 1 2" />
+                  <text x="20" y="3.5" fontSize="8" fontWeight="600" fill={dark ? '#cbd5e1' : '#52525b'}>Límite país</text>
+                </g>
+
+                {/* Graphic Scale Bar (0, 20, 40, 80 KM) */}
+                <g transform="translate(14, 95)">
+                  <rect x="0" y="0" width="23" height="4.5" fill={dark ? '#ffffff' : '#18181b'} />
+                  <rect x="23" y="0" width="23" height="4.5" fill={dark ? '#1e1c25' : '#ffffff'} stroke={dark ? '#ffffff' : '#18181b'} strokeWidth="0.8" />
+                  <rect x="46" y="0" width="46" height="4.5" fill={dark ? '#ffffff' : '#18181b'} />
+                  <text x="0" y="-3" fontSize="7.5" fontWeight="700" fill={dark ? '#ffffff' : '#18181b'} textAnchor="middle">0</text>
+                  <text x="23" y="-3" fontSize="7.5" fontWeight="700" fill={dark ? '#ffffff' : '#18181b'} textAnchor="middle">20</text>
+                  <text x="46" y="-3" fontSize="7.5" fontWeight="700" fill={dark ? '#ffffff' : '#18181b'} textAnchor="middle">40</text>
+                  <text x="92" y="-3" fontSize="7.5" fontWeight="700" fill={dark ? '#ffffff' : '#18181b'} textAnchor="middle">80</text>
+                  <text x="103" y="4" fontSize="7.5" fontWeight="900" fill={dark ? '#ffffff' : '#18181b'}>KM</text>
+                </g>
+
+                <text x="67" y="128" textAnchor="middle" fontSize="6.5" fontWeight="600" fill={dark ? '#71717a' : '#a1a1aa'}>
+                  Cartografía INEGI Oficial
+                </text>
               </g>
             </svg>
 
