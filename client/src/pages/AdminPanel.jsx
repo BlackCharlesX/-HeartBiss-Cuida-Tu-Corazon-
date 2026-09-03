@@ -9,7 +9,7 @@ import {
   FaChartBar, FaUsers, FaHeartbeat, FaCapsules, FaNewspaper,
   FaEnvelope, FaCog, FaSignOutAlt, FaExternalLinkAlt,
   FaPlus, FaEdit, FaTrash, FaTimes, FaSearch, FaCheck,
-  FaEye, FaEyeSlash, FaThumbtack, FaSave, FaCamera, FaMapMarkerAlt,
+  FaEye, FaEyeSlash, FaThumbtack, FaSave, FaCamera, FaMapMarkerAlt, FaMapMarkedAlt,
   FaBookOpen, FaAndroid, FaDownload, FaCloudUploadAlt, FaMobileAlt,
   FaSlidersH, FaToggleOn, FaToggleOff, FaHandsHelping, FaCalculator,
   FaCalendarCheck, FaChartLine, FaComments, FaFileMedical, FaQuestionCircle,
@@ -17,6 +17,7 @@ import {
 } from 'react-icons/fa'
 import { HiMenu } from 'react-icons/hi'
 import { useModules } from '../context/ModuleContext'
+import TamaulipasMap from '../components/admin/TamaulipasMap'
 
 // ═══════════════════════════════════════════════════════
 // STYLE CONSTANTS
@@ -33,16 +34,17 @@ const CARD_RADIUS = '16px'
 // ═══════════════════════════════════════════════════════
 
 const NAV = [
-  { key: 'dashboard',      icon: FaChartBar,   label: 'Dashboard' },
-  { key: 'modules',        icon: FaSlidersH,   label: 'Control de Módulos' },
-  { key: 'app',            icon: FaAndroid,    label: 'App Móvil (APK)' },
-  { key: 'users',          icon: FaUsers,      label: 'Usuarios' },
-  { key: 'diseases',       icon: FaHeartbeat,  label: 'Enfermedades' },
-  { key: 'articles',       icon: FaBookOpen,   label: 'Artículos' },
-  { key: 'nutraceuticals', icon: FaCapsules,   label: 'Nutracéuticos' },
-  { key: 'news',           icon: FaNewspaper,  label: 'Noticias' },
-  { key: 'messages',       icon: FaEnvelope,   label: 'Mensajes' },
-  { key: 'contact',        icon: FaCog,        label: 'Config. Contacto' },
+  { key: 'dashboard',      icon: FaChartBar,      label: 'Dashboard' },
+  { key: 'map',            icon: FaMapMarkedAlt,  label: 'Mapa Epidemiológico' },
+  { key: 'modules',        icon: FaSlidersH,      label: 'Control de Módulos' },
+  { key: 'app',            icon: FaAndroid,       label: 'App Móvil (APK)' },
+  { key: 'users',          icon: FaUsers,         label: 'Usuarios' },
+  { key: 'diseases',       icon: FaHeartbeat,     label: 'Enfermedades' },
+  { key: 'articles',       icon: FaBookOpen,      label: 'Artículos' },
+  { key: 'nutraceuticals', icon: FaCapsules,      label: 'Nutracéuticos' },
+  { key: 'news',           icon: FaNewspaper,     label: 'Noticias' },
+  { key: 'messages',       icon: FaEnvelope,      label: 'Mensajes' },
+  { key: 'contact',        icon: FaCog,           label: 'Config. Contacto' },
 ]
 
 // ═══════════════════════════════════════════════════════
@@ -202,6 +204,7 @@ export default function AdminPanel() {
         {/* Content area */}
         <div style={{ flex: 1, padding: '1.5rem 2rem', overflowY: 'auto' }}>
           {section === 'dashboard' && <DashboardSection dark={dark} onNavigate={setSection} />}
+          {section === 'map' && <TamaulipasMap dark={dark} />}
           {section === 'modules' && <ModulesSection dark={dark} />}
           {section === 'app' && <AppReleaseManager dark={dark} isDashboardWidget={false} />}
           {section === 'users' && <UsersSection dark={dark} />}
@@ -1653,7 +1656,7 @@ function ModulesSection({ dark }) {
 // DASHBOARD SECTION
 // ═══════════════════════════════════════════════════════
 
-function DashboardSection({ dark }) {
+function DashboardSection({ dark, onNavigate }) {
   const [stats, setStats] = useState(null)
   useEffect(() => {
     api.get('/admin/stats').then(r => setStats(r.data)).catch(() => {})
@@ -1692,39 +1695,75 @@ function DashboardSection({ dark }) {
         ))}
       </div>
 
-      {/* Module Control shortcut banner */}
-      <div style={{
-        marginTop: '1.5rem',
-        ...cardStyle(dark),
-        padding: '1.25rem 1.5rem',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        gap: '1rem',
-        background: dark ? 'linear-gradient(135deg, rgba(135,18,51,0.15), rgba(20,19,25,0.9))' : 'linear-gradient(135deg, #8712330a, #fff)',
-        borderLeft: '4px solid #871233'
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <div style={{
-            width: '42px', height: '42px', borderRadius: '10px',
-            background: dark ? '#e03b60' : '#871233', color: '#fff',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
-          }}>
-            <FaSlidersH size={18} />
+      {/* Dual Shortcut Banners: Mapa Epidemiológico & Control de Módulos */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1rem', marginTop: '1.5rem' }}>
+        {/* Banner 1: Mapa */}
+        <div style={{
+          ...cardStyle(dark),
+          padding: '1.25rem 1.5rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '1rem',
+          background: dark ? 'linear-gradient(135deg, rgba(224,59,96,0.15), rgba(20,19,25,0.95))' : 'linear-gradient(135deg, #8712330f, #fff)',
+          borderLeft: '4px solid #e03b60'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+            <div style={{
+              width: '42px', height: '42px', borderRadius: '10px',
+              background: '#871233', color: '#fff',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
+            }}>
+              <FaMapMarkedAlt size={18} />
+            </div>
+            <div>
+              <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715' }}>
+                Mapa de Tamaulipas (43 Municipios)
+              </h4>
+              <p style={{ margin: '0.2rem 0 0', fontSize: '0.8rem', color: dark ? '#9ea4b0' : '#5c5248' }}>
+                Distribución de usuarios y métricas de salud por municipio.
+              </p>
+            </div>
           </div>
-          <div>
-            <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715' }}>
-              Control de Visibilidad y Apartados
-            </h4>
-            <p style={{ margin: '0.2rem 0 0', fontSize: '0.8rem', color: dark ? '#9ea4b0' : '#5c5248' }}>
-              Activa o desactiva en tiempo real la visualización de las secciones y módulos para los usuarios.
-            </p>
-          </div>
+          <Btn variant="primary" onClick={() => onNavigate?.('map')} small>
+            <FaMapMarkedAlt size={12} /> Ver Mapa
+          </Btn>
         </div>
-        <Btn variant="primary" onClick={() => onNavigate?.('modules')} small>
-          <FaSlidersH size={12} /> Administrar Módulos
-        </Btn>
+
+        {/* Banner 2: Módulos */}
+        <div style={{
+          ...cardStyle(dark),
+          padding: '1.25rem 1.5rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '1rem',
+          background: dark ? 'linear-gradient(135deg, rgba(16,185,129,0.12), rgba(20,19,25,0.95))' : 'linear-gradient(135deg, #10b9810a, #fff)',
+          borderLeft: '4px solid #10b981'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+            <div style={{
+              width: '42px', height: '42px', borderRadius: '10px',
+              background: '#10b981', color: '#fff',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
+            }}>
+              <FaSlidersH size={18} />
+            </div>
+            <div>
+              <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715' }}>
+                Control de Visibilidad de Módulos
+              </h4>
+              <p style={{ margin: '0.2rem 0 0', fontSize: '0.8rem', color: dark ? '#9ea4b0' : '#5c5248' }}>
+                Activa o desactiva en tiempo real secciones visibles a usuarios.
+              </p>
+            </div>
+          </div>
+          <Btn variant="primary" onClick={() => onNavigate?.('modules')} small style={{ background: '#10b981' }}>
+            <FaSlidersH size={12} /> Configurar
+          </Btn>
+        </div>
       </div>
 
       {/* APK Management Widget on Main Dashboard */}

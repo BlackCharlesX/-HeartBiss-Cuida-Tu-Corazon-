@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagrama de Justificación Técnica - Jóvenes con Salud</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,900&family=Open+Sans:wght@400;600;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 15px;
+      min-height: 100vh;
+      color: #1e293b;
+    }
+
+    .controls-bar {
+      width: 100%;
+      max-width: 1050px;
+      background: #1e293b;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .tab-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .tab-btn {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      padding: 7px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: #e11d48;
+      border-color: #e11d48;
+    }
+
+    .btn-action {
+      background: #059669;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s ease;
+    }
+
+    .btn-action:hover {
+      background: #047857;
+    }
+
+    .slide-canvas {
+      width: 100%;
+      max-width: 1050px;
+      aspect-ratio: 16 / 9;
+      min-height: 590px;
+      background-color: #ffffff;
+      background-image: 
+        linear-gradient(to right, rgba(203, 213, 225, 0.5) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(203, 213, 225, 0.5) 1px, transparent 1px);
+      background-size: 28px 28px;
+      border-radius: 14px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      padding: 45px 50px 30px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .content-layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      align-items: center;
+      gap: 40px;
+      position: relative;
+      margin-top: 10px;
+      margin-bottom: auto;
+      z-index: 5;
+    }
+
+    .shield-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .shield-card {
+      width: 100%;
+      max-width: 340px;
+      background: linear-gradient(180deg, #faeed1 0%, #f6e0ad 45%, #ecc97b 100%);
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      border-bottom-left-radius: 170px;
+      border-bottom-right-radius: 170px;
+      padding: 60px 28px 75px 28px;
+      text-align: center;
+      box-shadow: 0 12px 28px rgba(180, 145, 60, 0.22);
+      border: 1.5px solid rgba(212, 175, 55, 0.4);
+      position: relative;
+    }
+
+    .shield-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 30px;
+      font-weight: 900;
+      color: #df1b3f;
+      line-height: 1.1;
+      margin-bottom: 18px;
+      letter-spacing: -0.5px;
+      text-transform: capitalize;
+    }
+
+    .shield-title span {
+      display: block;
+    }
+
+    .shield-desc {
+      font-size: 13.5px;
+      color: #4a3407;
+      line-height: 1.45;
+      font-weight: 500;
+      max-width: 260px;
+      margin: 0 auto;
+    }
+
+    .connector-line {
+      position: absolute;
+      right: -42px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 3px;
+      background-color: #df1b3f;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      z-index: 10;
+    }
+
+    .connector-dot {
+      width: 14px;
+      height: 14px;
+      background-color: #df1b3f;
+      border-radius: 50%;
+      margin-right: -7px;
+      box-shadow: 0 0 8px rgba(223, 27, 63, 0.6);
+      border: 2px solid #ffffff;
+    }
+
+    .pillars-list {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      padding-left: 15px;
+    }
+
+    .pillar-item {
+      font-size: 13px;
+      line-height: 1.48;
+      color: #1e293b;
+    }
+
+    .pillar-item strong {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #df1b3f;
+      display: inline;
+      margin-right: 4px;
+    }
+
+    .corner-wave {
+      position: absolute;
+      bottom: -15px;
+      right: -15px;
+      width: 210px;
+      height: 150px;
+      background: linear-gradient(135deg, #ef233c 0%, #d90429 100%);
+      border-top-left-radius: 180px;
+      z-index: 2;
+      box-shadow: -4px -4px 20px rgba(217, 4, 41, 0.25);
+    }
+
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      border-top: 1px solid rgba(226, 232, 240, 0.8);
+      padding-top: 16px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .footer-logos-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .logo-tam {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-tam-icon {
+      font-size: 22px;
+      font-weight: 900;
+      color: #0f172a;
+    }
+
+    .logo-divider {
+      width: 1.5px;
+      height: 22px;
+      background-color: #cbd5e1;
+    }
+
+    .logo-sec {
+      font-size: 10px;
+      font-weight: 700;
+      color: #334155;
+      line-height: 1.25;
+    }
+
+    .logo-injuve {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 19px;
+      font-weight: 900;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+      display: flex;
+      flex-direction: column;
+      line-height: 0.9;
+    }
+
+    .logo-injuve span {
+      font-size: 7px;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .logo-right-badge {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      position: absolute;
+      right: 25px;
+      bottom: 20px;
+      z-index: 15;
+    }
+
+    .logo-right-badge span {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      background: #ffffff;
+      border-radius: 50%;
+      margin-left: 2px;
+    }
+
+    .slide-canvas.social .shield-title,
+    .slide-canvas.social .pillar-item strong,
+    .slide-canvas.social .connector-line,
+    .slide-canvas.social .connector-dot {
+      color: #059669;
+      background-color: #059669;
+    }
+    .slide-canvas.social .shield-title {
+      background: transparent;
+    }
+    .slide-canvas.social .shield-card {
+      background: linear-gradient(180deg, #e6f7f0 0%, #ccefe1 45%, #a2e0c6 100%);
+      border-color: rgba(5, 150, 105, 0.35);
+      box-shadow: 0 12px 28px rgba(5, 150, 105, 0.16);
+    }
+    .slide-canvas.social .shield-desc {
+      color: #064e3b;
+    }
+    .slide-canvas.social .corner-wave {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      box-shadow: -4px -4px 20px rgba(5, 150, 105, 0.25);
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+      .controls-bar {
+        display: none;
+      }
+      .slide-canvas {
+        max-width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+        page-break-after: always;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="controls-bar">
+    <div style="font-weight: 700; font-size: 14px;">
+      ⚙️ Diapositiva Institucional: Justificación de Jóvenes con Salud
+    </div>
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="showSlide('tecnica')">1. Justificación Técnica</button>
+      <button class="tab-btn" onclick="showSlide('social')">2. Justificación Social y Sanitaria</button>
+    </div>
+    <button class="btn-action" onclick="window.print()">
+      🖨️ Imprimir / Guardar en PDF
+    </button>
+  </div>
+
+  <!-- DIAPOSITIVA 1: JUSTIFICACIÓN TÉCNICA -->
+  <div id="slide-tecnica" class="slide-canvas">
+    
+    <div class="content-layout">
+      
+      <div class="shield-container">
+        <div class="shield-card">
+          <div class="shield-title">
+            Justificación<br>Técnica
+          </div>
+          <div class="shield-desc">
+            La implementación de esta plataforma se justifica bajo los siguientes pilares tecnológicos:
+          </div>
+        </div>
+        <div class="connector-line">
+          <div class="connector-dot"></div>
+        </div>
+      </div>
+
+      <div class="pillars-list">
+        
+        <div class="pillar-item">
+          <strong>Telemetría y Sincronización BLE:</strong> Integración nativa con dispositivos *wearables* mediante Bluetooth Low Energy para la captura continua de signos vitales (presión arterial, glucosa, pulso, SpO2 y sueño) con mínimo consumo energético.
+        </div>
+
+        <div class="pillar-item">
+          <strong>Arquitectura Offline-First y Resiliencia:</strong> Motor local con IndexedDB y sincronización automática en segundo plano (<code>offlineSync</code>), garantizando el registro continuo de biomarcadores en comunidades rurales sin cobertura de red.
+        </div>
+
+        <div class="pillar-item">
+          <strong>Escalabilidad Cloud y Cero Licenciamiento:</strong> Backend desacoplado en Express 5 y PostgreSQL sobre infraestructura abierta, diseñado para soportar de forma concurrente a más de 1 millón de jóvenes tamaulipecos sin costos por usuario.
+        </div>
+
+        <div class="pillar-item">
+          <strong>Seguridad y Privacidad Clínica:</strong> Cifrado de datos en reposo y tránsito (SSL/TLS, JWT), validación estricta de CURP/cédulas médicas y generación de expedientes y recetas electrónicas normadas en formato PDF con firma digital.
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="corner-wave"></div>
+    <div class="logo-right-badge">
+      in<span></span>
+    </div>
+
+    <div class="slide-footer">
+      <div class="footer-logos-left">
+        <div class="logo-tam">
+          <span class="logo-tam-icon">T</span> Tamaulipas
+        </div>
+        <div class="logo-divider"></div>
+        <div class="logo-sec">
+          Secretaría de Salud<br>& Bienestar Social
+        </div>
+        <div class="logo-divider"></div>
+        <div class="logo-injuve">
+          injuve
+          <span>TAMAULIPAS</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DIAPOSITIVA 2: JUSTIFICACIÓN SOCIAL -->
+  <div id="slide-social" class="slide-canvas social" style="display: none;">
+    
+    <div class="content-layout">
+      
+      <div class="shield-container">
+        <div class="shield-card">
+          <div class="shield-title">
+            Justificación<br>Social
+          </div>
+          <div class="shield-desc">
+            El impacto comunitario de la plataforma se sustenta en los siguientes ejes de bienestar:
+          </div>
+        </div>
+        <div class="connector-line">
+          <div class="connector-dot"></div>
+        </div>
+      </div>
+
+      <div class="pillars-list">
+        
+        <div class="pillar-item">
+          <strong>Factor Multiplicador Familiar (2.26x):</strong> Empoderamiento del joven como gestor de salud digital de su hogar, digitalizando el historial clínico de padres y abuelos y alcanzando a más de 3.22 millones de tamaulipecos.
+        </div>
+
+        <div class="pillar-item">
+          <strong>Foco Epidemiológico Prioritario:</strong> Intervención directa ante el 75% de sobrepeso en adultos y 18.3% de diabetes tipo 2 en Tamaulipas, detectando factores de riesgo en etapa juvenil antes del daño orgánico irreversible.
+        </div>
+
+        <div class="pillar-item">
+          <strong>Ahorro Fiscal en Salud Pública:</strong> Reducción sustancial del gasto estatal por hospitalizaciones y tratamientos de alta especialidad (hemodiálisis) mediante la prevención primaria y el control temprano ambulatorio.
+        </div>
+
+        <div class="pillar-item">
+          <strong>Eliminación de Brechas Geográficas:</strong> Cobertura equitativa en los 43 municipios del estado, facilitando consultas médicas virtuales y entrega de recetas electrónicas sin traslados costosos.
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="corner-wave"></div>
+    <div class="logo-right-badge">
+      in<span></span>
+    </div>
+
+    <div class="slide-footer">
+      <div class="footer-logos-left">
+        <div class="logo-tam">
+          <span class="logo-tam-icon">T</span> Tamaulipas
+        </div>
+        <div class="logo-divider"></div>
+        <div class="logo-sec">
+          Secretaría de Salud<br>& Bienestar Social
+        </div>
+        <div class="logo-divider"></div>
+        <div class="logo-injuve">
+          injuve
+          <span>TAMAULIPAS</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function showSlide(type) {
+      document.getElementById('slide-tecnica').style.display = (type === 'tecnica') ? 'flex' : 'none';
+      document.getElementById('slide-social').style.display = (type === 'social') ? 'flex' : 'none';
+      
+      const btns = document.querySelectorAll('.tab-btn');
+      btns[0].classList.toggle('active', type === 'tecnica');
+      btns[1].classList.toggle('active', type === 'social');
+    }
+  </script>
+
+</body>
+</html>

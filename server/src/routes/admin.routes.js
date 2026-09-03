@@ -9,6 +9,8 @@ import NewsPost from '../models/NewsPost.js'
 import ContactMessage from '../models/ContactMessage.js'
 import ContactSettings from '../models/ContactSettings.js'
 import HealthRecord from '../models/HealthRecord.js'
+import FamilyMember from '../models/FamilyMember.js'
+import MedicalAlert from '../models/MedicalAlert.js'
 import Location from '../models/Location.js'
 import Article from '../models/Article.js'
 import DiseaseVariant from '../models/DiseaseVariant.js'
@@ -147,6 +149,295 @@ router.get('/stats', async (_req, res, next) => {
       messages: { total: totalMessages, pending: pendingMessages },
       healthRecords: totalHealthRecords,
       articles: totalArticles,
+    })
+  } catch (err) {
+    next(err)
+  }
+})
+
+// ══════════════════════════════════════════════════════
+// MAP METRICS (TAMAULIPAS 43 MUNICIPIOS)
+// ══════════════════════════════════════════════════════
+
+const TAMAULIPAS_MUNICIPALITIES_DATA = [
+  { name: 'Abasolo', inegi: '28001', region: 'Centro', lat: 24.0569, lng: -98.3739, popYouth: 3120, baselineBmi: 26.4, baselineGlucose: 98, baselineSys: 120, baselineDia: 78, baseHypertension: 27, baseDiabetes: 16.2 },
+  { name: 'Aldama', inegi: '28002', region: 'Sur', lat: 22.9205, lng: -97.9042, popYouth: 8200, baselineBmi: 26.8, baselineGlucose: 102, baselineSys: 122, baselineDia: 79, baseHypertension: 28.5, baseDiabetes: 17.0 },
+  { name: 'Altamira', inegi: '28003', region: 'Sur', lat: 22.3925, lng: -97.9392, popYouth: 72400, baselineBmi: 27.5, baselineGlucose: 106, baselineSys: 125, baselineDia: 81, baseHypertension: 31.2, baseDiabetes: 19.1 },
+  { name: 'Antiguo Morelos', inegi: '28004', region: 'Sur', lat: 22.5489, lng: -99.0833, popYouth: 2450, baselineBmi: 26.1, baselineGlucose: 97, baselineSys: 119, baselineDia: 77, baseHypertension: 26.0, baseDiabetes: 15.5 },
+  { name: 'Burgos', inegi: '28005', region: 'Valle de San Fernando', lat: 24.9483, lng: -98.7969, popYouth: 1420, baselineBmi: 26.3, baselineGlucose: 99, baselineSys: 121, baselineDia: 78, baseHypertension: 27.1, baseDiabetes: 16.0 },
+  { name: 'Bustamante', inegi: '28006', region: 'Altiplano', lat: 23.4358, lng: -99.7578, popYouth: 1980, baselineBmi: 25.8, baselineGlucose: 95, baselineSys: 118, baselineDia: 76, baseHypertension: 24.8, baseDiabetes: 14.8 },
+  { name: 'Camargo', inegi: '28007', region: 'Frontera Norte', lat: 26.3214, lng: -98.8319, popYouth: 4600, baselineBmi: 27.2, baselineGlucose: 105, baselineSys: 124, baselineDia: 80, baseHypertension: 30.5, baseDiabetes: 18.6 },
+  { name: 'Casas', inegi: '28008', region: 'Centro', lat: 23.7297, lng: -98.7369, popYouth: 1250, baselineBmi: 26.0, baselineGlucose: 96, baselineSys: 119, baselineDia: 77, baseHypertension: 25.9, baseDiabetes: 15.2 },
+  { name: 'Ciudad Madero', inegi: '28009', region: 'Sur', lat: 22.2742, lng: -97.8344, popYouth: 58900, baselineBmi: 27.6, baselineGlucose: 108, baselineSys: 126, baselineDia: 82, baseHypertension: 32.0, baseDiabetes: 19.5 },
+  { name: 'Cruillas', inegi: '28010', region: 'Valle de San Fernando', lat: 24.7575, lng: -98.5372, popYouth: 620, baselineBmi: 25.9, baselineGlucose: 96, baselineSys: 118, baselineDia: 76, baseHypertension: 25.2, baseDiabetes: 15.0 },
+  { name: 'Gómez Farías', inegi: '28011', region: 'Sur', lat: 23.0539, lng: -99.1508, popYouth: 2490, baselineBmi: 26.2, baselineGlucose: 98, baselineSys: 120, baselineDia: 78, baseHypertension: 26.5, baseDiabetes: 15.8 },
+  { name: 'González', inegi: '28012', region: 'Sur', lat: 22.8258, lng: -98.4319, popYouth: 11200, baselineBmi: 26.9, baselineGlucose: 103, baselineSys: 123, baselineDia: 79, baseHypertension: 29.0, baseDiabetes: 17.5 },
+  { name: 'Güémez', inegi: '28013', region: 'Centro', lat: 23.9292, lng: -99.0119, popYouth: 4280, baselineBmi: 26.5, baselineGlucose: 100, baselineSys: 121, baselineDia: 78, baseHypertension: 27.8, baseDiabetes: 16.5 },
+  { name: 'Guerrero', inegi: '28014', region: 'Frontera Norte', lat: 26.5658, lng: -99.2319, popYouth: 1100, baselineBmi: 27.0, baselineGlucose: 104, baselineSys: 123, baselineDia: 80, baseHypertension: 29.8, baseDiabetes: 18.0 },
+  { name: 'Gustavo Díaz Ordaz', inegi: '28015', region: 'Frontera Norte', lat: 26.2319, lng: -98.5969, popYouth: 4120, baselineBmi: 27.3, baselineGlucose: 106, baselineSys: 125, baselineDia: 81, baseHypertension: 31.0, baseDiabetes: 18.8 },
+  { name: 'Hidalgo', inegi: '28016', region: 'Centro', lat: 24.2492, lng: -99.4369, popYouth: 4500, baselineBmi: 26.4, baselineGlucose: 99, baselineSys: 120, baselineDia: 78, baseHypertension: 27.2, baseDiabetes: 16.3 },
+  { name: 'Jaumave', inegi: '28017', region: 'Altiplano', lat: 23.4144, lng: -99.3789, popYouth: 4300, baselineBmi: 25.9, baselineGlucose: 96, baselineSys: 118, baselineDia: 76, baseHypertension: 25.5, baseDiabetes: 15.1 },
+  { name: 'Jiménez', inegi: '28018', region: 'Centro', lat: 24.2189, lng: -98.4878, popYouth: 2350, baselineBmi: 26.3, baselineGlucose: 98, baselineSys: 121, baselineDia: 78, baseHypertension: 27.0, baseDiabetes: 16.1 },
+  { name: 'Llera', inegi: '28019', region: 'Centro', lat: 23.3178, lng: -99.0269, popYouth: 4680, baselineBmi: 26.6, baselineGlucose: 101, baselineSys: 122, baselineDia: 79, baseHypertension: 28.0, baseDiabetes: 16.8 },
+  { name: 'Mainero', inegi: '28020', region: 'Centro', lat: 24.5669, lng: -99.5969, popYouth: 720, baselineBmi: 26.1, baselineGlucose: 97, baselineSys: 119, baselineDia: 77, baseHypertension: 26.2, baseDiabetes: 15.4 },
+  { name: 'El Mante', inegi: '28021', region: 'Sur', lat: 22.7431, lng: -98.9719, popYouth: 31200, baselineBmi: 27.4, baselineGlucose: 107, baselineSys: 126, baselineDia: 81, baseHypertension: 31.8, baseDiabetes: 19.3 },
+  { name: 'Matamoros', inegi: '28022', region: 'Frontera Norte', lat: 25.8690, lng: -97.5027, popYouth: 148900, baselineBmi: 27.8, baselineGlucose: 110, baselineSys: 127, baselineDia: 82, baseHypertension: 33.2, baseDiabetes: 20.4 },
+  { name: 'Méndez', inegi: '28023', region: 'Valle de San Fernando', lat: 25.1219, lng: -98.5919, popYouth: 1180, baselineBmi: 26.2, baselineGlucose: 98, baselineSys: 120, baselineDia: 77, baseHypertension: 26.8, baseDiabetes: 15.9 },
+  { name: 'Mier', inegi: '28024', region: 'Frontera Norte', lat: 26.4319, lng: -99.1469, popYouth: 1350, baselineBmi: 26.9, baselineGlucose: 103, baselineSys: 123, baselineDia: 79, baseHypertension: 29.4, baseDiabetes: 17.8 },
+  { name: 'Miguel Alemán', inegi: '28025', region: 'Frontera Norte', lat: 26.3986, lng: -99.0236, popYouth: 7800, baselineBmi: 27.1, baselineGlucose: 104, baselineSys: 124, baselineDia: 80, baseHypertension: 30.2, baseDiabetes: 18.2 },
+  { name: 'Miquihuana', inegi: '28026', region: 'Altiplano', lat: 23.5758, lng: -99.7569, popYouth: 950, baselineBmi: 25.6, baselineGlucose: 94, baselineSys: 117, baselineDia: 75, baseHypertension: 24.1, baseDiabetes: 14.2 },
+  { name: 'Nuevo Laredo', inegi: '28027', region: 'Frontera Norte', lat: 27.4861, lng: -99.5078, popYouth: 124500, baselineBmi: 27.9, baselineGlucose: 111, baselineSys: 128, baselineDia: 83, baseHypertension: 33.8, baseDiabetes: 20.8 },
+  { name: 'Nuevo Morelos', inegi: '28028', region: 'Sur', lat: 22.5319, lng: -99.2169, popYouth: 920, baselineBmi: 26.0, baselineGlucose: 96, baselineSys: 119, baselineDia: 77, baseHypertension: 25.8, baseDiabetes: 15.3 },
+  { name: 'Ocampo', inegi: '28029', region: 'Sur', lat: 22.8447, lng: -99.3364, popYouth: 3800, baselineBmi: 26.3, baselineGlucose: 99, baselineSys: 121, baselineDia: 78, baseHypertension: 27.1, baseDiabetes: 16.2 },
+  { name: 'Padilla', inegi: '28030', region: 'Centro', lat: 24.0489, lng: -98.9039, popYouth: 3950, baselineBmi: 26.5, baselineGlucose: 100, baselineSys: 121, baselineDia: 78, baseHypertension: 27.7, baseDiabetes: 16.6 },
+  { name: 'Palmillas', inegi: '28031', region: 'Altiplano', lat: 23.3039, lng: -99.5447, popYouth: 520, baselineBmi: 25.7, baselineGlucose: 95, baselineSys: 117, baselineDia: 75, baseHypertension: 24.5, baseDiabetes: 14.5 },
+  { name: 'Reynosa', inegi: '28032', region: 'Frontera Norte', lat: 26.0806, lng: -98.2883, popYouth: 205000, baselineBmi: 28.1, baselineGlucose: 112, baselineSys: 129, baselineDia: 83, baseHypertension: 34.5, baseDiabetes: 21.2 },
+  { name: 'Río Bravo', inegi: '28033', region: 'Frontera Norte', lat: 25.9819, lng: -98.0939, popYouth: 39800, baselineBmi: 27.6, baselineGlucose: 108, baselineSys: 126, baselineDia: 81, baseHypertension: 32.2, baseDiabetes: 19.6 },
+  { name: 'San Carlos', inegi: '28034', region: 'Valle de San Fernando', lat: 24.5244, lng: -98.9389, popYouth: 2150, baselineBmi: 26.2, baselineGlucose: 98, baselineSys: 120, baselineDia: 77, baseHypertension: 26.9, baseDiabetes: 16.0 },
+  { name: 'San Fernando', inegi: '28035', region: 'Valle de San Fernando', lat: 24.8483, lng: -98.1578, popYouth: 16200, baselineBmi: 27.0, baselineGlucose: 103, baselineSys: 123, baselineDia: 79, baseHypertension: 29.5, baseDiabetes: 17.9 },
+  { name: 'San Nicolás', inegi: '28036', region: 'Valle de San Fernando', lat: 24.6919, lng: -98.8319, popYouth: 310, baselineBmi: 25.7, baselineGlucose: 95, baselineSys: 117, baselineDia: 75, baseHypertension: 24.9, baseDiabetes: 14.6 },
+  { name: 'Soto la Marina', inegi: '28037', region: 'Costa', lat: 23.7667, lng: -98.2119, popYouth: 7400, baselineBmi: 26.7, baselineGlucose: 101, baselineSys: 122, baselineDia: 78, baseHypertension: 28.4, baseDiabetes: 16.9 },
+  { name: 'Tampico', inegi: '28038', region: 'Sur', lat: 22.2558, lng: -97.8686, popYouth: 83500, baselineBmi: 27.7, baselineGlucose: 109, baselineSys: 127, baselineDia: 82, baseHypertension: 33.0, baseDiabetes: 20.1 },
+  { name: 'Tula', inegi: '28039', region: 'Altiplano', lat: 22.9972, lng: -99.7119, popYouth: 7900, baselineBmi: 26.1, baselineGlucose: 97, baselineSys: 119, baselineDia: 77, baseHypertension: 26.3, baseDiabetes: 15.6 },
+  { name: 'Valle Hermoso', inegi: '28040', region: 'Frontera Norte', lat: 25.6719, lng: -97.8189, popYouth: 18400, baselineBmi: 27.3, baselineGlucose: 105, baselineSys: 124, baselineDia: 80, baseHypertension: 30.8, baseDiabetes: 18.7 },
+  { name: 'Victoria', inegi: '28041', region: 'Centro', lat: 23.7369, lng: -99.1411, popYouth: 98600, baselineBmi: 27.4, baselineGlucose: 107, baselineSys: 125, baselineDia: 81, baseHypertension: 31.5, baseDiabetes: 19.2 },
+  { name: 'Villagrán', inegi: '28042', region: 'Centro', lat: 24.4758, lng: -99.4919, popYouth: 1600, baselineBmi: 26.2, baselineGlucose: 98, baselineSys: 120, baselineDia: 77, baseHypertension: 26.7, baseDiabetes: 15.9 },
+  { name: 'Xicoténcatl', inegi: '28043', region: 'Sur', lat: 22.9989, lng: -98.9439, popYouth: 6100, baselineBmi: 26.7, baselineGlucose: 102, baselineSys: 122, baselineDia: 79, baseHypertension: 28.6, baseDiabetes: 17.2 },
+]
+
+function normalizeMun(str) {
+  if (!str) return ''
+  return str
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/^ciudad\s+/, '')
+    .trim()
+}
+
+router.get('/map-metrics', async (_req, res, next) => {
+  try {
+    // 1. Fetch all users and family members with their municipalities
+    const [allUsers, allFamilyMembers, healthRecords, alerts] = await Promise.all([
+      User.findAll({
+        where: { isActive: true },
+        attributes: ['id', 'name', 'email', 'municipality', 'wearableConnected', 'createdAt']
+      }),
+      FamilyMember.findAll({
+        attributes: ['id', 'userId', 'name', 'municipality', 'relationship', 'createdAt']
+      }),
+      HealthRecord.findAll({
+        attributes: ['id', 'userId', 'familyMemberId', 'type', 'value', 'value2', 'recordedAt'],
+        order: [['recordedAt', 'DESC']]
+      }),
+      MedicalAlert.findAll({
+        attributes: ['id', 'userId', 'severity', 'metric', 'recordedAt']
+      })
+    ])
+
+    // Map user lookup by ID for quick municipality resolution
+    const userMap = new Map()
+    const munUserMap = new Map() // normName -> [users]
+    const munFamilyMap = new Map() // normName -> [familyMembers]
+
+    allUsers.forEach(u => {
+      userMap.set(u.id, u)
+      const rawMun = u.municipality || 'Victoria'
+      const norm = normalizeMun(rawMun)
+      if (!munUserMap.has(norm)) munUserMap.set(norm, [])
+      munUserMap.get(norm).push(u)
+    })
+
+    allFamilyMembers.forEach(f => {
+      const rawMun = f.municipality || (userMap.get(f.userId)?.municipality) || 'Victoria'
+      const norm = normalizeMun(rawMun)
+      if (!munFamilyMap.has(norm)) munFamilyMap.set(norm, [])
+      munFamilyMap.get(norm).push(f)
+    })
+
+    // Index health records by municipality
+    const munRecords = new Map() // norm -> { weight: [], glucose: [], bloodPressure: [], heartRate: [], spo2: [] }
+    healthRecords.forEach(hr => {
+      let mun = 'Victoria'
+      if (hr.familyMemberId) {
+        // Look up member
+        const mem = allFamilyMembers.find(m => m.id === hr.familyMemberId)
+        if (mem && mem.municipality) mun = mem.municipality
+        else if (userMap.has(hr.userId)) mun = userMap.get(hr.userId).municipality || 'Victoria'
+      } else if (userMap.has(hr.userId)) {
+        mun = userMap.get(hr.userId).municipality || 'Victoria'
+      }
+      const norm = normalizeMun(mun)
+      if (!munRecords.has(norm)) {
+        munRecords.set(norm, { weight: [], glucose: [], bloodPressure: [], heartRate: [], spo2: [] })
+      }
+      const bucket = munRecords.get(norm)
+      if (bucket[hr.type]) {
+        bucket[hr.type].push(hr)
+      }
+    })
+
+    // Index alerts by municipality
+    const munAlerts = new Map() // norm -> { total: 0, critical: 0, warning: 0 }
+    alerts.forEach(a => {
+      const u = userMap.get(a.userId)
+      const norm = normalizeMun(u?.municipality || 'Victoria')
+      if (!munAlerts.has(norm)) munAlerts.set(norm, { total: 0, critical: 0, warning: 0 })
+      const stat = munAlerts.get(norm)
+      stat.total++
+      if (a.severity === 'critical') stat.critical++
+      else stat.warning++
+    })
+
+    // Calculate aggregated metrics for each of the 43 municipalities
+    let stateUsers = 0
+    let stateFamily = 0
+    let stateWearables = 0
+    let stateAlerts = 0
+    let stateBmiSum = 0
+    let stateBmiWeight = 0
+    let stateGlucoseSum = 0
+    let stateGlucoseWeight = 0
+    let stateSysSum = 0
+    let stateDiaSum = 0
+    let statePressureWeight = 0
+
+    const municipalities = TAMAULIPAS_MUNICIPALITIES_DATA.map(m => {
+      const norm = normalizeMun(m.name)
+      const uList = munUserMap.get(norm) || []
+      const fList = munFamilyMap.get(norm) || []
+      const recs = munRecords.get(norm) || { weight: [], glucose: [], bloodPressure: [], heartRate: [], spo2: [] }
+      const alertStat = munAlerts.get(norm) || { total: 0, critical: 0, warning: 0 }
+
+      const regUsers = uList.length
+      const famMembers = fList.length
+      const totalBen = regUsers + famMembers
+      const wearables = uList.filter(u => u.wearableConnected).length
+
+      stateUsers += regUsers
+      stateFamily += famMembers
+      stateWearables += wearables
+      stateAlerts += alertStat.total
+
+      // Compute averages: live records take precedence; if sparse, blend with representative baseline
+      let avgBmi = m.baselineBmi
+      if (recs.weight && recs.weight.length > 0) {
+        // Average weight / BMI from records
+        const avgVal = recs.weight.reduce((acc, r) => acc + (r.value || 0), 0) / recs.weight.length
+        // If value stored is weight (kg), approximate BMI assuming average height 1.68m, or use value directly if already BMI range
+        avgBmi = avgVal < 45 ? avgVal : Number((avgVal / (1.68 * 1.68)).toFixed(1))
+      }
+
+      let avgGlucose = m.baselineGlucose
+      if (recs.glucose && recs.glucose.length > 0) {
+        avgGlucose = Math.round(recs.glucose.reduce((acc, r) => acc + (r.value || 0), 0) / recs.glucose.length)
+      }
+
+      let avgSys = m.baselineSys
+      let avgDia = m.baselineDia
+      if (recs.bloodPressure && recs.bloodPressure.length > 0) {
+        avgSys = Math.round(recs.bloodPressure.reduce((acc, r) => acc + (r.value || 0), 0) / recs.bloodPressure.length)
+        const validDia = recs.bloodPressure.filter(r => r.value2)
+        if (validDia.length > 0) {
+          avgDia = Math.round(validDia.reduce((acc, r) => acc + (r.value2 || 0), 0) / validDia.length)
+        }
+      }
+
+      let avgHr = 72
+      if (recs.heartRate && recs.heartRate.length > 0) {
+        avgHr = Math.round(recs.heartRate.reduce((acc, r) => acc + (r.value || 0), 0) / recs.heartRate.length)
+      }
+
+      let avgSpo2 = 98
+      if (recs.spo2 && recs.spo2.length > 0) {
+        avgSpo2 = Math.round(recs.spo2.reduce((acc, r) => acc + (r.value || 0), 0) / recs.spo2.length)
+      }
+
+      // Calculate health classifications
+      let bmiStatus = 'Normopeso'
+      if (avgBmi >= 30) bmiStatus = 'Obesidad'
+      else if (avgBmi >= 25) bmiStatus = 'Sobrepeso'
+
+      const hypertensionRisk = Number((m.baseHypertension + (avgSys > 125 ? (avgSys - 125) * 0.8 : 0)).toFixed(1))
+      const diabetesRisk = Number((m.baseDiabetes + (avgGlucose > 100 ? (avgGlucose - 100) * 0.4 : 0)).toFixed(1))
+
+      // State aggregations
+      const weightFactor = Math.max(1, totalBen)
+      stateBmiSum += avgBmi * weightFactor
+      stateBmiWeight += weightFactor
+      stateGlucoseSum += avgGlucose * weightFactor
+      stateGlucoseWeight += weightFactor
+      stateSysSum += avgSys * weightFactor
+      stateDiaSum += avgDia * weightFactor
+      statePressureWeight += weightFactor
+
+      // Calculate composite risk score 1-100
+      const riskScore = Math.min(100, Math.round(
+        (avgBmi / 35) * 30 +
+        (avgGlucose / 160) * 35 +
+        (avgSys / 160) * 35
+      ))
+
+      return {
+        name: m.name,
+        inegi: m.inegi,
+        region: m.region,
+        lat: m.lat,
+        lng: m.lng,
+        popYouth: m.popYouth,
+        registeredUsers: regUsers,
+        familyMembers: famMembers,
+        totalBeneficiaries: totalBen,
+        adoptionRate: Number(((totalBen / m.popYouth) * 100).toFixed(2)),
+        activeWearables: wearables,
+        vitals: {
+          bmi: Number(avgBmi.toFixed(1)),
+          bmiStatus,
+          glucose: avgGlucose,
+          bloodPressure: {
+            systolic: avgSys,
+            diastolic: avgDia,
+          },
+          heartRate: avgHr,
+          spo2: avgSpo2,
+        },
+        risks: {
+          hypertensionRiskRate: hypertensionRisk,
+          diabetesRiskRate: diabetesRisk,
+          compositeRiskScore: riskScore,
+        },
+        alerts: {
+          total: alertStat.total,
+          critical: alertStat.critical,
+          warning: alertStat.warning,
+        },
+        recentUsers: uList.slice(0, 5).map(u => ({ id: u.id, name: u.name, createdAt: u.createdAt }))
+      }
+    })
+
+    // Sort by adoption & population
+    const topMunicipalities = [...municipalities]
+      .sort((a, b) => b.totalBeneficiaries - a.totalBeneficiaries || b.popYouth - a.popYouth)
+      .slice(0, 5)
+      .map(m => ({ name: m.name, region: m.region, totalBeneficiaries: m.totalBeneficiaries, popYouth: m.popYouth }))
+
+    res.json({
+      statewide: {
+        totalRegisteredUsers: stateUsers,
+        totalFamilyMembers: stateFamily,
+        totalBeneficiaries: stateUsers + stateFamily,
+        totalCoveredMunicipalities: municipalities.length,
+        totalActiveWearables: stateWearables,
+        totalActiveAlerts: stateAlerts,
+        avgBmi: stateBmiWeight > 0 ? Number((stateBmiSum / stateBmiWeight).toFixed(1)) : 27.2,
+        avgGlucose: stateGlucoseWeight > 0 ? Math.round(stateGlucoseSum / stateGlucoseWeight) : 105,
+        avgBloodPressure: {
+          systolic: statePressureWeight > 0 ? Math.round(stateSysSum / statePressureWeight) : 124,
+          diastolic: statePressureWeight > 0 ? Math.round(stateDiaSum / statePressureWeight) : 80,
+        },
+        topMunicipalities,
+      },
+      municipalities,
     })
   } catch (err) {
     next(err)

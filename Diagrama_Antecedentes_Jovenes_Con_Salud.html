@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagrama de Antecedentes y Solución - Jóvenes con Salud</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Open+Sans:wght@400;600;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 15px;
+      min-height: 100vh;
+      color: #1e293b;
+    }
+
+    .controls-bar {
+      width: 100%;
+      max-width: 1000px;
+      background: #1e293b;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .tab-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .tab-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: #871233;
+      border-color: #871233;
+    }
+
+    .btn-action {
+      background: #059669;
+      color: white;
+      border: none;
+      padding: 7px 16px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-action:hover {
+      background: #047857;
+    }
+
+    .slide-canvas {
+      width: 100%;
+      max-width: 1000px;
+      aspect-ratio: 16 / 9;
+      min-height: 560px;
+      background-color: #ffffff;
+      background-image: 
+        linear-gradient(to right, rgba(203, 213, 225, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(203, 213, 225, 0.45) 1px, transparent 1px);
+      background-size: 26px 26px;
+      border-radius: 12px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+      padding: 35px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      border-bottom: 1.5px solid rgba(226, 232, 240, 0.8);
+      padding-bottom: 16px;
+    }
+
+    .logos-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .logo-tam {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 19px;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-tam-icon {
+      color: #0f172a;
+      font-size: 24px;
+      font-weight: 900;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .logo-divider {
+      width: 1.5px;
+      height: 24px;
+      background-color: #cbd5e1;
+    }
+
+    .logo-sec {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #334155;
+      line-height: 1.25;
+      max-width: 150px;
+    }
+
+    .logo-injuve {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 900;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+      display: flex;
+      flex-direction: column;
+      line-height: 0.9;
+    }
+
+    .logo-injuve span {
+      font-size: 7.5px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .logo-right-badge {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 1px;
+    }
+
+    .logo-right-badge span {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: #0f172a;
+      border-radius: 50%;
+      margin-left: 2px;
+    }
+
+    .title-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+      margin-bottom: 12px;
+    }
+
+    .pill-title {
+      background: linear-gradient(180deg, #e11d48 0%, #be123c 100%);
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      padding: 7px 42px;
+      border-radius: 50px;
+      box-shadow: 0 5px 15px rgba(225, 29, 72, 0.35), inset 0 1px 2px rgba(255,255,255,0.4);
+      letter-spacing: 0.2px;
+      display: inline-block;
+    }
+
+    .intro-text {
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto 20px auto;
+      font-size: 13.5px;
+      color: #1e293b;
+      line-height: 1.5;
+      font-weight: 400;
+    }
+
+    .intro-text strong {
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .timeline-container {
+      position: relative;
+      width: 100%;
+      margin-bottom: -16px;
+      z-index: 2;
+    }
+
+    .timeline-line {
+      position: absolute;
+      top: 14px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: #273746;
+      z-index: 1;
+    }
+
+    .timeline-nodes-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .node-wrapper {
+      display: flex;
+      justify-content: center;
+    }
+
+    .timeline-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: #273746;
+      border: 3.5px solid #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 10px;
+      z-index: 1;
+    }
+
+    .arch-card {
+      background: linear-gradient(180deg, #fbf3d5 0%, #f6e4ad 40%, #edd18a 100%);
+      border-top-left-radius: 110px;
+      border-top-right-radius: 110px;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      padding: 55px 18px 24px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 8px 18px rgba(180, 145, 60, 0.18);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      position: relative;
+      min-height: 220px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .arch-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(180, 145, 60, 0.28);
+    }
+
+    .card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #3e2704;
+      margin-bottom: 10px;
+      line-height: 1.25;
+    }
+
+    .card-desc {
+      font-size: 11.5px;
+      color: #4a3810;
+      line-height: 1.45;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .slide-canvas.solution .pill-title {
+      background: linear-gradient(180deg, #059669 0%, #047857 100%);
+      box-shadow: 0 5px 15px rgba(5, 150, 105, 0.35);
+    }
+
+    .slide-canvas.solution .timeline-line {
+      background-color: #064e3b;
+    }
+
+    .slide-canvas.solution .timeline-dot {
+      background-color: #064e3b;
+    }
+
+    .slide-canvas.solution .arch-card {
+      background: linear-gradient(180deg, #e6f7f0 0%, #ccefe1 40%, #a3e2c9 100%);
+      border: 1px solid rgba(5, 150, 105, 0.35);
+      box-shadow: 0 8px 18px rgba(5, 150, 105, 0.14);
+    }
+
+    .slide-canvas.solution .card-title {
+      color: #064e3b;
+    }
+
+    .slide-canvas.solution .card-desc {
+      color: #134e4a;
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+      .controls-bar {
+        display: none;
+      }
+      .slide-canvas {
+        max-width: 100%;
+        box-shadow: none;
+        page-break-after: always;
+        margin-bottom: 0;
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="controls-bar">
+    <div style="font-weight: 700; font-size: 14px;">
+      📊 Generador de Infografías: Jóvenes con Salud
+    </div>
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="showSlide('antecedentes')">1. Antecedentes / Limitaciones</button>
+      <button class="tab-btn" onclick="showSlide('solucion')">2. Propuesta de Valor / Solución</button>
+    </div>
+    <button class="btn-action" onclick="window.print()">
+      🖨️ Imprimir / Guardar Diapositiva
+    </button>
+  </div>
+
+  <!-- DIAPOSITIVA 1: ANTECEDENTES Y PROBLEMÁTICA -->
+  <div id="slide-antecedentes" class="slide-canvas">
+    
+    <div class="slide-header">
+      <div class="logos-left">
+        <div class="logo-tam">
+          <span class="logo-tam-icon">T</span> Tamaulipas
+        </div>
+        <div class="logo-divider"></div>
+        <div class="logo-sec">
+          Secretaría de Salud<br>& Bienestar Social
+        </div>
+        <div class="logo-divider"></div>
+        <div class="logo-injuve">
+          injuve
+          <span>TAMAULIPAS</span>
+        </div>
+      </div>
+      <div class="logo-right-badge">
+        in<span></span>
+      </div>
+    </div>
+
+    <div class="title-wrapper">
+      <div class="pill-title">Antecedentes</div>
+    </div>
+
+    <p class="intro-text">
+      Actualmente, los programas de salud pública y medicina preventiva enfrentan una brecha crítica entre la administración institucional y los usuarios finales (<strong>Generación Z y Alpha</strong>). El modelo de salud tradicional, analógico y reactivo presenta las siguientes limitaciones:
+    </p>
+
+    <div class="timeline-container">
+      <div class="timeline-line"></div>
+      <div class="timeline-nodes-grid">
+        <div class="node-wrapper"><div class="timeline-dot"></div></div>
+        <div class="node-wrapper"><div class="timeline-dot"></div></div>
+        <div class="node-wrapper"><div class="timeline-dot"></div></div>
+        <div class="node-wrapper"><div class="timeline-dot"></div></div>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+      
+      <div class="arch-card">
+        <div class="card-title">Atención Reactiva:</div>
+        <div class="card-desc">
+          El sistema interviene solo ante síntomas avanzados de diabetes o hipertensión, disparando los costos hospitalarios de urgencia.
+        </div>
+      </div>
+
+      <div class="arch-card">
+        <div class="card-title">Expedientes Fragmentados:</div>
+        <div class="card-desc">
+          La dispersión de análisis y recetas en papel impide el seguimiento longitudinal y provoca la pérdida de antecedentes familiares.
+        </div>
+      </div>
+
+      <div class="arch-card">
+        <div class="card-title">Ceguera de Datos:</div>
+        <div class="card-desc">
+          Imposibilidad de monitorear en tiempo real los factores de riesgo metabólico en los 43 municipios para focalizar campañas.
+        </div>
+      </div>
+
+      <div class="arch-card">
+        <div class="card-title">Poca Adherencia:</div>
+        <div class="card-desc">
+          Para el joven contemporáneo, los centros de salud tradicionales resultan inaccesibles, burocráticos y ajenos a su entorno digital móvil.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- DIAPOSITIVA 2: PROPUESTA DE VALOR / SOLUCIÓN -->
+  <div id="slide-solucion" class="slide-canvas solution" style="display: none;">
+    
+    <div class="slide-header">
+      <div class="logos-left">
+        <div class="logo-tam">
+          <span class="logo-tam-icon">T</span> Tamaulipas
+        </div>
+        <div class="logo-divider"></div>
+        <div class="logo-sec">
+          Secretaría de Salud<br>& Bienestar Social
+        </div>
+        <div class="logo-divider"></div>
+        <div class="logo-injuve">
+          injuve
+          <span>TAMAULIPAS</span>
+        </div>
+      </div>
+      <div class="logo-right-badge">
+        in<span></span>
+      </div>
+    </div>
+
+    <div class="title-wrapper">
+      <div class="pill-title">Propuesta de Valor</div>
+    </div>
+
+    <p class="intro-text">
+      <strong>Jóvenes con Salud</strong> transforma la atención mediante una plataforma integral que empodera al joven como vector de salud en su hogar (<strong>Factor Multiplicador 2.26x</strong>), ofreciendo los siguientes pilares de innovación:
+    </p>
+
+    <div class="timeline-container">
+      <div class="timeline-line"></div>
+      <div class="timeline-nodes-grid">
+        <div class="node-wrapper"><div class="timeline-dot"></div></div>
+        <div class="node-wrapper"><div class="timeline-dot"></div></div>
+        <div class="node-wrapper"><div class="timeline-dot"></div></div>
+        <div class="node-wrapper"><div class="timeline-dot"></div></div>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+      
+      <div class="arch-card">
+        <div class="card-title">Telemetría Continua:</div>
+        <div class="card-desc">
+          Sincronización BLE con pulseras inteligentes para registro de presión arterial, glucosa, frecuencia cardíaca y patrones de sueño.
+        </div>
+      </div>
+
+      <div class="arch-card">
+        <div class="card-title">Expediente Universal:</div>
+        <div class="card-desc">
+          Historial multigeneracional digital con alertas farmacológicas y generación instantánea de reportes clínicos y recetas normadas.
+        </div>
+      </div>
+
+      <div class="arch-card">
+        <div class="card-title">Analítica Predictiva:</div>
+        <div class="card-desc">
+          Detección temprana de anomalías y tablero epidemiológico estatal en tiempo real para la toma de decisiones basada en evidencia.
+        </div>
+      </div>
+
+      <div class="arch-card">
+        <div class="card-title">Ecosistema Nativo:</div>
+        <div class="card-desc">
+          App Android y PWA con funcionamiento offline, gamificación con rachas de hábitos saludables y telemedicina virtual sin barreras.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    function showSlide(type) {
+      document.getElementById('slide-antecedentes').style.display = (type === 'antecedentes') ? 'flex' : 'none';
+      document.getElementById('slide-solucion').style.display = (type === 'solucion') ? 'flex' : 'none';
+      
+      const btns = document.querySelectorAll('.tab-btn');
+      btns[0].classList.toggle('active', type === 'antecedentes');
+      btns[1].classList.toggle('active', type === 'solucion');
+    }
+  </script>
+
+</body>
+</html>

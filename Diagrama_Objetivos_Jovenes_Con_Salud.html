@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagrama de Objetivos Específicos - Jóvenes con Salud</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,900&family=Open+Sans:wght@400;600;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 15px;
+      min-height: 100vh;
+      color: #ffffff;
+    }
+
+    .controls-bar {
+      width: 100%;
+      max-width: 1050px;
+      background: #1e293b;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .tab-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .tab-btn {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      padding: 7px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: #e11d48;
+      border-color: #e11d48;
+    }
+
+    .btn-action {
+      background: #059669;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s ease;
+    }
+
+    .btn-action:hover {
+      background: #047857;
+    }
+
+    .slide-canvas {
+      width: 100%;
+      max-width: 1050px;
+      aspect-ratio: 16 / 9;
+      min-height: 580px;
+      background: radial-gradient(circle at 60% 40%, #2f171d 0%, #1e0d13 50%, #15080c 100%);
+      border-radius: 14px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      padding: 40px 50px 30px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stamp-tab {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: linear-gradient(135deg, #ef233c 0%, #d90429 100%);
+      padding: 16px 45px 16px 35px;
+      border-bottom-right-radius: 60px;
+      box-shadow: 4px 6px 20px rgba(217, 4, 41, 0.45);
+      z-index: 10;
+    }
+
+    .stamp-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 34px;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.95);
+      letter-spacing: 2px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .subheading-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 68px;
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .red-line {
+      width: 100px;
+      height: 3px;
+      background-color: #ef233c;
+      position: relative;
+    }
+
+    .red-dot {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: #ef233c;
+      border: 3px solid rgba(255, 255, 255, 0.4);
+      margin-left: -5px;
+      box-shadow: 0 0 10px rgba(239, 35, 60, 0.8);
+      flex-shrink: 0;
+    }
+
+    .subheading-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .objectives-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 40px;
+      row-gap: 30px;
+      margin-bottom: auto;
+      margin-top: 5px;
+    }
+
+    .objective-card {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .number-pill {
+      width: 105px;
+      height: 68px;
+      background: linear-gradient(135deg, #faeed1 0%, #f6e2b5 100%);
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.35), inset 0 2px 3px rgba(255, 255, 255, 0.8);
+      border: 1.5px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .number-digit {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 44px;
+      font-weight: 900;
+      color: #f59e0b;
+      line-height: 1;
+      text-shadow: 0 1px 2px rgba(180, 83, 9, 0.3);
+    }
+
+    .card-content {
+      flex: 1;
+      font-size: 13.5px;
+      line-height: 1.42;
+      color: #f1f5f9;
+    }
+
+    .card-content strong {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #ffffff;
+      display: block;
+      margin-bottom: 2px;
+      letter-spacing: -0.2px;
+    }
+
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding-top: 18px;
+      margin-top: 15px;
+    }
+
+    .footer-logos-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .logo-tam {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 17px;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-tam-icon {
+      font-size: 22px;
+      font-weight: 900;
+      color: #ffffff;
+    }
+
+    .logo-divider {
+      width: 1.5px;
+      height: 20px;
+      background-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .logo-sec {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #cbd5e1;
+      line-height: 1.25;
+    }
+
+    .logo-injuve {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+      display: flex;
+      flex-direction: column;
+      line-height: 0.9;
+    }
+
+    .logo-injuve span {
+      font-size: 7px;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+
+    .logo-right-badge {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-right-badge span {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      background: #ef233c;
+      border-radius: 50%;
+      margin-left: 2px;
+    }
+
+    .slide-canvas.ejes .stamp-tab {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      box-shadow: 4px 6px 20px rgba(5, 150, 105, 0.45);
+    }
+    .slide-canvas.ejes .red-line,
+    .slide-canvas.ejes .red-dot {
+      background-color: #10b981;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+    }
+    .slide-canvas.ejes .number-digit {
+      color: #059669;
+    }
+    .slide-canvas.ejes .number-pill {
+      background: linear-gradient(135deg, #e6f7f0 0%, #ccefe1 100%);
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+      .controls-bar {
+        display: none;
+      }
+      .slide-canvas {
+        max-width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+        page-break-after: always;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="controls-bar">
+    <div style="font-weight: 700; font-size: 14px;">
+      🎯 Diapositiva Institucional: Objetivos de Jóvenes con Salud
+    </div>
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="showSlide('objetivos')">1. Objetivos Específicos (Clásico)</button>
+      <button class="tab-btn" onclick="showSlide('ejes')">2. Ejes Estratégicos de Impacto</button>
+    </div>
+    <button class="btn-action" onclick="window.print()">
+      🖨️ Imprimir / Guardar en PDF
+    </button>
+  </div>
+
+  <!-- DIAPOSITIVA 1: OBJETIVOS ESPECÍFICOS -->
+  <div id="slide-objetivos" class="slide-canvas">
+    
+    <div class="stamp-tab">
+      <div class="stamp-text">OBJETIVO</div>
+    </div>
+
+    <div class="subheading-row">
+      <div class="red-line"></div>
+      <div class="red-dot"></div>
+      <div class="subheading-title">Objetivos Específicos:</div>
+    </div>
+
+    <div class="objectives-grid">
+      
+      <!-- Objetivo 1 -->
+      <div class="objective-card">
+        <div class="number-pill">
+          <div class="number-digit">1</div>
+        </div>
+        <div class="card-content">
+          <strong>Digitalizar la Salud Preventiva:</strong>
+          Proveer un expediente clínico universal y multigeneracional con estándares de seguridad, portabilidad y reportes médicos normados (PDF).
+        </div>
+      </div>
+
+      <!-- Objetivo 3 -->
+      <div class="objective-card">
+        <div class="number-pill">
+          <div class="number-digit">3</div>
+        </div>
+        <div class="card-content">
+          <strong>Incentivar Hábitos Saludables:</strong>
+          Implementar un sistema de gamificación basado en rachas diarias, insignias de salud y retos para aumentar la adherencia preventiva.
+        </div>
+      </div>
+
+      <!-- Objetivo 2 -->
+      <div class="objective-card">
+        <div class="number-pill">
+          <div class="number-digit">2</div>
+        </div>
+        <div class="card-content">
+          <strong>Monitoreo Biométrico Continuo:</strong>
+          Integrar telemetría con dispositivos wearables (BLE) para la vigilancia activa de presión arterial, glucosa, frecuencia cardíaca y sueño.
+        </div>
+      </div>
+
+      <!-- Objetivo 4 -->
+      <div class="objective-card">
+        <div class="number-pill">
+          <div class="number-digit">4</div>
+        </div>
+        <div class="card-content">
+          <strong>Generar Inteligencia Epidemiológica:</strong>
+          Recopilar métricas de salud en tiempo real en los 43 municipios para la detección temprana de riesgos y toma de decisiones públicas.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="slide-footer">
+      <div class="footer-logos-left">
+        <div class="logo-tam">
+          <span class="logo-tam-icon">T</span> Tamaulipas
+        </div>
+        <div class="logo-divider"></div>
+        <div class="logo-sec">
+          Secretaría de Salud<br>& Bienestar Social
+        </div>
+        <div class="logo-divider"></div>
+        <div class="logo-injuve">
+          injuve
+          <span>TAMAULIPAS</span>
+        </div>
+      </div>
+      <div class="logo-right-badge">
+        in<span></span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DIAPOSITIVA 2: EJES ESTRATÉGICOS -->
+  <div id="slide-ejes" class="slide-canvas ejes" style="display: none;">
+    
+    <div class="stamp-tab">
+      <div class="stamp-text">ESTRATEGIA</div>
+    </div>
+
+    <div class="subheading-row">
+      <div class="red-line"></div>
+      <div class="red-dot"></div>
+      <div class="subheading-title">Ejes de Impacto Social y Clínico:</div>
+    </div>
+
+    <div class="objectives-grid">
+      
+      <div class="objective-card">
+        <div class="number-pill">
+          <div class="number-digit">1</div>
+        </div>
+        <div class="card-content">
+          <strong>Factor Multiplicador Familiar (2.26x):</strong>
+          Empoderar al joven como gestor de salud digital para sus padres y abuelos, cubriendo hasta 3.22 millones de tamaulipecos.
+        </div>
+      </div>
+
+      <div class="objective-card">
+        <div class="number-pill">
+          <div class="number-digit">3</div>
+        </div>
+        <div class="card-content">
+          <strong>Telemedicina y Cero Brechas:</strong>
+          Conectar a médicos especialistas con jóvenes en comunidades remotas mediante videoconsultas y recetas electrónicas válidas.
+        </div>
+      </div>
+
+      <div class="objective-card">
+        <div class="number-pill">
+          <div class="number-digit">2</div>
+        </div>
+        <div class="card-content">
+          <strong>Ahorro Fiscal en Salud Pública:</strong>
+          Reducir hospitalizaciones de emergencia mediante la detección precoz de prediabetes, hipertensión y sobrepeso en etapa juvenil.
+        </div>
+      </div>
+
+      <div class="objective-card">
+        <div class="number-pill">
+          <div class="number-digit">4</div>
+        </div>
+        <div class="card-content">
+          <strong>Arquitectura Abierta y Offline-First:</strong>
+          Garantizar operatividad total aún sin conectividad a internet en zonas rurales, sincronizando datos de forma segura al reconectarse.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="slide-footer">
+      <div class="footer-logos-left">
+        <div class="logo-tam">
+          <span class="logo-tam-icon">T</span> Tamaulipas
+        </div>
+        <div class="logo-divider"></div>
+        <div class="logo-sec">
+          Secretaría de Salud<br>& Bienestar Social
+        </div>
+        <div class="logo-divider"></div>
+        <div class="logo-injuve">
+          injuve
+          <span>TAMAULIPAS</span>
+        </div>
+      </div>
+      <div class="logo-right-badge">
+        in<span></span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function showSlide(type) {
+      document.getElementById('slide-objetivos').style.display = (type === 'objetivos') ? 'flex' : 'none';
+      document.getElementById('slide-ejes').style.display = (type === 'ejes') ? 'flex' : 'none';
+      
+      const btns = document.querySelectorAll('.tab-btn');
+      btns[0].classList.toggle('active', type === 'objetivos');
+      btns[1].classList.toggle('active', type === 'ejes');
+    }
+  </script>
+
+</body>
+</html>
