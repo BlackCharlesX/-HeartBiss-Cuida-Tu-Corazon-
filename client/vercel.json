@@ -1,8 +1,7 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/backend-api/:path*", "destination": "http://34.74.246.147:3001/api/:path*" },
-    { "source": "/images/:path*", "destination": "http://34.74.246.147:3001/images/:path*" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
+

@@ -69,6 +69,9 @@ echo "➔ Instalando e iniciando PM2 para ejecución persistente..."
 sudo npm install -y -g pm2
 pm2 start server.js --name "jcs-backend"
 pm2 save
+sudo env PATH=$PATH:/usr/bin pm2 startup systemd -u $USER --hp $HOME
+pm2 save
+
 
 echo "====================================================="
 echo "✅ CONFIGURACIÓN COMPLETADA CON ÉXITO"
