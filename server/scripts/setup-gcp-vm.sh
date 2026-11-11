@@ -95,6 +95,24 @@ pm2 start server.js --name heartbiss-api
 pm2 save
 sudo env PATH=$PATH:/usr/bin pm2 startup systemd -u "$USER" --hp "$HOME" | tail -n 1 | sudo bash || true
 
+# Crear script de auto-actualización desde GitHub (cron cada 2 minutos como respaldo adicional a GitHub Actions)
+cat << 'EOF' > "$HOME/auto-update.sh"
+#!/usr/bin/env bash
+cd "$HOME/app" || exit 0
+git fetch origin main --quiet
+LOCAL=$(git rev-parse HEAD)
+REMOTE=$(git rev-parse origin/main)
+if [ "$LOCAL" != "$REMOTE" ]; then
+  git reset --hard origin/main
+  cd "$HOME/app/server"
+  mkdir -p public/uploads public/images/uploads
+  npm install --omit=dev
+  pm2 restart heartbiss-api
+fi
+EOF
+chmod +x "$HOME/auto-update.sh"
+(crontab -l 2>/dev/null | grep -v "auto-update.sh"; echo "*/2 * * * * $HOME/auto-update.sh >> $HOME/auto-update.log 2>&1") | crontab -
+
 echo "🔒 [7/7] Instalando Caddy para HTTPS gratuito automático (requerido por Vercel)..."
 if ! command -v caddy &> /dev/null; then
   sudo apt-get install -y caddy
@@ -121,3 +139,4 @@ echo "   https://${NIP_DOMAIN}/api/health"
 echo "🔑 Acceso Admin por defecto:"
 echo "   admin@ijt.gob.mx / Admin@JCS2026!"
 echo "=================================================================="
+
