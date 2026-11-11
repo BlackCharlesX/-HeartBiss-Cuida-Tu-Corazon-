@@ -170,10 +170,10 @@ export default function Diseases() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
                   {disease.iconEmoji
                     ? <span style={{ fontSize: '2rem' }}>{disease.iconEmoji}</span>
-                    : <FaHospital size={32} style={{ color: disease.colorHex || '#871233' }} />}
+                    : <FaHospital size={32} style={{ color: disease.colorHex || '#7A433A' }} />}
                   <div style={{
                     padding: '0.25rem 0.75rem', borderRadius: '2rem',
-                    background: (disease.colorHex || '#871233') + '15',
+                    background: (disease.colorHex || '#7A433A') + '15',
                     color: disease.colorHex || 'var(--color-primary-500)',
                     fontSize: '0.75rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.05em',
                   }}>

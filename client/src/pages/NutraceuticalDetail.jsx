@@ -115,7 +115,7 @@ function FullGallery({ images, productName, dark }) {
               style={{
                 width: '70px', height: '70px', borderRadius: '10px', overflow: 'hidden',
                 border: i === current
-                  ? (dark ? '2.5px solid var(--color-primary-500)' : '2.5px solid #871233')
+                  ? (dark ? '2.5px solid var(--color-primary-500)' : '2.5px solid #7A433A')
                   : '2.5px solid transparent',
                 padding: 0, cursor: 'pointer', background: dark ? 'var(--color-surface-200)' : '#f1ece7', flexShrink: 0,
                 transition: 'border-color 0.2s, box-shadow 0.2s',
@@ -205,7 +205,7 @@ export default function NutraceuticalDetail() {
     <div style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '1rem' }}>
       <p style={{ fontSize: '3rem' }}>⚠️</p>
       <p style={{ color: '#ef4444', fontWeight: '600' }}>{error}</p>
-      <Link to="/hecho-en-tamaulipas" style={{ color: dark ? '#fca5b7' : '#871233', fontWeight: '700', textDecoration: 'none' }}>
+      <Link to="/hecho-en-tamaulipas" style={{ color: dark ? '#fca5b7' : '#7A433A', fontWeight: '700', textDecoration: 'none' }}>
         ← Volver a Hecho en Tamaulipas
       </Link>
     </div>
@@ -223,7 +223,7 @@ export default function NutraceuticalDetail() {
         <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.82rem', color: dark ? 'var(--color-surface-500)' : '#94a3b8' }}>
           <Link to="/" style={{ color: dark ? 'var(--color-surface-500)' : '#94a3b8', textDecoration: 'none' }}>Inicio</Link>
           <span>›</span>
-          <Link to="/hecho-en-tamaulipas" style={{ color: dark ? '#fca5b7' : '#871233', textDecoration: 'none', fontWeight: '600' }}>
+          <Link to="/hecho-en-tamaulipas" style={{ color: dark ? '#fca5b7' : '#7A433A', textDecoration: 'none', fontWeight: '600' }}>
             Hecho en Tamaulipas
           </Link>
           <span>›</span>
@@ -243,8 +243,8 @@ export default function NutraceuticalDetail() {
             {/* Sello Hecho en Tamaulipas Banner */}
             <div style={{
               display: 'flex', alignItems: 'center', gap: '0.75rem',
-              background: dark ? 'rgba(224, 59, 96, 0.15)' : 'linear-gradient(135deg, rgba(135,18,51,0.08), rgba(212,169,106,0.12))',
-              border: dark ? '1px solid rgba(224, 59, 96, 0.35)' : '1px solid rgba(135,18,51,0.2)',
+              background: dark ? 'rgba(224, 59, 96, 0.15)' : 'linear-gradient(135deg, rgba(122,67,58,0.08), rgba(212,169,106,0.12))',
+              border: dark ? '1px solid rgba(224, 59, 96, 0.35)' : '1px solid rgba(122,67,58,0.2)',
               borderRadius: '12px', padding: '0.65rem 0.9rem', marginBottom: '1rem'
             }}>
               <img
@@ -253,7 +253,7 @@ export default function NutraceuticalDetail() {
                 style={{ width: '42px', height: '42px', objectFit: 'contain', borderRadius: '50%', flexShrink: 0 }}
               />
               <div>
-                <strong style={{ fontSize: '0.82rem', color: dark ? '#ffffff' : '#871233', display: 'block' }}>
+                <strong style={{ fontSize: '0.82rem', color: dark ? '#ffffff' : '#7A433A', display: 'block' }}>
                   Acreditado: Hecho en Tamaulipas
                 </strong>
                 <span style={{ fontSize: '0.72rem', color: dark ? '#d4a96a' : 'var(--color-accent-800)' }}>
@@ -267,7 +267,7 @@ export default function NutraceuticalDetail() {
               <span style={{
                 display: 'inline-block', padding: '4px 12px', borderRadius: '30px',
                 background: dark ? 'rgba(59, 130, 246, 0.15)' : '#fff1f3',
-                color: dark ? '#60a5fa' : '#871233',
+                color: dark ? '#60a5fa' : '#7A433A',
                 border: dark ? '1px solid rgba(59, 130, 246, 0.35)' : '1.5px solid #fecdd3',
                 fontSize: '0.75rem', fontWeight: '700', marginBottom: '0.9rem',
               }}>
@@ -304,7 +304,7 @@ export default function NutraceuticalDetail() {
                   width: '100%', padding: '1rem', borderRadius: '12px',
                   background: dark
                     ? 'linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700))'
-                    : 'linear-gradient(135deg, #871233, #5e0c23)',
+                    : 'linear-gradient(135deg, #7A433A, #522B24)',
                   color: 'white', fontWeight: '800', fontSize: '1rem',
                   textDecoration: 'none', letterSpacing: '0.01em',
                   boxShadow: 'var(--shadow-glow)',

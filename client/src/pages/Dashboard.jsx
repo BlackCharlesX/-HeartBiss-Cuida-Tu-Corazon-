@@ -258,7 +258,7 @@ export default function Dashboard() {
       pdf.setTextColor(255, 255, 255)
       pdf.setFontSize(9)
       pdf.setFont('helvetica', 'bold')
-      pdf.text('Jóvenes con Salud — Instituto de la Juventud de Tamaulipas', margin, headerH + 7)
+      pdf.text('HeartBliss — Cuida tu Corazón — Instituto de la Juventud de Tamaulipas', margin, headerH + 7)
       const dateStr = new Date().toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' })
       pdf.setFont('helvetica', 'normal')
       pdf.setFontSize(8)
@@ -538,7 +538,7 @@ export default function Dashboard() {
         pdf.line(0, pageH - 10, pageW, pageH - 10)
         pdf.setFontSize(7)
         pdf.setTextColor(148, 163, 184)
-        pdf.text('Jóvenes con Salud — Instituto de la Juventud de Tamaulipas', margin, pageH - 4)
+        pdf.text('HeartBliss — Cuida tu Corazón — Instituto de la Juventud de Tamaulipas', margin, pageH - 4)
         pdf.text(`Página ${p} de ${totalPages}`, pageW - margin, pageH - 4, { align: 'right' })
       }
 
@@ -556,7 +556,7 @@ export default function Dashboard() {
         })
         await Share.share({
           title: 'Reporte de Salud',
-          text: 'Tu reporte de salud generado por la plataforma Jóvenes con Salud.',
+          text: 'Tu reporte de salud generado por la plataforma HeartBliss — Cuida tu Corazón.',
           url: result.uri,
           dialogTitle: 'Abrir/Compartir Reporte',
         })
@@ -1031,7 +1031,7 @@ export default function Dashboard() {
               color: selectedFamilyId === m.id ? 'white' : (dark ? '#ffffff' : 'var(--color-surface-500)'),
               fontSize: '0.82rem', fontWeight: '700', cursor: 'pointer',
               transition: 'all 0.2s', whiteSpace: 'nowrap',
-              boxShadow: selectedFamilyId === m.id ? '0 2px 8px rgba(135,18,51,0.3)' : 'none',
+              boxShadow: selectedFamilyId === m.id ? '0 2px 8px rgba(122,67,58,0.3)' : 'none',
             }}
             onMouseEnter={e => { if (selectedFamilyId !== m.id) e.currentTarget.style.background = 'var(--color-surface-200)' }}
             onMouseLeave={e => { if (selectedFamilyId !== m.id) e.currentTarget.style.background = 'transparent' }}
@@ -1157,7 +1157,7 @@ export default function Dashboard() {
             visibility: startIndex > 0 ? 'visible' : 'hidden',
             flexShrink: 0,
           }}
-          onMouseEnter={e => { e.currentTarget.style.background = '#f1f5f9'; e.currentTarget.style.color = '#871233' }}
+          onMouseEnter={e => { e.currentTarget.style.background = '#f1f5f9'; e.currentTarget.style.color = '#7A433A' }}
           onMouseLeave={e => { e.currentTarget.style.background = 'white'; e.currentTarget.style.color = 'var(--color-surface-600)' }}
         >
           <FaChevronLeft size={16} />
@@ -1309,7 +1309,7 @@ export default function Dashboard() {
             visibility: startIndex < TYPES.length - 4 ? 'visible' : 'hidden',
             flexShrink: 0,
           }}
-          onMouseEnter={e => { e.currentTarget.style.background = '#f1f5f9'; e.currentTarget.style.color = '#871233' }}
+          onMouseEnter={e => { e.currentTarget.style.background = '#f1f5f9'; e.currentTarget.style.color = '#7A433A' }}
           onMouseLeave={e => { e.currentTarget.style.background = 'white'; e.currentTarget.style.color = 'var(--color-surface-600)' }}
         >
           <FaChevronRight size={16} />
@@ -1360,7 +1360,7 @@ export default function Dashboard() {
               background: showDateFilter ? 'var(--color-primary-500)' : 'white',
               color: showDateFilter ? 'white' : 'var(--color-primary-500)',
               fontSize: '0.82rem', fontWeight: '700', cursor: 'pointer', transition: 'all 0.2s',
-              boxShadow: showDateFilter ? '0 4px 12px rgba(135,18,51,0.15)' : 'none',
+              boxShadow: showDateFilter ? '0 4px 12px rgba(122,67,58,0.15)' : 'none',
             }}
               onMouseEnter={e => {
                 if (!showDateFilter) {
@@ -1388,16 +1388,16 @@ export default function Dashboard() {
                 fontSize: '0.82rem',
                 fontWeight: '700',
                 cursor: 'pointer',
-                boxShadow: '0 4px 12px rgba(135,18,51,0.2)',
+                boxShadow: '0 4px 12px rgba(122,67,58,0.2)',
                 transition: 'all 0.2s',
               }}
               onMouseEnter={e => {
                 e.currentTarget.style.transform = 'translateY(-1px)'
-                e.currentTarget.style.boxShadow = '0 6px 16px rgba(135,18,51,0.3)'
+                e.currentTarget.style.boxShadow = '0 6px 16px rgba(122,67,58,0.3)'
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.transform = 'translateY(0)'
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(135,18,51,0.2)'
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(122,67,58,0.2)'
               }}
             >
               <FaPlus size={12} /> Nuevo Registro
@@ -1412,7 +1412,7 @@ export default function Dashboard() {
             borderRadius: '10px', background: '#f8fafc', border: '1px solid #e2e8f0',
             marginBottom: '1rem', flexWrap: 'wrap', animation: 'slideUp 0.2s ease',
           }}>
-            <FaCalendarAlt size={13} style={{ color: '#871233', flexShrink: 0 }} />
+            <FaCalendarAlt size={13} style={{ color: '#7A433A', flexShrink: 0 }} />
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
               <label style={{ fontSize: '0.75rem', fontWeight: '600', color: '#64748b' }}>Desde:</label>
               <input type="date" value={filterFrom} onChange={e => setFilterFrom(e.target.value)}
@@ -1814,7 +1814,7 @@ export default function Dashboard() {
                   fontSize: '0.95rem',
                   fontWeight: '700',
                   cursor: saving ? 'not-allowed' : 'pointer',
-                  boxShadow: '0 4px 12px rgba(135,18,51,0.2)',
+                  boxShadow: '0 4px 12px rgba(122,67,58,0.2)',
                   transition: 'all 0.2s',
                   display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
                 }}
@@ -1942,7 +1942,7 @@ export default function Dashboard() {
                           border: isActive 
                             ? 'none' 
                             : `1.5px solid ${dark ? 'var(--color-surface-400)' : '#e2e8f0'}`,
-                          boxShadow: isActive ? '0 2px 6px rgba(135,18,51,0.3)' : 'none',
+                          boxShadow: isActive ? '0 2px 6px rgba(122,67,58,0.3)' : 'none',
                         }}
                       >
                         {dayName}

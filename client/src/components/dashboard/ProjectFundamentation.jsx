@@ -137,7 +137,7 @@ export default function ProjectFundamentation() {
 
   const handleCopySummary = () => {
     const summaryText = `
-📊 FUNDAMENTACIÓN ESTRATÉGICA DEL PROYECTO: JÓVENES CON SALUD
+📊 FUNDAMENTACIÓN ESTRATÉGICA DEL PROYECTO: HEARTBLISS — CUIDA TU CORAZÓN
 Gobierno del Estado de Tamaulipas — Instituto de la Juventud de Tamaulipas (IJT)
 
 📌 1. DEMOGRAFÍA GENERAL (INEGI)
@@ -210,7 +210,7 @@ Gobierno del Estado de Tamaulipas — Instituto de la Juventud de Tamaulipas (IJ
       <div style={{
         background: dark
           ? 'linear-gradient(135deg, #18080f 0%, #300614 60%, #1e1308 100%)'
-          : 'linear-gradient(135deg, #750f2c 0%, #871233 60%, #9a7a4e 100%)',
+          : 'linear-gradient(135deg, #66362E 0%, #7A433A 60%, #9a7a4e 100%)',
         borderRadius: 'var(--radius-2xl)',
         padding: '2rem',
         color: 'white',
@@ -272,7 +272,7 @@ Gobierno del Estado de Tamaulipas — Instituto de la Juventud de Tamaulipas (IJ
                 color: dark ? 'var(--color-primary-500)' : 'var(--color-primary-800)',
                 padding: '0.65rem 1.1rem',
                 borderRadius: 'var(--radius-lg)',
-                border: dark ? '1px solid rgba(224, 59, 96, 0.4)' : '1px solid rgba(135,18,51,0.15)',
+                border: dark ? '1px solid rgba(224, 59, 96, 0.4)' : '1px solid rgba(122,67,58,0.15)',
                 fontWeight: '700',
                 fontSize: '0.85rem',
                 cursor: 'pointer',
@@ -1034,7 +1034,7 @@ Gobierno del Estado de Tamaulipas — Instituto de la Juventud de Tamaulipas (IJ
                 <strong style={{ fontSize: '1.15rem', color: dark ? '#fca5b7' : 'var(--color-primary-700)' }}>18.3%</strong>
               </div>
               <div style={{ height: '10px', width: '100%', background: dark ? 'var(--color-surface-300)' : '#e5e7eb', borderRadius: '5px', overflow: 'hidden', marginBottom: '0.4rem' }}>
-                <div style={{ width: '18.3%', height: '100%', background: 'linear-gradient(90deg, #d65c7e, #871233)', borderRadius: '5px' }} />
+                <div style={{ width: '18.3%', height: '100%', background: 'linear-gradient(90deg, #d65c7e, #7A433A)', borderRadius: '5px' }} />
               </div>
               <span style={{ fontSize: '0.74rem', color: textColor }}>
                 Por encima de la media nacional, demanda intervención y tamizaje preventivo.
@@ -1486,7 +1486,7 @@ Gobierno del Estado de Tamaulipas — Instituto de la Juventud de Tamaulipas (IJ
         </div>
 
         <p style={{ fontSize: '0.86rem', color: textColor, margin: '0 0 1.5rem', lineHeight: 1.5 }}>
-          Diagnóstico causal y alineación estratégica estructurados para fundamentar el impacto social, tecnológico y en salud pública del proyecto <strong>Jóvenes con Salud</strong> frente al Gobierno de Tamaulipas y organismos multilaterales.
+          Diagnóstico causal y alineación estratégica estructurados para fundamentar el impacto social, tecnológico y en salud pública del proyecto <strong>HeartBliss — Cuida tu Corazón</strong> frente al Gobierno de Tamaulipas y organismos multilaterales.
         </p>
 
         {/* Diagram Cards Grid */}
@@ -1509,7 +1509,7 @@ Gobierno del Estado de Tamaulipas — Instituto de la Juventud de Tamaulipas (IJ
               onMouseEnter={e => {
                 e.currentTarget.style.transform = 'translateY(-4px)'
                 e.currentTarget.style.borderColor = dark ? 'var(--color-primary-500)' : 'var(--color-primary-400)'
-                e.currentTarget.style.boxShadow = dark ? '0 8px 25px rgba(224,59,96,0.25)' : '0 8px 20px rgba(135,18,51,0.12)'
+                e.currentTarget.style.boxShadow = dark ? '0 8px 25px rgba(224,59,96,0.25)' : '0 8px 20px rgba(122,67,58,0.12)'
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.transform = 'translateY(0)'

@@ -37,9 +37,9 @@ const METRIC_CONFIGS = {
 }
 
 const cardStyle = (dark) => ({
-  background: dark ? '#141319' : '#fff',
+  background: dark ? '#2B1815' : '#fff',
   borderRadius: CARD_RADIUS,
-  border: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`,
+  border: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`,
   boxShadow: dark ? '0 4px 20px rgba(0,0,0,0.55)' : '0 1px 4px rgba(0,0,0,0.04)',
 })
 
@@ -375,10 +375,10 @@ export default function DoctorPanel() {
           ...cardStyle(dark),
           padding: '1rem',
           cursor: 'pointer',
-          border: chartMetric === type ? `2px solid ${dark ? '#0284c7' : '#0369a1'}` : `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`,
+          border: chartMetric === type ? `2px solid ${dark ? '#0284c7' : '#0369a1'}` : `1px solid ${dark ? '#38211D' : '#e8ddd0'}`,
           background: chartMetric === type 
             ? (dark ? 'rgba(2, 132, 199, 0.08)' : '#f0f9ff')
-            : (dark ? '#141319' : '#fff'),
+            : (dark ? '#2B1815' : '#fff'),
           transition: 'all 0.15s ease',
           display: 'flex',
           flexDirection: 'column',
@@ -579,7 +579,7 @@ export default function DoctorPanel() {
   }
 
   return (
-    <div className="doctor-layout" style={{ display: 'flex', minHeight: '100vh', background: dark ? '#0c0b0f' : '#f1ede6', fontFamily: 'var(--font-sans)' }}>
+    <div className="doctor-layout" style={{ display: 'flex', minHeight: '100vh', background: dark ? '#1F1210' : '#f1ede6', fontFamily: 'var(--font-sans)' }}>
       {/* Sidebar overlay backdrop for mobile */}
       {sidebarOpen && (
         <div 
@@ -609,7 +609,7 @@ export default function DoctorPanel() {
             <FaStethoscope style={{ color: '#38bdf8', fontSize: '1.5rem' }} />
             <div>
               <div style={{ color: '#fff', fontWeight: '800', fontSize: '1.05rem', letterSpacing: '-0.01em' }}>Panel Médico</div>
-              <div style={{ color: '#38bdf8', fontSize: '0.65rem', fontWeight: '700', textTransform: 'uppercase' }}>Jóvenes con Salud</div>
+              <div style={{ color: '#38bdf8', fontSize: '0.65rem', fontWeight: '700', textTransform: 'uppercase' }}>HeartBliss — Cuida tu Corazón</div>
             </div>
           </div>
         </div>
@@ -712,7 +712,7 @@ export default function DoctorPanel() {
             padding: '1rem 2rem',
             borderBottom: `1px solid ${dark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`,
             display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-            background: dark ? '#141319' : '#fff',
+            background: dark ? '#2B1815' : '#fff',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
@@ -740,7 +740,7 @@ export default function DoctorPanel() {
                 display: 'flex', alignItems: 'center', gap: '0.4rem',
                 padding: '0.5rem 0.9rem', borderRadius: '10px',
                 border: '1.5px solid #ef4444',
-                background: exportingPdf ? 'var(--color-surface-200)' : (dark ? '#1e1c25' : '#fff'),
+                background: exportingPdf ? 'var(--color-surface-200)' : (dark ? '#38211D' : '#fff'),
                 color: '#ef4444', fontSize: '0.78rem', fontWeight: '700',
                 cursor: exportingPdf ? 'not-allowed' : 'pointer',
                 boxShadow: '0 2px 8px rgba(239, 68, 68, 0.12)',
@@ -772,8 +772,8 @@ export default function DoctorPanel() {
               }}
               style={{
                 padding: '0.4rem 0.6rem', borderRadius: '8px', fontSize: '0.78rem', fontWeight: '700',
-                border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
-                background: dark ? '#1e1c25' : '#faf8f5', color: dark ? '#fff' : '#1a1715',
+                border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+                background: dark ? '#38211D' : '#faf8f5', color: dark ? '#fff' : '#1a1715',
                 cursor: 'pointer', outline: 'none',
               }}
             >
@@ -862,7 +862,7 @@ export default function DoctorPanel() {
                           padding: '0.6rem 1.25rem',
                           borderRadius: '10px',
                           border: '1.5px solid #ef4444',
-                          background: exportingPdf ? 'var(--color-surface-200)' : (dark ? '#1e1c25' : '#fff'),
+                          background: exportingPdf ? 'var(--color-surface-200)' : (dark ? '#38211D' : '#fff'),
                           color: '#ef4444',
                           fontSize: '0.82rem',
                           fontWeight: '700',
@@ -880,7 +880,7 @@ export default function DoctorPanel() {
                       {pdfDropdownOpen && (
                         <div style={{
                           position: 'absolute', top: 'calc(100% + 8px)', right: 0, zIndex: 100,
-                          background: dark ? '#1e1c25' : '#ffffff',
+                          background: dark ? '#38211D' : '#ffffff',
                           borderRadius: '12px', minWidth: '220px',
                           boxShadow: '0 10px 30px rgba(0,0,0,0.25)',
                           border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`,
@@ -964,7 +964,7 @@ export default function DoctorPanel() {
                 </div>
 
                 {/* Sub-tabs: Principal Patient and Family Members */}
-                <div style={{ display: 'flex', borderBottom: `2px solid ${dark ? '#1e1c25' : '#e8ddd0'}`, gap: '0.5rem', overflowX: 'auto', paddingBottom: '2px' }}>
+                <div style={{ display: 'flex', borderBottom: `2px solid ${dark ? '#38211D' : '#e8ddd0'}`, gap: '0.5rem', overflowX: 'auto', paddingBottom: '2px' }}>
                   <button
                     onClick={() => setActivePatientTab('main')}
                     style={{
@@ -1048,7 +1048,7 @@ export default function DoctorPanel() {
                             </h3>
 
                             {chartData.length === 0 ? (
-                              <div style={{ height: '240px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: `1px dashed ${dark ? '#1e1c25' : '#e8ddd0'}`, borderRadius: '8px' }}>
+                              <div style={{ height: '240px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: `1px dashed ${dark ? '#38211D' : '#e8ddd0'}`, borderRadius: '8px' }}>
                                 <p style={{ fontSize: '0.85rem', color: dark ? '#7e7a8c' : '#a89580', margin: 0 }}>Sin registros históricos para esta métrica</p>
                               </div>
                             ) : (
@@ -1061,10 +1061,10 @@ export default function DoctorPanel() {
                                         <stop offset="95%" stopColor={mCfg.gradient[1]} stopOpacity={0.05}/>
                                       </linearGradient>
                                     </defs>
-                                    <CartesianGrid strokeDasharray="3 3" stroke={dark ? '#1e1c25' : '#e8ddd0'} />
+                                    <CartesianGrid strokeDasharray="3 3" stroke={dark ? '#38211D' : '#e8ddd0'} />
                                     <XAxis dataKey="date" stroke={dark ? '#7e7a8c' : '#a89580'} style={{ fontSize: '0.75rem', fontWeight: '600' }} />
                                     <YAxis stroke={dark ? '#7e7a8c' : '#a89580'} style={{ fontSize: '0.75rem', fontWeight: '600' }} />
-                                    <Tooltip contentStyle={{ background: dark ? '#141319' : '#fff', borderColor: dark ? '#1e1c25' : '#e8ddd0', color: dark ? '#fff' : '#1a1715' }} />
+                                    <Tooltip contentStyle={{ background: dark ? '#2B1815' : '#fff', borderColor: dark ? '#38211D' : '#e8ddd0', color: dark ? '#fff' : '#1a1715' }} />
                                     <Area type="monotone" dataKey="valor" stroke={mCfg.color} strokeWidth={2.5} fillOpacity={1} fill="url(#metricGrad)" name={mCfg.label} />
                                     {chartMetric === 'bloodPressure' && (
                                       <Area type="monotone" dataKey="valor2" stroke="#ef4444" strokeWidth={2.5} fill="transparent" name="Presión Diastólica" />
@@ -1088,7 +1088,7 @@ export default function DoctorPanel() {
                           <div className="doctor-table-container" style={{ overflowX: 'auto', maxHeight: '300px' }}>
                             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem' }}>
                               <thead>
-                                <tr style={{ background: dark ? '#1e1c25' : '#faf8f5', borderBottom: `1px solid ${dark ? '#272530' : '#e8ddd0'}` }}>
+                                <tr style={{ background: dark ? '#38211D' : '#faf8f5', borderBottom: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}` }}>
                                   <th style={{ padding: '0.5rem', textAlign: 'left', color: '#0369a1' }}>FECHA</th>
                                   <th style={{ padding: '0.5rem', textAlign: 'left', color: '#0369a1' }}>MÉTRICA</th>
                                   <th style={{ padding: '0.5rem', textAlign: 'left', color: '#0369a1' }}>VALOR</th>
@@ -1100,7 +1100,7 @@ export default function DoctorPanel() {
                                   <tr><td colSpan={4} style={{ padding: '1.5rem', textAlign: 'center', color: dark ? '#7e7a8c' : '#a89580' }}>Sin registros cargados</td></tr>
                                 ) : (
                                   patientDetail.records.filter(r => r.familyMemberId === null).slice(0, 15).map(r => (
-                                    <tr key={r.id} style={{ borderBottom: `1px solid ${dark ? '#1e1c25' : '#f4efe7'}` }}>
+                                    <tr key={r.id} style={{ borderBottom: `1px solid ${dark ? '#38211D' : '#f4efe7'}` }}>
                                       <td style={{ padding: '0.5rem', color: dark ? '#c5bfae' : '#5c5248', whiteSpace: 'nowrap' }}>
                                         {new Date(r.recordedAt).toLocaleDateString('es-MX', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' })}
                                       </td>
@@ -1134,7 +1134,7 @@ export default function DoctorPanel() {
                                 <p style={{ fontSize: '0.8rem', color: dark ? '#7e7a8c' : '#a89580', fontStyle: 'italic', margin: 0 }}>Sin medicamentos asignados</p>
                               ) : (
                                 patientDetail.medications.map(m => (
-                                  <div key={m.id} style={{ padding: '0.6rem', background: dark ? '#1e1c25' : '#faf8f5', borderRadius: '8px', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}` }}>
+                                  <div key={m.id} style={{ padding: '0.6rem', background: dark ? '#38211D' : '#faf8f5', borderRadius: '8px', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}` }}>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                       <span style={{ fontSize: '0.8rem', fontWeight: '700', color: dark ? '#fff' : '#1a1715' }}>{m.name}</span>
                                       <span style={{ fontSize: '0.72rem', color: '#10b981', fontWeight: '700' }}>Dosis: {m.dose}</span>
@@ -1163,7 +1163,7 @@ export default function DoctorPanel() {
                                 <p style={{ fontSize: '0.8rem', color: dark ? '#7e7a8c' : '#a89580', fontStyle: 'italic', margin: 0 }}>Sin suplementos registrados</p>
                               ) : (
                                 patientDetail.supplements.map(s => (
-                                  <div key={s.id} style={{ padding: '0.6rem', background: dark ? '#1e1c25' : '#faf8f5', borderRadius: '8px', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}` }}>
+                                  <div key={s.id} style={{ padding: '0.6rem', background: dark ? '#38211D' : '#faf8f5', borderRadius: '8px', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}` }}>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                       <span style={{ fontSize: '0.8rem', fontWeight: '700', color: dark ? '#fff' : '#1a1715' }}>{s.name}</span>
                                       <span style={{ fontSize: '0.72rem', color: '#f59e0b', fontWeight: '700' }}>{s.dosage}</span>
@@ -1247,7 +1247,7 @@ export default function DoctorPanel() {
                                 </h3>
 
                                 {chartData.length === 0 ? (
-                                  <div style={{ height: '240px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: `1px dashed ${dark ? '#1e1c25' : '#e8ddd0'}`, borderRadius: '8px' }}>
+                                  <div style={{ height: '240px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: `1px dashed ${dark ? '#38211D' : '#e8ddd0'}`, borderRadius: '8px' }}>
                                     <p style={{ fontSize: '0.85rem', color: dark ? '#7e7a8c' : '#a89580', margin: 0 }}>Sin registros históricos para esta métrica</p>
                                   </div>
                                 ) : (
@@ -1260,10 +1260,10 @@ export default function DoctorPanel() {
                                             <stop offset="95%" stopColor={mCfg.gradient[1]} stopOpacity={0.05}/>
                                           </linearGradient>
                                         </defs>
-                                        <CartesianGrid strokeDasharray="3 3" stroke={dark ? '#1e1c25' : '#e8ddd0'} />
+                                        <CartesianGrid strokeDasharray="3 3" stroke={dark ? '#38211D' : '#e8ddd0'} />
                                         <XAxis dataKey="date" stroke={dark ? '#7e7a8c' : '#a89580'} style={{ fontSize: '0.75rem', fontWeight: '600' }} />
                                         <YAxis stroke={dark ? '#7e7a8c' : '#a89580'} style={{ fontSize: '0.75rem', fontWeight: '600' }} />
-                                        <Tooltip contentStyle={{ background: dark ? '#141319' : '#fff', borderColor: dark ? '#1e1c25' : '#e8ddd0', color: dark ? '#fff' : '#1a1715' }} />
+                                        <Tooltip contentStyle={{ background: dark ? '#2B1815' : '#fff', borderColor: dark ? '#38211D' : '#e8ddd0', color: dark ? '#fff' : '#1a1715' }} />
                                         <Area type="monotone" dataKey="valor" stroke={mCfg.color} strokeWidth={2.5} fillOpacity={1} fill="url(#memberGrad)" name={mCfg.label} />
                                         {chartMetric === 'bloodPressure' && (
                                           <Area type="monotone" dataKey="valor2" stroke="#ef4444" strokeWidth={2.5} fill="transparent" name="Presión Diastólica" />
@@ -1284,7 +1284,7 @@ export default function DoctorPanel() {
                             <div className="doctor-table-container" style={{ overflowX: 'auto', maxHeight: '250px' }}>
                               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem' }}>
                                 <thead>
-                                  <tr style={{ background: dark ? '#1e1c25' : '#faf8f5', borderBottom: `1px solid ${dark ? '#272530' : '#e8ddd0'}` }}>
+                                  <tr style={{ background: dark ? '#38211D' : '#faf8f5', borderBottom: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}` }}>
                                     <th style={{ padding: '0.5rem', textAlign: 'left', color: '#0369a1' }}>FECHA</th>
                                     <th style={{ padding: '0.5rem', textAlign: 'left', color: '#0369a1' }}>MÉTRICA</th>
                                     <th style={{ padding: '0.5rem', textAlign: 'left', color: '#0369a1' }}>VALOR</th>
@@ -1296,7 +1296,7 @@ export default function DoctorPanel() {
                                     <tr><td colSpan={4} style={{ padding: '1.5rem', textAlign: 'center', color: dark ? '#7e7a8c' : '#a89580' }}>Sin registros cargados</td></tr>
                                   ) : (
                                     memberRecords.slice(0, 15).map(r => (
-                                      <tr key={r.id} style={{ borderBottom: `1px solid ${dark ? '#1e1c25' : '#f4efe7'}` }}>
+                                      <tr key={r.id} style={{ borderBottom: `1px solid ${dark ? '#38211D' : '#f4efe7'}` }}>
                                         <td style={{ padding: '0.5rem', color: dark ? '#c5bfae' : '#5c5248', whiteSpace: 'nowrap' }}>
                                           {new Date(r.recordedAt).toLocaleDateString('es-MX', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' })}
                                         </td>
@@ -1379,7 +1379,7 @@ export default function DoctorPanel() {
               </div>
 
               {/* Main tab switcher */}
-              <div style={{ display: 'flex', borderBottom: `2px solid ${dark ? '#1e1c25' : '#e8ddd0'}`, gap: '0.5rem' }}>
+              <div style={{ display: 'flex', borderBottom: `2px solid ${dark ? '#38211D' : '#e8ddd0'}`, gap: '0.5rem' }}>
                 <button
                   onClick={() => setActiveTab('patients')}
                   style={{
@@ -1449,8 +1449,8 @@ export default function DoctorPanel() {
                         placeholder="Buscar por nombre o correo..."
                         style={{
                           width: '100%', padding: '0.55rem 1rem', borderRadius: '8px',
-                          border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
-                          background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#1a1715',
+                          border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+                          background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#1a1715',
                           fontSize: '0.85rem', outline: 'none'
                         }}
                       />
@@ -1461,7 +1461,7 @@ export default function DoctorPanel() {
                   <div className="doctor-table-container" style={{ ...cardStyle(dark), overflow: 'hidden' }}>
                     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
                       <thead>
-                        <tr style={{ background: dark ? '#1e1c25' : '#faf8f5', borderBottom: `1px solid ${dark ? '#272530' : '#e8ddd0'}` }}>
+                        <tr style={{ background: dark ? '#38211D' : '#faf8f5', borderBottom: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}` }}>
                           {['PACIENTE', 'DIAGNÓSTICO / ALERTA', 'REGISTROS', 'FAMILIARES', 'ÚLTIMO REGISTRO', 'ACCIONES'].map(h => (
                             <th key={h} style={{ padding: '0.85rem 1rem', textAlign: 'left', fontSize: '0.72rem', fontWeight: '800', letterSpacing: '0.06em', color: '#0369a1' }}>{h}</th>
                           ))}
@@ -1472,7 +1472,7 @@ export default function DoctorPanel() {
                           <tr><td colSpan={6} style={{ padding: '2.5rem', textAlign: 'center', color: dark ? '#7e7a8c' : '#a89580' }}>No se encontraron pacientes asignados</td></tr>
                         ) : (
                           filteredPatients.map(p => (
-                            <tr key={p.id} style={{ borderBottom: `1px solid ${dark ? '#1e1c25' : '#f4efe7'}` }}>
+                            <tr key={p.id} style={{ borderBottom: `1px solid ${dark ? '#38211D' : '#f4efe7'}` }}>
                               {/* Patient detail */}
                               <td style={{ padding: '0.85rem 1rem' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
@@ -1550,7 +1550,7 @@ export default function DoctorPanel() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                   
                   {/* Alerts sub tab list */}
-                  <div style={{ display: 'flex', gap: '0.5rem', background: dark ? '#141319' : '#faf8f5', padding: '0.25rem', borderRadius: '8px', width: 'fit-content', border: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}` }}>
+                  <div style={{ display: 'flex', gap: '0.5rem', background: dark ? '#2B1815' : '#faf8f5', padding: '0.25rem', borderRadius: '8px', width: 'fit-content', border: `1px solid ${dark ? '#38211D' : '#e8ddd0'}` }}>
                     {[
                       { key: 'all', label: 'Todas las Alertas' },
                       { key: 'critical', label: 'Solo Críticas' },
@@ -1637,19 +1637,19 @@ export default function DoctorPanel() {
                             </div>
 
                             {!isDismissed && (
-                              <div style={{ borderTop: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`, paddingTop: '0.75rem', display: 'flex', gap: '0.75rem', marginTop: '0.25rem' }}>
+                              <div style={{ borderTop: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`, paddingTop: '0.75rem', display: 'flex', gap: '0.75rem', marginTop: '0.25rem' }}>
                                 <button
                                   onClick={() => viewPatientDetails(alertItem.userId)}
                                   style={{
                                     flex: 1, padding: '0.45rem', borderRadius: '6px', border: 'none',
-                                    background: dark ? '#1e1c25' : '#faf8f5', 
-                                    border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
+                                    background: dark ? '#38211D' : '#faf8f5', 
+                                    border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
                                     color: dark ? '#fff' : '#1a1715', fontSize: '0.75rem', fontWeight: '700',
                                     cursor: 'pointer', transition: 'all 0.15s',
                                     display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.25rem'
                                   }}
-                                  onMouseEnter={e => e.currentTarget.style.background = dark ? '#272530' : '#f1ede6'}
-                                  onMouseLeave={e => e.currentTarget.style.background = dark ? '#1e1c25' : '#faf8f5'}
+                                  onMouseEnter={e => e.currentTarget.style.background = dark ? '#4A2D28' : '#f1ede6'}
+                                  onMouseLeave={e => e.currentTarget.style.background = dark ? '#38211D' : '#faf8f5'}
                                 >
                                   Ver paciente
                                 </button>
@@ -1729,7 +1729,7 @@ export default function DoctorPanel() {
                      
                      {/* LEFT COLUMN: Agenda Configuration & Recurrent Schedule */}
                      <div style={{ ...cardStyle(dark), padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', borderBottom: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`, paddingBottom: '0.75rem' }}>
+                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', borderBottom: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`, paddingBottom: '0.75rem' }}>
                          <FaCog style={{ color: dark ? '#38bdf8' : '#0369a1' }} />
                          <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715' }}>Configuración de Agenda</h3>
                        </div>
@@ -1751,8 +1751,8 @@ export default function DoctorPanel() {
                              onChange={e => setAppointmentDuration(Number(e.target.value))}
                              style={{
                                width: '100%', padding: '0.55rem', borderRadius: '8px',
-                               background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#1a1715',
-                               border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`, fontSize: '0.9rem', fontWeight: '600'
+                               background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#1a1715',
+                               border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, fontSize: '0.9rem', fontWeight: '600'
                              }}
                            >
                              <option value={15}>15 minutos</option>
@@ -1775,8 +1775,8 @@ export default function DoctorPanel() {
                              onChange={e => setMaxDailyAppointments(e.target.value === '' ? '' : Number(e.target.value))}
                              style={{
                                width: '100%', padding: '0.55rem', borderRadius: '8px',
-                               background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#1a1715',
-                               border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`, fontSize: '0.9rem'
+                               background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#1a1715',
+                               border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, fontSize: '0.9rem'
                              }}
                            />
                          </div>
@@ -1793,8 +1793,8 @@ export default function DoctorPanel() {
                               onChange={e => setProfessionalLicense(e.target.value)}
                               style={{
                                 width: '100%', padding: '0.55rem', borderRadius: '8px',
-                                background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#1a1715',
-                                border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`, fontSize: '0.9rem'
+                                background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#1a1715',
+                                border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, fontSize: '0.9rem'
                               }}
                             />
                           </div>
@@ -1811,8 +1811,8 @@ export default function DoctorPanel() {
                               onChange={e => setSpecialty(e.target.value)}
                               style={{
                                 width: '100%', padding: '0.55rem', borderRadius: '8px',
-                                background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#1a1715',
-                                border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`, fontSize: '0.9rem'
+                                background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#1a1715',
+                                border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, fontSize: '0.9rem'
                               }}
                             />
                           </div>
@@ -1839,8 +1839,8 @@ export default function DoctorPanel() {
                               }}
                               style={{
                                 width: '100%', padding: '0.35rem', borderRadius: '8px',
-                                background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#1a1715',
-                                border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`, fontSize: '0.85rem'
+                                background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#1a1715',
+                                border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, fontSize: '0.85rem'
                               }}
                             />
                             {savedSignature && (
@@ -1874,7 +1874,7 @@ export default function DoctorPanel() {
                                const daySchedules = doctorSchedule.filter(s => s.dayOfWeek === dayIdx)
                                
                                return (
-                                 <div key={dayIdx} style={{ padding: '0.75rem', borderRadius: '8px', background: dark ? '#1e1c25' : '#faf8f5', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                 <div key={dayIdx} style={{ padding: '0.75rem', borderRadius: '8px', background: dark ? '#38211D' : '#faf8f5', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                      <strong style={{ fontSize: '0.85rem', color: dark ? '#fff' : '#1a1715' }}>{dayName}</strong>
                                      <button
@@ -1903,8 +1903,8 @@ export default function DoctorPanel() {
                                              value={s.startTime}
                                              onChange={e => handleBlockChange(masterIndex, 'startTime', e.target.value)}
                                              style={{
-                                               padding: '0.25rem', borderRadius: '4px', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
-                                               background: dark ? '#0c0b0f' : '#fff', color: dark ? '#fff' : '#1a1715', fontSize: '0.8rem'
+                                               padding: '0.25rem', borderRadius: '4px', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+                                               background: dark ? '#1F1210' : '#fff', color: dark ? '#fff' : '#1a1715', fontSize: '0.8rem'
                                              }}
                                            />
                                            <span style={{ fontSize: '0.75rem', color: dark ? '#7e7a8c' : '#a89580' }}>a</span>
@@ -1913,8 +1913,8 @@ export default function DoctorPanel() {
                                              value={s.endTime}
                                              onChange={e => handleBlockChange(masterIndex, 'endTime', e.target.value)}
                                              style={{
-                                               padding: '0.25rem', borderRadius: '4px', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
-                                               background: dark ? '#0c0b0f' : '#fff', color: dark ? '#fff' : '#1a1715', fontSize: '0.8rem'
+                                               padding: '0.25rem', borderRadius: '4px', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+                                               background: dark ? '#1F1210' : '#fff', color: dark ? '#fff' : '#1a1715', fontSize: '0.8rem'
                                              }}
                                            />
                                            <button
@@ -1957,7 +1957,7 @@ export default function DoctorPanel() {
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                         {/* Sub-sección: Solicitudes Pendientes */}
                         <div style={{ ...cardStyle(dark), padding: '1.5rem' }}>
-                          <h3 style={{ margin: '0 0 1rem 0', fontSize: '1rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715', borderBottom: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`, paddingBottom: '0.5rem' }}>
+                          <h3 style={{ margin: '0 0 1rem 0', fontSize: '1rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715', borderBottom: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`, paddingBottom: '0.5rem' }}>
                             Solicitudes Pendientes ({doctorAppointments.filter(a => a.status === 'pending').length})
                           </h3>
 
@@ -1966,7 +1966,7 @@ export default function DoctorPanel() {
                               <p style={{ margin: 0, fontSize: '0.85rem', color: dark ? '#7e7a8c' : '#a89580', fontStyle: 'italic', textAlign: 'center', padding: '1rem 0' }}>No hay solicitudes de citas pendientes.</p>
                             ) : (
                               doctorAppointments.filter(a => a.status === 'pending').map(appt => (
-                                <div key={appt.id} style={{ padding: '1rem', borderRadius: '10px', background: dark ? '#1e1c25' : '#faf8f5', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                <div key={appt.id} style={{ padding: '1rem', borderRadius: '10px', background: dark ? '#38211D' : '#faf8f5', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <strong style={{ fontSize: '0.9rem', color: dark ? '#fff' : '#1a1715' }}>{appt.patient?.name}</strong>
                                     <span style={{ fontSize: '0.75rem', color: 'var(--color-primary-500)', fontWeight: '700' }}>
@@ -2011,7 +2011,7 @@ export default function DoctorPanel() {
 
                         {/* Sub-sección: Citas Confirmadas (Aceptadas) */}
                         <div style={{ ...cardStyle(dark), padding: '1.5rem' }}>
-                          <h3 style={{ margin: '0 0 1rem 0', fontSize: '1rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715', borderBottom: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`, paddingBottom: '0.5rem' }}>
+                          <h3 style={{ margin: '0 0 1rem 0', fontSize: '1rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715', borderBottom: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`, paddingBottom: '0.5rem' }}>
                             Citas Confirmadas / Próximas
                           </h3>
 
@@ -2020,7 +2020,7 @@ export default function DoctorPanel() {
                               <p style={{ margin: 0, fontSize: '0.85rem', color: dark ? '#7e7a8c' : '#a89580', fontStyle: 'italic', textAlign: 'center', padding: '1rem 0' }}>No hay próximas citas confirmadas.</p>
                             ) : (
                               doctorAppointments.filter(a => a.status === 'accepted').map(appt => (
-                                <div key={appt.id} style={{ padding: '1rem', borderRadius: '10px', background: dark ? '#1e1c25' : '#faf8f5', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                <div key={appt.id} style={{ padding: '1rem', borderRadius: '10px', background: dark ? '#38211D' : '#faf8f5', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <strong style={{ fontSize: '0.9rem', color: dark ? '#fff' : '#1a1715' }}>{appt.patient?.name}</strong>
                                     <span style={{ fontSize: '0.78rem', color: '#10b981', fontWeight: '700' }}>
@@ -2060,7 +2060,7 @@ export default function DoctorPanel() {
 
                         {/* Sub-sección: Historial de Citas */}
                         <div style={{ ...cardStyle(dark), padding: '1.5rem' }}>
-                          <h3 style={{ margin: '0 0 1rem 0', fontSize: '1rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715', borderBottom: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`, paddingBottom: '0.5rem' }}>
+                          <h3 style={{ margin: '0 0 1rem 0', fontSize: '1rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715', borderBottom: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`, paddingBottom: '0.5rem' }}>
                             Historial de Citas
                           </h3>
 
@@ -2074,7 +2074,7 @@ export default function DoctorPanel() {
                                 if (appt.status === 'rejected') { statusLabel = 'Rechazada'; statusColor = '#ef4444' }
                                 
                                 return (
-                                  <div key={appt.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.5rem 0', borderBottom: `1px solid ${dark ? '#1e1c25' : '#faf8f5'}` }}>
+                                  <div key={appt.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.5rem 0', borderBottom: `1px solid ${dark ? '#38211D' : '#faf8f5'}` }}>
                                     <div>
                                       <div style={{ fontSize: '0.85rem', fontWeight: '700', color: dark ? '#fff' : '#1a1715' }}>{appt.patient?.name}</div>
                                       <div style={{ fontSize: '0.72rem', color: dark ? '#7e7a8c' : '#a89580' }}>
@@ -2126,7 +2126,7 @@ export default function DoctorPanel() {
                   placeholder="https://meet.google.com/abc-defg-hij"
                   value={meetLink}
                   onChange={e => setMeetLink(e.target.value)}
-                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#1a1715' }}
+                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#1a1715' }}
                 />
               </div>
 
@@ -2138,7 +2138,7 @@ export default function DoctorPanel() {
                   placeholder="abc-defg-hij"
                   value={meetCode}
                   onChange={e => setMeetCode(e.target.value)}
-                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#1a1715' }}
+                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#1a1715' }}
                 />
               </div>
 
@@ -2148,7 +2148,7 @@ export default function DoctorPanel() {
                   placeholder="Indicaciones adicionales de acceso, etc..."
                   value={acceptNotes}
                   onChange={e => setAcceptNotes(e.target.value)}
-                  style={{ width: '100%', minHeight: '60px', padding: '0.55rem', borderRadius: '6px', border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#1a1715', resize: 'vertical' }}
+                  style={{ width: '100%', minHeight: '60px', padding: '0.55rem', borderRadius: '6px', border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#1a1715', resize: 'vertical' }}
                 />
               </div>
 
@@ -2156,7 +2156,7 @@ export default function DoctorPanel() {
                 <button type="submit" disabled={actionLoading} style={{ flex: 1, padding: '0.65rem', borderRadius: '8px', border: 'none', background: '#10b981', color: 'white', fontWeight: '700', cursor: 'pointer' }}>
                   {actionLoading ? 'Guardando...' : 'Confirmar Cita'}
                 </button>
-                <button type="button" onClick={() => { setShowAcceptModal(false); setSelectedAppt(null) }} style={{ padding: '0.65rem 1.25rem', borderRadius: '8px', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`, background: 'transparent', color: dark ? '#fff' : '#1a1715', fontWeight: '600', cursor: 'pointer' }}>
+                <button type="button" onClick={() => { setShowAcceptModal(false); setSelectedAppt(null) }} style={{ padding: '0.65rem 1.25rem', borderRadius: '8px', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, background: 'transparent', color: dark ? '#fff' : '#1a1715', fontWeight: '600', cursor: 'pointer' }}>
                   Cancelar
                 </button>
               </div>
@@ -2180,7 +2180,7 @@ export default function DoctorPanel() {
                   placeholder="Explica al paciente por qué no es posible agendar la cita en este horario..."
                   value={rejectionReason}
                   onChange={e => setRejectionReason(e.target.value)}
-                  style={{ width: '100%', minHeight: '100px', padding: '0.55rem', borderRadius: '6px', border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#1a1715', resize: 'vertical' }}
+                  style={{ width: '100%', minHeight: '100px', padding: '0.55rem', borderRadius: '6px', border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#1a1715', resize: 'vertical' }}
                 />
               </div>
 
@@ -2188,7 +2188,7 @@ export default function DoctorPanel() {
                 <button type="submit" disabled={actionLoading} style={{ flex: 1, padding: '0.65rem', borderRadius: '8px', border: 'none', background: '#ef4444', color: 'white', fontWeight: '700', cursor: 'pointer' }}>
                   {actionLoading ? 'Rechazando...' : 'Confirmar Rechazo'}
                 </button>
-                <button type="button" onClick={() => { setShowRejectModal(false); setSelectedAppt(null) }} style={{ padding: '0.65rem 1.25rem', borderRadius: '8px', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`, background: 'transparent', color: dark ? '#fff' : '#1a1715', fontWeight: '600', cursor: 'pointer' }}>
+                <button type="button" onClick={() => { setShowRejectModal(false); setSelectedAppt(null) }} style={{ padding: '0.65rem 1.25rem', borderRadius: '8px', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, background: 'transparent', color: dark ? '#fff' : '#1a1715', fontWeight: '600', cursor: 'pointer' }}>
                   Cancelar
                 </button>
               </div>
@@ -2200,7 +2200,7 @@ export default function DoctorPanel() {
         {showPrescriptionModal && selectedAppt && (
           <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.6)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000, padding: '1rem' }}>
             <form onSubmit={handlePrescriptionSubmit} className="glass animate-fade-in no-scrollbar" style={{ padding: '2rem', borderRadius: '16px', maxWidth: '650px', width: '100%', maxHeight: '90vh', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1.25rem', border: '1px solid var(--color-surface-200)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid ${dark ? '#272530' : '#e8ddd0'}`, paddingBottom: '0.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, paddingBottom: '0.5rem' }}>
                 <div>
                   <h3 style={{ margin: 0, fontSize: '1.15rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715' }}>Emitir Receta Médica</h3>
                   <span style={{ fontSize: '0.8rem', color: dark ? '#7e7a8c' : '#a89580' }}>Paciente: {selectedAppt.patient?.name}</span>
@@ -2216,7 +2216,7 @@ export default function DoctorPanel() {
                   placeholder="Describe el diagnóstico general del paciente..."
                   value={diagnosis}
                   onChange={e => setDiagnosis(e.target.value)}
-                  style={{ width: '100%', minHeight: '60px', padding: '0.55rem', borderRadius: '6px', border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#1a1715', resize: 'vertical' }}
+                  style={{ width: '100%', minHeight: '60px', padding: '0.55rem', borderRadius: '6px', border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#1a1715', resize: 'vertical' }}
                 />
               </div>
 
@@ -2239,7 +2239,7 @@ export default function DoctorPanel() {
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                   {medications.map((med, idx) => (
-                    <div key={idx} style={{ padding: '0.75rem', borderRadius: '8px', background: dark ? '#1e1c25' : '#faf8f5', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.50rem', position: 'relative' }}>
+                    <div key={idx} style={{ padding: '0.75rem', borderRadius: '8px', background: dark ? '#38211D' : '#faf8f5', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.50rem', position: 'relative' }}>
                       {medications.length > 1 && (
                         <button
                           type="button"
@@ -2257,7 +2257,7 @@ export default function DoctorPanel() {
                           placeholder="Nombre comercial o genérico del medicamento"
                           value={med.name}
                           onChange={e => handleMedicationChange(idx, 'name', e.target.value)}
-                          style={{ width: '100%', padding: '0.35rem', borderRadius: '4px', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`, background: dark ? '#0c0b0f' : '#fff', color: dark ? '#fff' : '#1a1715', fontSize: '0.85rem' }}
+                          style={{ width: '100%', padding: '0.35rem', borderRadius: '4px', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, background: dark ? '#1F1210' : '#fff', color: dark ? '#fff' : '#1a1715', fontSize: '0.85rem' }}
                         />
                       </div>
                       <div>
@@ -2267,7 +2267,7 @@ export default function DoctorPanel() {
                           placeholder="Dosis (ej: 500 mg)"
                           value={med.dose}
                           onChange={e => handleMedicationChange(idx, 'dose', e.target.value)}
-                          style={{ width: '100%', padding: '0.35rem', borderRadius: '4px', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`, background: dark ? '#0c0b0f' : '#fff', color: dark ? '#fff' : '#1a1715', fontSize: '0.85rem' }}
+                          style={{ width: '100%', padding: '0.35rem', borderRadius: '4px', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, background: dark ? '#1F1210' : '#fff', color: dark ? '#fff' : '#1a1715', fontSize: '0.85rem' }}
                         />
                       </div>
                       <div>
@@ -2277,7 +2277,7 @@ export default function DoctorPanel() {
                           placeholder="Frecuencia (ej: cada 8 hrs)"
                           value={med.frequency}
                           onChange={e => handleMedicationChange(idx, 'frequency', e.target.value)}
-                          style={{ width: '100%', padding: '0.35rem', borderRadius: '4px', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`, background: dark ? '#0c0b0f' : '#fff', color: dark ? '#fff' : '#1a1715', fontSize: '0.85rem' }}
+                          style={{ width: '100%', padding: '0.35rem', borderRadius: '4px', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, background: dark ? '#1F1210' : '#fff', color: dark ? '#fff' : '#1a1715', fontSize: '0.85rem' }}
                         />
                       </div>
                       <div>
@@ -2287,14 +2287,14 @@ export default function DoctorPanel() {
                           placeholder="Duración (ej: 7 días)"
                           value={med.duration}
                           onChange={e => handleMedicationChange(idx, 'duration', e.target.value)}
-                          style={{ width: '100%', padding: '0.35rem', borderRadius: '4px', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`, background: dark ? '#0c0b0f' : '#fff', color: dark ? '#fff' : '#1a1715', fontSize: '0.85rem' }}
+                          style={{ width: '100%', padding: '0.35rem', borderRadius: '4px', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, background: dark ? '#1F1210' : '#fff', color: dark ? '#fff' : '#1a1715', fontSize: '0.85rem' }}
                         />
                       </div>
                       <div>
                         <select
                           value={med.route}
                           onChange={e => handleMedicationChange(idx, 'route', e.target.value)}
-                          style={{ width: '100%', padding: '0.35rem', borderRadius: '4px', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`, background: dark ? '#0c0b0f' : '#fff', color: dark ? '#fff' : '#1a1715', fontSize: '0.85rem' }}
+                          style={{ width: '100%', padding: '0.35rem', borderRadius: '4px', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, background: dark ? '#1F1210' : '#fff', color: dark ? '#fff' : '#1a1715', fontSize: '0.85rem' }}
                         >
                           <option value="Oral">Vía Oral</option>
                           <option value="Cutánea">Vía Cutánea</option>
@@ -2311,7 +2311,7 @@ export default function DoctorPanel() {
                           placeholder="Instrucciones adicionales (ej: después de los alimentos)"
                           value={med.instructions}
                           onChange={e => handleMedicationChange(idx, 'instructions', e.target.value)}
-                          style={{ width: '100%', padding: '0.35rem', borderRadius: '4px', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`, background: dark ? '#0c0b0f' : '#fff', color: dark ? '#fff' : '#1a1715', fontSize: '0.85rem' }}
+                          style={{ width: '100%', padding: '0.35rem', borderRadius: '4px', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, background: dark ? '#1F1210' : '#fff', color: dark ? '#fff' : '#1a1715', fontSize: '0.85rem' }}
                         />
                       </div>
                     </div>
@@ -2326,7 +2326,7 @@ export default function DoctorPanel() {
                   placeholder="Dieta, reposo, cuidados o recomendaciones no farmacológicas..."
                   value={generalInstructions}
                   onChange={e => setGeneralInstructions(e.target.value)}
-                  style={{ width: '100%', minHeight: '50px', padding: '0.55rem', borderRadius: '6px', border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#1a1715', resize: 'vertical' }}
+                  style={{ width: '100%', minHeight: '50px', padding: '0.55rem', borderRadius: '6px', border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#1a1715', resize: 'vertical' }}
                 />
               </div>
 
@@ -2337,7 +2337,7 @@ export default function DoctorPanel() {
                   type="date"
                   value={validUntil}
                   onChange={e => setValidUntil(e.target.value)}
-                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#1a1715' }}
+                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#1a1715' }}
                 />
               </div>
 
@@ -2368,7 +2368,7 @@ export default function DoctorPanel() {
                   </label>
 
                   {useProfileSignature && (
-                    <div style={{ padding: '0.5rem', borderRadius: '6px', background: dark ? '#1e1c25' : '#faf8f5', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`, fontSize: '0.8rem' }}>
+                    <div style={{ padding: '0.5rem', borderRadius: '6px', background: dark ? '#38211D' : '#faf8f5', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, fontSize: '0.8rem' }}>
                       {savedSignature ? (
                         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                           <span style={{ color: '#10b981', fontWeight: '600' }}>✓ Firma de perfil disponible:</span>
@@ -2401,8 +2401,8 @@ export default function DoctorPanel() {
                         }}
                         style={{
                           width: '100%', padding: '0.35rem', borderRadius: '8px',
-                          background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#1a1715',
-                          border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`, fontSize: '0.85rem'
+                          background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#1a1715',
+                          border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, fontSize: '0.85rem'
                         }}
                       />
                       {tempSignature && (
@@ -2422,7 +2422,7 @@ export default function DoctorPanel() {
                 <button type="submit" disabled={actionLoading} style={{ flex: 1, padding: '0.7rem', borderRadius: '8px', border: 'none', background: 'var(--color-primary-500)', color: 'white', fontWeight: '700', cursor: 'pointer' }}>
                   {actionLoading ? 'Registrando...' : 'Emitir Receta Certificada'}
                 </button>
-                <button type="button" onClick={() => { setShowPrescriptionModal(false); setSelectedAppt(null) }} style={{ padding: '0.7rem 1.25rem', borderRadius: '8px', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`, background: 'transparent', color: dark ? '#fff' : '#1a1715', fontWeight: '600', cursor: 'pointer' }}>
+                <button type="button" onClick={() => { setShowPrescriptionModal(false); setSelectedAppt(null) }} style={{ padding: '0.7rem 1.25rem', borderRadius: '8px', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, background: 'transparent', color: dark ? '#fff' : '#1a1715', fontWeight: '600', cursor: 'pointer' }}>
                   Cancelar
                 </button>
               </div>
@@ -2441,8 +2441,8 @@ export default function DoctorPanel() {
             <div style={{
               width: '100%', maxWidth: '420px',
               padding: '1.5rem', borderRadius: '16px',
-              background: dark ? '#141319' : '#ffffff',
-              border: `1px solid ${dark ? '#1e1c25' : '#e2e8f0'}`,
+              background: dark ? '#2B1815' : '#ffffff',
+              border: `1px solid ${dark ? '#38211D' : '#e2e8f0'}`,
               boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
@@ -2473,7 +2473,7 @@ export default function DoctorPanel() {
                     style={{
                       width: '100%', padding: '0.65rem 0.85rem', borderRadius: '8px',
                       border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
-                      background: dark ? '#1e1c25' : '#ffffff',
+                      background: dark ? '#38211D' : '#ffffff',
                       color: dark ? '#ffffff' : '#0f172a', fontSize: '0.9rem', outline: 'none'
                     }}
                   />
@@ -2490,7 +2490,7 @@ export default function DoctorPanel() {
                     style={{
                       width: '100%', padding: '0.65rem 0.85rem', borderRadius: '8px',
                       border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
-                      background: dark ? '#1e1c25' : '#ffffff',
+                      background: dark ? '#38211D' : '#ffffff',
                       color: dark ? '#ffffff' : '#0f172a', fontSize: '0.9rem', outline: 'none'
                     }}
                   />
@@ -2505,7 +2505,7 @@ export default function DoctorPanel() {
                     flex: 1, padding: '0.75rem', borderRadius: '10px', border: 'none',
                     background: 'linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700))',
                     color: 'white', fontWeight: '700', fontSize: '0.9rem', cursor: exportingPdf ? 'not-allowed' : 'pointer',
-                    boxShadow: '0 4px 12px rgba(135,18,51,0.25)',
+                    boxShadow: '0 4px 12px rgba(122,67,58,0.25)',
                   }}
                 >
                   {exportingPdf ? 'Generando PDF...' : '📄 Generar Reporte PDF'}

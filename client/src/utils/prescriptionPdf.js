@@ -69,14 +69,14 @@ export async function generatePrescriptionPdf(prescription, patientName, patient
     })
 
     // ── Top Border line ──
-    pdf.setDrawColor(135, 18, 51) // #871233 Guinda
+    pdf.setDrawColor(122, 67, 58) // #7A433A Guinda
     pdf.setLineWidth(1)
     pdf.line(margin, 35, pageW - margin, 35)
 
     // ── Document Title & Folio ──
     pdf.setFont('helvetica', 'bold')
     pdf.setFontSize(18)
-    pdf.setTextColor(135, 18, 51)
+    pdf.setTextColor(122, 67, 58)
     pdf.text('RECETA MÉDICA', margin, y)
 
     pdf.setFont('helvetica', 'normal')
@@ -112,7 +112,7 @@ export async function generatePrescriptionPdf(prescription, patientName, patient
     // ── Patient Info Block ──
     pdf.setFont('helvetica', 'bold')
     pdf.setFontSize(11)
-    pdf.setTextColor(135, 18, 51)
+    pdf.setTextColor(122, 67, 58)
     pdf.text('DATOS DEL PACIENTE', margin, y)
     y += 5
     pdf.setDrawColor(232, 221, 208) // surface-200
@@ -131,7 +131,7 @@ export async function generatePrescriptionPdf(prescription, patientName, patient
     // ── Diagnosis Block ──
     pdf.setFont('helvetica', 'bold')
     pdf.setFontSize(11)
-    pdf.setTextColor(135, 18, 51)
+    pdf.setTextColor(122, 67, 58)
     pdf.text('DIAGNÓSTICO', margin, y)
     y += 5
     pdf.line(margin, y, pageW - margin, y)
@@ -148,7 +148,7 @@ export async function generatePrescriptionPdf(prescription, patientName, patient
     // ── Medications Table Block ──
     pdf.setFont('helvetica', 'bold')
     pdf.setFontSize(11)
-    pdf.setTextColor(135, 18, 51)
+    pdf.setTextColor(122, 67, 58)
     pdf.text('TRATAMIENTO Y PRESCRIPCIÓN', margin, y)
     y += 5
     pdf.line(margin, y, pageW - margin, y)
@@ -158,13 +158,13 @@ export async function generatePrescriptionPdf(prescription, patientName, patient
     // Header for treatment table
     pdf.setFont('helvetica', 'bold')
     pdf.setFontSize(9)
-    pdf.setTextColor(135, 18, 51)
+    pdf.setTextColor(122, 67, 58)
     pdf.text('Medicamento / Vía', margin + 2, y)
     pdf.text('Dosis / Frecuencia', margin + 70, y)
     pdf.text('Duración / Indicaciones', margin + 120, y)
     
     y += 4
-    pdf.setDrawColor(135, 18, 51)
+    pdf.setDrawColor(122, 67, 58)
     pdf.setLineWidth(0.5)
     pdf.line(margin, y, pageW - margin, y)
     y += 6
@@ -179,7 +179,7 @@ export async function generatePrescriptionPdf(prescription, patientName, patient
       if (y > pageH - 50) {
         pdf.addPage()
         // Draw logo headers on new page
-        pdf.setDrawColor(135, 18, 51)
+        pdf.setDrawColor(122, 67, 58)
         pdf.setLineWidth(1)
         pdf.line(margin, 25, pageW - margin, 25)
         y = 35
@@ -219,7 +219,7 @@ export async function generatePrescriptionPdf(prescription, patientName, patient
       
       pdf.setFont('helvetica', 'bold')
       pdf.setFontSize(10)
-      pdf.setTextColor(135, 18, 51)
+      pdf.setTextColor(122, 67, 58)
       pdf.text('Indicaciones generales:', margin, y)
       y += 5
       
@@ -287,12 +287,12 @@ export async function generatePrescriptionPdf(prescription, patientName, patient
     pdf.text(`Esta receta es válida hasta: ${validUntilDate}`, pageW / 2, footerStartY + 16, { align: 'center' })
 
     // Footer bottom banner
-    pdf.setDrawColor(135, 18, 51)
+    pdf.setDrawColor(122, 67, 58)
     pdf.setLineWidth(0.5)
     pdf.line(margin, pageH - 12, pageW - margin, pageH - 12)
     pdf.setFontSize(7)
     pdf.setTextColor(148, 163, 184)
-    pdf.text('Plataforma Jóvenes con Salud — Gobierno del Estado de Tamaulipas', margin, pageH - 7)
+    pdf.text('Plataforma HeartBliss — Cuida tu Corazón — Gobierno del Estado de Tamaulipas', margin, pageH - 7)
     pdf.text('Receta Electrónica Certificada', pageW - margin, pageH - 7, { align: 'right' })
 
     // Save or Share PDF
@@ -307,7 +307,7 @@ export async function generatePrescriptionPdf(prescription, patientName, patient
       })
       await Share.share({
         title: 'Receta Médica',
-        text: `Tu receta médica folio ${prescription.folio} emitida por Jóvenes con Salud.`,
+        text: `Tu receta médica folio ${prescription.folio} emitida por HeartBliss — Cuida tu Corazón.`,
         url: result.uri,
         dialogTitle: 'Abrir/Compartir Receta',
       })

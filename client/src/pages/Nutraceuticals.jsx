@@ -59,7 +59,7 @@ function CardCarousel({ images, productName, dark }) {
       {/* Official Sello Badge */}
       <div style={{
         position: 'absolute', top: '9px', left: '9px',
-        background: dark ? 'rgba(24, 8, 15, 0.92)' : 'rgba(135, 18, 51, 0.92)',
+        background: dark ? 'rgba(24, 8, 15, 0.92)' : 'rgba(122, 67, 58, 0.92)',
         color: dark ? '#fca5b7' : 'white',
         border: dark ? '1px solid rgba(224,59,96,0.5)' : '1px solid rgba(255,255,255,0.4)',
         fontSize: '0.66rem', fontWeight: '800', padding: '3px 8px',
@@ -179,7 +179,7 @@ function ProductCard({ product, dark }) {
       <div style={{ padding: '10px 14px 14px', flex: 1, display: 'flex', flexDirection: 'column', gap: '7px' }}>
         {/* Price row */}
         <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
-          <span style={{ fontSize: '1.3rem', fontWeight: '800', color: dark ? '#fca5b7' : '#871233', letterSpacing: '-0.01em' }}>
+          <span style={{ fontSize: '1.3rem', fontWeight: '800', color: dark ? '#fca5b7' : '#7A433A', letterSpacing: '-0.01em' }}>
             {formatPrice(product.price)}
           </span>
           {product.price && <span style={{ fontSize: '0.72rem', color: dark ? 'var(--color-surface-500)' : '#94a3b8', fontWeight: '600' }}>MXN</span>}
@@ -196,8 +196,8 @@ function ProductCard({ product, dark }) {
         {product.benefits?.length > 0 && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
             {product.benefits.slice(0, 2).map((b, i) => (
-              <span key={i} style={{ fontSize: '0.75rem', color: dark ? '#fca5b7' : '#871233', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <span style={{ color: dark ? '#fca5b7' : '#871233' }}>✓</span> {b}
+              <span key={i} style={{ fontSize: '0.75rem', color: dark ? '#fca5b7' : '#7A433A', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <span style={{ color: dark ? '#fca5b7' : '#7A433A' }}>✓</span> {b}
               </span>
             ))}
           </div>
@@ -213,18 +213,18 @@ function ProductCard({ product, dark }) {
             style={{
               flex: 1, padding: '8px 0', borderRadius: '8px', fontSize: '0.8rem',
               fontWeight: '700', textAlign: 'center', textDecoration: 'none',
-              border: dark ? '1.5px solid var(--color-primary-500)' : '1.5px solid #871233',
-              color: dark ? '#fca5b7' : '#871233',
+              border: dark ? '1.5px solid var(--color-primary-500)' : '1.5px solid #7A433A',
+              color: dark ? '#fca5b7' : '#7A433A',
               background: dark ? 'var(--color-surface-200)' : 'white',
               transition: 'all 0.2s',
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.background = dark ? 'var(--color-primary-500)' : '#871233'
+              e.currentTarget.style.background = dark ? 'var(--color-primary-500)' : '#7A433A'
               e.currentTarget.style.color = 'white'
             }}
             onMouseLeave={e => {
               e.currentTarget.style.background = dark ? 'var(--color-surface-200)' : 'white'
-              e.currentTarget.style.color = dark ? '#fca5b7' : '#871233'
+              e.currentTarget.style.color = dark ? '#fca5b7' : '#7A433A'
             }}
           >
             Ver detalles
@@ -236,7 +236,7 @@ function ProductCard({ product, dark }) {
                 flex: 1.4, padding: '8px 0', borderRadius: '8px', border: 'none',
                 background: dark
                   ? 'linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700))'
-                  : 'linear-gradient(135deg, #871233, #5e0c23)',
+                  : 'linear-gradient(135deg, #7A433A, #522B24)',
                 color: 'white', fontSize: '0.8rem', fontWeight: '700',
                 textAlign: 'center', textDecoration: 'none',
                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px',
@@ -272,10 +272,10 @@ function FilterBar({ filter, setFilter, dark }) {
             padding: '6px 18px', borderRadius: '30px', fontSize: '0.8rem', fontWeight: '700',
             cursor: 'pointer', border: '1.5px solid',
             borderColor: filter === f.key
-              ? (dark ? 'var(--color-primary-500)' : '#871233')
+              ? (dark ? 'var(--color-primary-500)' : '#7A433A')
               : (dark ? 'var(--color-surface-300)' : '#e2d8d0'),
             background: filter === f.key
-              ? (dark ? 'var(--color-primary-500)' : '#871233')
+              ? (dark ? 'var(--color-primary-500)' : '#7A433A')
               : (dark ? 'var(--color-surface-200)' : 'white'),
             color: filter === f.key
               ? 'white'
@@ -318,7 +318,7 @@ export default function Nutraceuticals() {
       <section style={{
         background: dark
           ? 'linear-gradient(135deg, #18080f 0%, #300614 60%, #1e1308 100%)'
-          : 'linear-gradient(135deg, #750f2c 0%, #871233 60%, #9a7a4e 100%)',
+          : 'linear-gradient(135deg, #66362E 0%, #7A433A 60%, #9a7a4e 100%)',
         padding: '3.75rem 1.5rem 3.25rem',
         position: 'relative', overflow: 'hidden',
         borderBottom: dark ? '1px solid rgba(224, 59, 96, 0.35)' : 'none',

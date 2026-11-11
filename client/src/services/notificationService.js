@@ -91,7 +91,7 @@ class NotificationService {
       try {
         await LocalNotifications.schedule({
           notifications: [{
-            title: notification.title || 'Jóvenes con Salud',
+            title: notification.title || 'HeartBliss — Cuida tu Corazón',
             body: notification.body || '',
             id: Math.floor(Math.random() * 100000),
             sound: 'default',

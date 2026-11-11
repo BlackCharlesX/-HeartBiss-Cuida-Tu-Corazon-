@@ -272,8 +272,8 @@ export default function ChatBubble() {
         <div style={{
           width: '360px',
           height: '480px',
-          background: dark ? '#141319' : '#fff',
-          border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
+          background: dark ? '#2B1815' : '#fff',
+          border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
           borderRadius: '16px',
           boxShadow: '0 12px 40px rgba(0,0,0,0.25)',
           display: 'flex',
@@ -332,7 +332,7 @@ export default function ChatBubble() {
           </div>
 
           {/* Body */}
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, background: dark ? '#0c0b0f' : '#faf8f5' }}>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, background: dark ? '#1F1210' : '#faf8f5' }}>
             {user.role === 'user' && !hasDoctor ? (
               
               /* Patient has no doctor assigned */
@@ -348,15 +348,15 @@ export default function ChatBubble() {
 
               /* Doctor contact selection menu */
               <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                <div style={{ padding: '0.5rem 0.75rem', borderBottom: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`, background: dark ? '#141319' : '#fff' }}>
+                <div style={{ padding: '0.5rem 0.75rem', borderBottom: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`, background: dark ? '#2B1815' : '#fff' }}>
                   <input
                     value={patientSearch}
                     onChange={e => setPatientSearch(e.target.value)}
                     placeholder="Buscar paciente por nombre..."
                     style={{
                       width: '100%', padding: '0.4rem 0.75rem', borderRadius: '6px',
-                      border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
-                      background: dark ? '#1e1c25' : '#faf8f5', color: dark ? '#fff' : '#1a1715',
+                      border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+                      background: dark ? '#38211D' : '#faf8f5', color: dark ? '#fff' : '#1a1715',
                       fontSize: '0.8rem', outline: 'none'
                     }}
                   />
@@ -375,7 +375,7 @@ export default function ChatBubble() {
                           transition: 'background 0.15s',
                           marginBottom: '0.25rem'
                         }}
-                        onMouseEnter={e => e.currentTarget.style.background = dark ? '#1e1c25' : '#faf8f5'}
+                        onMouseEnter={e => e.currentTarget.style.background = dark ? '#38211D' : '#faf8f5'}
                         onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                       >
                         <div style={{
@@ -433,9 +433,9 @@ export default function ChatBubble() {
                             borderRadius: '12px',
                             borderTopRightRadius: isMe ? '2px' : '12px',
                             borderTopLeftRadius: isMe ? '12px' : '2px',
-                            background: isMe ? primaryColor : (dark ? '#1e1c25' : '#fff'),
+                            background: isMe ? primaryColor : (dark ? '#38211D' : '#fff'),
                             color: isMe ? '#white' : (dark ? '#e5dfef' : '#1a1715'),
-                            border: isMe ? 'none' : `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
+                            border: isMe ? 'none' : `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
                             fontSize: '0.8rem',
                             lineHeight: 1.4,
                             wordBreak: 'break-word',
@@ -459,8 +459,8 @@ export default function ChatBubble() {
                   onSubmit={handleSendMessage}
                   style={{
                     padding: '0.75rem',
-                    borderTop: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`,
-                    background: dark ? '#141319' : '#fff',
+                    borderTop: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`,
+                    background: dark ? '#2B1815' : '#fff',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.5rem'
@@ -474,8 +474,8 @@ export default function ChatBubble() {
                       flex: 1,
                       padding: '0.45rem 0.75rem',
                       borderRadius: '8px',
-                      border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
-                      background: dark ? '#1e1c25' : '#faf8f5',
+                      border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+                      background: dark ? '#38211D' : '#faf8f5',
                       color: dark ? '#fff' : '#1a1715',
                       fontSize: '0.8rem',
                       outline: 'none'

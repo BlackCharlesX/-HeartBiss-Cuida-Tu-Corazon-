@@ -82,19 +82,20 @@ export default function Register() {
         boxShadow: 'var(--shadow-elevated)', border: '1px solid var(--color-surface-200)',
       }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <img src={dark ? logoDark : logoLight} alt="Jóvenes con Salud" style={{
-            height: '72px',
+          <img src={dark ? logoDark : logoLight} alt="HeartBliss — Cuida tu Corazón" style={{
+            height: '82px',
             width: 'auto',
             maxWidth: '180px',
             margin: '0 auto 1rem',
             objectFit: 'contain',
-            filter: 'drop-shadow(0 4px 12px rgba(135,18,51,0.15))'
+            borderRadius: '18px',
+            filter: 'drop-shadow(0 4px 12px rgba(122, 67, 58, 0.2))'
           }} />
-          <h1 style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--color-surface-900)' }}>
+          <h1 style={{ fontSize: '1.5rem', fontWeight: '800', color: 'var(--color-surface-900)' }}>
             Crear Cuenta
           </h1>
           <p style={{ fontSize: '0.9rem', color: 'var(--color-surface-500)', marginTop: '0.25rem' }}>
-            Únete y comienza tu seguimiento de salud
+            Únete a HeartBliss y comienza tu seguimiento de salud
           </p>
         </div>
 
@@ -311,13 +312,13 @@ export default function Register() {
             disabled={isLoading}
             style={{
               marginTop: '0.5rem', padding: '0.875rem',
-              borderRadius: 'var(--radius-lg)', border: 'none',
+              borderRadius: '9999px', border: 'none',
               background: isLoading
                 ? 'var(--color-surface-300)'
-                : 'linear-gradient(135deg, var(--color-accent-500), var(--color-primary-500))',
-              color: 'white', fontSize: '0.95rem', fontWeight: '600',
+                : (dark ? 'linear-gradient(135deg, #D6AA65, #C89953)' : 'linear-gradient(135deg, #7A433A, #522B24)'),
+              color: isLoading ? 'white' : (dark ? '#1F1210' : 'white'), fontSize: '0.95rem', fontWeight: '700',
               cursor: isLoading ? 'not-allowed' : 'pointer',
-              boxShadow: isLoading ? 'none' : '0 2px 10px rgb(5 150 105 / 0.3)',
+              boxShadow: isLoading ? 'none' : '0 4px 14px rgba(122, 67, 58, 0.3)',
               transition: 'all 0.2s ease',
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
             }}

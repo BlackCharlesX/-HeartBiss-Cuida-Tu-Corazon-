@@ -120,14 +120,14 @@ export default function WelcomeChecklist({ stats, records, user, onStartTour, on
           width: '40px', height: '40px', borderRadius: '12px',
           background: 'linear-gradient(135deg, var(--color-primary-500), var(--color-accent-500))',
           display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white',
-          boxShadow: '0 4px 10px rgba(135, 18, 51, 0.2)', flexShrink: 0,
+          boxShadow: '0 4px 10px rgba(122, 67, 58, 0.2)', flexShrink: 0,
         }}>
           <FaRocket size={18} />
         </div>
         <div style={{ flex: 1, paddingRight: '2rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
             <h3 style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--color-surface-900)' }}>
-              Tus Primeros Pasos en Jóvenes con Salud 🚀
+              Tus Primeros Pasos en HeartBliss — Cuida tu Corazón 🚀
             </h3>
             <span style={{ fontSize: '0.8rem', fontWeight: '800', color: 'var(--color-primary-500)' }}>
               {progressPercent}% completado

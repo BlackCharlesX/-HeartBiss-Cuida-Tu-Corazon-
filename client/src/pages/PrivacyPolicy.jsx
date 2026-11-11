@@ -65,7 +65,7 @@ export default function PrivacyPolicy() {
           Aviso de Privacidad Integral
         </h1>
         <p style={{ color: 'var(--color-surface-500)', fontSize: '0.95rem', maxWidth: '620px', margin: '0 auto', lineHeight: '1.6' }}>
-          Conoce de qué manera el Instituto de la Juventud de Tamaulipas recopila, salvaguarda, procesa y protege la información médica y personal de los usuarios en la plataforma <strong>Jóvenes con Salud</strong>.
+          Conoce de qué manera el Instituto de la Juventud de Tamaulipas recopila, salvaguarda, procesa y protege la información médica y personal de los usuarios en la plataforma <strong>HeartBliss — Cuida tu Corazón</strong>.
         </p>
       </div>
 
@@ -80,7 +80,7 @@ export default function PrivacyPolicy() {
           1. Responsable del Tratamiento de los Datos Personales
         </h2>
         <p style={paragraphStyle}>
-          El <strong>Instituto de la Juventud de Tamaulipas (IJT)</strong>, órgano público desconcentrado del Gobierno del Estado de Tamaulipas, con domicilio oficial en Ciudad Victoria, Tamaulipas, es el sujeto obligado y responsable del tratamiento, resguardo y confidencialidad de los datos personales y datos personales sensibles recabados a través de la plataforma web y aplicación móvil <strong>Jóvenes con Salud</strong>.
+          El <strong>Instituto de la Juventud de Tamaulipas (IJT)</strong>, órgano público desconcentrado del Gobierno del Estado de Tamaulipas, con domicilio oficial en Ciudad Victoria, Tamaulipas, es el sujeto obligado y responsable del tratamiento, resguardo y confidencialidad de los datos personales y datos personales sensibles recabados a través de la plataforma web y aplicación móvil <strong>HeartBliss — Cuida tu Corazón</strong>.
         </p>
         <p style={paragraphStyle}>
           El tratamiento de la información se apega estrictamente a lo establecido en la <em>Ley General de Protección de Datos Personales en Posesión de Sujetos Obligados (LGPDPPSO)</em>, la legislación estatal aplicable y las directrices de la <em>Norma Oficial Mexicana NOM-004-SSA3-2012</em> relativa al expediente clínico.
@@ -201,7 +201,7 @@ export default function PrivacyPolicy() {
           Para ejercer tus Derechos ARCO o solicitar la baja definitiva de tu cuenta y registros clínicos, puedes dirigir tu solicitud a la Unidad de Transparencia y Privacidad del IJT:
         </p>
         <div style={{
-          background: dark ? 'rgba(135, 18, 51, 0.15)' : 'var(--color-primary-50)',
+          background: dark ? 'rgba(122, 67, 58, 0.15)' : 'var(--color-primary-50)',
           padding: '1rem 1.25rem',
           borderRadius: '12px',
           border: '1px solid var(--color-primary-200)',

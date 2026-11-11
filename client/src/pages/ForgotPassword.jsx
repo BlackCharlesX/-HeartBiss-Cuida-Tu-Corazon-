@@ -49,15 +49,16 @@ export default function ForgotPassword() {
       }}>
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <img src={dark ? logoDark : logoLight} alt="Jóvenes con Salud" style={{
-            height: '72px',
+          <img src={dark ? logoDark : logoLight} alt="HeartBliss — Cuida tu Corazón" style={{
+            height: '82px',
             width: 'auto',
             maxWidth: '180px',
             margin: '0 auto 1rem',
             objectFit: 'contain',
-            filter: 'drop-shadow(0 4px 12px rgba(135,18,51,0.15))'
+            borderRadius: '18px',
+            filter: 'drop-shadow(0 4px 12px rgba(122, 67, 58, 0.2))'
           }} />
-          <h1 style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--color-surface-900)' }}>
+          <h1 style={{ fontSize: '1.5rem', fontWeight: '800', color: 'var(--color-surface-900)' }}>
             Recuperar Cuenta
           </h1>
           <p style={{ fontSize: '0.9rem', color: 'var(--color-surface-500)', marginTop: '0.25rem' }}>

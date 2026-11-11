@@ -1,6 +1,6 @@
 {
   "appId": "com.ijt.jovenesconsalud",
-  "appName": "Jovenes con Salud",
+  "appName": "HeartBliss - Cuida tu Corazón",
   "webDir": "dist",
   "server": {
     "androidScheme": "http",

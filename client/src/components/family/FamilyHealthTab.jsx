@@ -163,7 +163,7 @@ export default function FamilyHealthTab({ memberId }) {
             visibility: startIndex > 0 ? 'visible' : 'hidden',
             flexShrink: 0,
           }}
-          onMouseEnter={e => { e.currentTarget.style.background = '#f8fafc'; e.currentTarget.style.color = '#871233' }}
+          onMouseEnter={e => { e.currentTarget.style.background = '#f8fafc'; e.currentTarget.style.color = '#7A433A' }}
           onMouseLeave={e => { e.currentTarget.style.background = 'white'; e.currentTarget.style.color = '#64748b' }}
         >
           <FaChevronLeft size={14} />
@@ -285,7 +285,7 @@ export default function FamilyHealthTab({ memberId }) {
             visibility: startIndex < TYPES.length - 4 ? 'visible' : 'hidden',
             flexShrink: 0,
           }}
-          onMouseEnter={e => { e.currentTarget.style.background = '#f8fafc'; e.currentTarget.style.color = '#871233' }}
+          onMouseEnter={e => { e.currentTarget.style.background = '#f8fafc'; e.currentTarget.style.color = '#7A433A' }}
           onMouseLeave={e => { e.currentTarget.style.background = 'white'; e.currentTarget.style.color = '#64748b' }}
         >
           <FaChevronRight size={14} />
@@ -463,7 +463,7 @@ export default function FamilyHealthTab({ memberId }) {
               </div>
               <button type="submit" disabled={saving} style={{
                 padding: '0.65rem', borderRadius: '10px', border: 'none',
-                background: 'linear-gradient(135deg, #871233, #4e0413)',
+                background: 'linear-gradient(135deg, #7A433A, #3A241F)',
                 color: 'white', fontSize: '0.88rem', fontWeight: '700',
                 cursor: saving ? 'not-allowed' : 'pointer', opacity: saving ? 0.7 : 1,
               }}>{saving ? 'Guardando...' : 'Guardar Registro'}</button>

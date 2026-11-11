@@ -7,7 +7,7 @@ export function generateDoctorPatientsSummaryPDF({ doctor = {}, patients = [] })
   const margin = 14
   let y = margin
 
-  const primaryColor = [135, 18, 51]    // Guinda #871233
+  const primaryColor = [122, 67, 58]    // Guinda #7A433A
   const darkSurface = [30, 41, 59]      // Slate #1e293b
   const mutedText = [100, 116, 139]     // Slate #64748b
   const lightBg = [248, 250, 252]
@@ -19,7 +19,7 @@ export function generateDoctorPatientsSummaryPDF({ doctor = {}, patients = [] })
   pdf.setTextColor(255, 255, 255)
   pdf.setFont('helvetica', 'bold')
   pdf.setFontSize(14)
-  pdf.text('JÓVENES CON SALUD — RESUMEN CONSOLIDADO DE PACIENTES', margin, 12)
+  pdf.text('HEARTBLISS — CUIDA TU CORAZÓN — RESUMEN CONSOLIDADO DE PACIENTES', margin, 12)
 
   pdf.setFontSize(8)
   pdf.setFont('helvetica', 'normal')
@@ -120,7 +120,7 @@ export function generateDoctorPatientsSummaryPDF({ doctor = {}, patients = [] })
 
   pdf.setFontSize(7)
   pdf.setTextColor(148, 163, 184)
-  pdf.text('Reporte global confidencial generado automáticamente por la plataforma Jóvenes con Salud.', pageWidth / 2, pageHeight - 8, { align: 'center' })
+  pdf.text('Reporte global confidencial generado automáticamente por la plataforma HeartBliss — Cuida tu Corazón.', pageWidth / 2, pageHeight - 8, { align: 'center' })
 
   pdf.save(`Resumen_Pacientes_Dr_${(doctor.name || 'medico').replace(/[^a-zA-Z0-9]/g, '_')}_${new Date().toISOString().slice(0, 10)}.pdf`)
 }

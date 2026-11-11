@@ -9,7 +9,7 @@ const categories = [
   { label: 'Sobrepeso', range: '25.0 – 29.9', color: '#c2a378', bg: '#c2a37815', emoji: '💛' },
   { label: 'Obesidad Grado I', range: '30.0 – 34.9', color: '#f59e0b', bg: '#f59e0b15', emoji: '🟠' },
   { label: 'Obesidad Grado II', range: '35.0 – 39.9', color: '#d65c7e', bg: '#d65c7e15', emoji: '🔴' },
-  { label: 'Obesidad Grado III', range: '≥ 40.0', color: '#871233', bg: '#87123315', emoji: '🟣' },
+  { label: 'Obesidad Grado III', range: '≥ 40.0', color: '#7A433A', bg: '#7A433A15', emoji: '🟣' },
 ]
 
 function getCategory(bmi) {

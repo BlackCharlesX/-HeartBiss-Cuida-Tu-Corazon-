@@ -38,7 +38,7 @@ export async function generateClinicalReportPDF({
   let y = margin
 
   // Palette
-  const primaryColor = [135, 18, 51]    // Guinda #871233
+  const primaryColor = [122, 67, 58]    // Guinda #7A433A
   const darkSurface = [30, 41, 59]      // Slate #1e293b
   const mutedText = [100, 116, 139]     // Slate #64748b
   const lightBg = [248, 250, 252]       // Slate #f8fafc
@@ -68,7 +68,7 @@ export async function generateClinicalReportPDF({
   pdf.setTextColor(255, 255, 255)
   pdf.setFont('helvetica', 'bold')
   pdf.setFontSize(11.5)
-  pdf.text('JÓVENES CON SALUD — EXPEDIENTE CLÍNICO Y REPORTE DE SEGUIMIENTO', margin, 11)
+  pdf.text('HEARTBLISS — CUIDA TU CORAZÓN — EXPEDIENTE CLÍNICO Y REPORTE DE SEGUIMIENTO', margin, 11)
 
   pdf.setFontSize(7.5)
   pdf.setFont('helvetica', 'normal')
@@ -103,7 +103,7 @@ export async function generateClinicalReportPDF({
   pdf.setTextColor(...mutedText)
   pdf.text(`Cédula Prof: ${doctor.professionalLicense || 'MÉDICO-REF'}`, margin + 5, y + 18)
   pdf.text(`Especialidad: ${doctor.specialty || 'Medicina General'}`, margin + 5, y + 24)
-  pdf.text(`Institución: Jóvenes con Salud - ECE`, margin + 5, y + 30)
+  pdf.text(`Institución: HeartBliss — Cuida tu Corazón - ECE`, margin + 5, y + 30)
 
   // Columna Derecha: Ficha de Identificación del Paciente
   const colRightX = margin + 92
@@ -182,7 +182,7 @@ export async function generateClinicalReportPDF({
     pdf.text('2. DIAGNÓSTICOS CLÍNICOS Y CONDICIONES (CIE-10)', margin, y)
     y += 4
 
-    pdf.setFillColor(135, 18, 51)
+    pdf.setFillColor(122, 67, 58)
     pdf.rect(margin, y, pageWidth - (margin * 2), 5.5, 'F')
     pdf.setTextColor(255, 255, 255)
     pdf.setFontSize(7)
@@ -432,7 +432,7 @@ export async function generateClinicalReportPDF({
 
   pdf.setFontSize(6.5)
   pdf.setTextColor(148, 163, 184)
-  pdf.text('Documento oficial generado por la plataforma Jóvenes con Salud conforme a la NOM-024-SSA3-2012. Reservado para uso médico exclusivo.', pageWidth / 2, pageHeight - 6, { align: 'center' })
+  pdf.text('Documento oficial generado por la plataforma HeartBliss — Cuida tu Corazón conforme a la NOM-024-SSA3-2012. Reservado para uso médico exclusivo.', pageWidth / 2, pageHeight - 6, { align: 'center' })
 
   const cleanName = (patient.name || 'paciente').replace(/[^a-zA-Z0-9]/g, '_')
   pdf.save(`Expediente_Clinico_${cleanName}_${new Date().toISOString().slice(0, 10)}.pdf`)

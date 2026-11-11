@@ -25,8 +25,8 @@ import TamaulipasMap from '../components/admin/TamaulipasMap'
 
 const SIDEBAR_W = 240
 const SIDEBAR_BG = '#1a1520'
-const SIDEBAR_ACTIVE = '#871233'
-const SIDEBAR_HOVER = 'rgba(135,18,51,0.2)'
+const SIDEBAR_ACTIVE = '#7A433A'
+const SIDEBAR_HOVER = 'rgba(122,67,58,0.2)'
 const CARD_RADIUS = '16px'
 
 // ═══════════════════════════════════════════════════════
@@ -58,7 +58,7 @@ export default function AdminPanel() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="admin-layout" style={{ display: 'flex', minHeight: '100vh', background: dark ? '#0c0b0f' : '#f1ede6' }}>
+    <div className="admin-layout" style={{ display: 'flex', minHeight: '100vh', background: dark ? '#1F1210' : '#f1ede6' }}>
       {/* Sidebar overlay backdrop for mobile */}
       {sidebarOpen && (
         <div 
@@ -86,7 +86,7 @@ export default function AdminPanel() {
         {/* Brand */}
         <div style={{ padding: '1.5rem 1.25rem 1rem', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <FaHeartbeat style={{ color: '#e03b60', fontSize: '1.35rem' }} />
+            <FaHeartbeat style={{ color: '#C89953', fontSize: '1.35rem' }} />
             <div>
               <div style={{ color: '#fff', fontWeight: '800', fontSize: '1rem', letterSpacing: '-0.01em' }}>Panel IJT</div>
               <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem', fontWeight: '600' }}>Administración</div>
@@ -138,7 +138,7 @@ export default function AdminPanel() {
             padding: '1rem 2rem',
             borderBottom: `1px solid ${dark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`,
             display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-            background: dark ? '#141319' : '#fff',
+            background: dark ? '#2B1815' : '#fff',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
@@ -152,7 +152,7 @@ export default function AdminPanel() {
             </button>
             <div>
               <h1 style={{ fontSize: '1.35rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715', margin: 0 }}>Panel de Administración</h1>
-              <p style={{ fontSize: '0.75rem', color: dark ? 'rgba(255,255,255,0.4)' : '#a89580', margin: 0 }}>Jóvenes con Salud — Instituto de la Juventud de Tamaulipas</p>
+              <p style={{ fontSize: '0.75rem', color: dark ? 'rgba(255,255,255,0.4)' : '#a89580', margin: 0 }}>HeartBliss — Cuida tu Corazón — Instituto de la Juventud de Tamaulipas</p>
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
@@ -176,8 +176,8 @@ export default function AdminPanel() {
               }}
               style={{
                 padding: '0.4rem 0.6rem', borderRadius: '8px', fontSize: '0.78rem', fontWeight: '700',
-                border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
-                background: dark ? '#1e1c25' : '#faf8f5', color: dark ? '#fff' : '#1a1715',
+                border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+                background: dark ? '#38211D' : '#faf8f5', color: dark ? '#fff' : '#1a1715',
                 cursor: 'pointer', outline: 'none',
               }}
             >
@@ -191,8 +191,8 @@ export default function AdminPanel() {
             <div style={{
               display: 'flex', alignItems: 'center', gap: '0.6rem',
               padding: '0.5rem 1rem', borderRadius: '12px',
-              background: dark ? 'rgba(224,59,96,0.12)' : '#87123312',
-              color: dark ? '#e03b60' : '#871233',
+              background: dark ? 'rgba(224,59,96,0.12)' : '#7A433A12',
+              color: dark ? '#C89953' : '#7A433A',
               fontSize: '0.8rem', fontWeight: '700',
             }}>
               <FaHeartbeat size={14} />
@@ -225,9 +225,9 @@ export default function AdminPanel() {
 // ═══════════════════════════════════════════════════════
 
 const cardStyle = (dark) => ({
-  background: dark ? '#141319' : '#fff',
+  background: dark ? '#2B1815' : '#fff',
   borderRadius: CARD_RADIUS,
-  border: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`,
+  border: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`,
   boxShadow: dark ? '0 2px 12px rgba(0,0,0,0.3)' : '0 1px 4px rgba(0,0,0,0.04)',
 })
 
@@ -241,8 +241,8 @@ function SearchBar({ value, onChange, placeholder, dark }) {
         placeholder={placeholder || 'Buscar...'}
         style={{
           width: '100%', padding: '0.6rem 1rem 0.6rem 2.4rem',
-          borderRadius: '10px', border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
-          background: dark ? '#1e1c25' : '#faf8f5', color: dark ? '#fff' : '#1a1715',
+          borderRadius: '10px', border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+          background: dark ? '#38211D' : '#faf8f5', color: dark ? '#fff' : '#1a1715',
           fontSize: '0.85rem', outline: 'none',
         }}
       />
@@ -251,16 +251,16 @@ function SearchBar({ value, onChange, placeholder, dark }) {
 }
 
 function Btn({ children, variant = 'primary', onClick, disabled, small, style: extra }) {
-  const bg = variant === 'primary' ? '#871233'
+  const bg = variant === 'primary' ? '#7A433A'
     : variant === 'danger' ? '#dc2626'
     : variant === 'success' ? '#059669'
     : 'transparent'
-  const c = variant === 'ghost' ? '#871233' : '#fff'
+  const c = variant === 'ghost' ? '#7A433A' : '#fff'
   return (
     <button onClick={onClick} disabled={disabled} style={{
       display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
       padding: small ? '0.35rem 0.7rem' : '0.55rem 1.1rem',
-      borderRadius: '10px', border: variant === 'ghost' ? '1.5px solid #871233' : 'none',
+      borderRadius: '10px', border: variant === 'ghost' ? '1.5px solid #7A433A' : 'none',
       background: bg, color: c, fontSize: small ? '0.75rem' : '0.85rem', fontWeight: '700',
       cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.5 : 1,
       transition: 'all 0.2s ease', whiteSpace: 'nowrap', ...extra,
@@ -281,14 +281,14 @@ function Modal({ title, onClose, children, dark, wide }) {
       <div onClick={e => e.stopPropagation()} style={{
         width: '100%', maxWidth: wide ? '780px' : '560px',
         borderRadius: '20px', overflow: 'hidden',
-        background: dark ? '#141319' : '#fff',
-        border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
+        background: dark ? '#2B1815' : '#fff',
+        border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
         boxShadow: '0 20px 60px rgba(0,0,0,0.35)',
       }}>
         {/* Header */}
         <div style={{
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-          padding: '1.25rem 1.5rem', borderBottom: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`,
+          padding: '1.25rem 1.5rem', borderBottom: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`,
         }}>
           <h2 style={{ margin: 0, fontSize: '1.15rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715' }}>{title}</h2>
           <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: dark ? '#7e7a8c' : '#a89580', fontSize: '1.1rem' }}>
@@ -318,8 +318,8 @@ function FormField({ label, children, dark }) {
 function inputStyle(dark) {
   return {
     width: '100%', padding: '0.6rem 0.85rem', borderRadius: '10px',
-    border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
-    background: dark ? '#1e1c25' : '#faf8f5',
+    border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+    background: dark ? '#38211D' : '#faf8f5',
     color: dark ? '#fff' : '#1a1715', fontSize: '0.88rem', outline: 'none',
     fontFamily: 'inherit',
   }
@@ -365,7 +365,7 @@ function ImageUploader({ value, onChange, dark }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
         {value ? (
-          <div style={{ position: 'relative', width: '100px', height: '100px', borderRadius: '12px', overflow: 'hidden', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}` }}>
+          <div style={{ position: 'relative', width: '100px', height: '100px', borderRadius: '12px', overflow: 'hidden', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}` }}>
             <img 
               src={value.startsWith('http') ? value : `${API_BASE}/${value}`} 
               alt="Previsualización" 
@@ -389,7 +389,7 @@ function ImageUploader({ value, onChange, dark }) {
         ) : (
           <div style={{
             width: '100px', height: '100px', borderRadius: '12px',
-            border: `2px dashed ${dark ? '#272530' : '#e8ddd0'}`,
+            border: `2px dashed ${dark ? '#4A2D28' : '#e8ddd0'}`,
             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
             color: dark ? '#7e7a8c' : '#a89580', fontSize: '0.7rem', fontWeight: '600'
           }}>
@@ -409,9 +409,9 @@ function ImageUploader({ value, onChange, dark }) {
           <button type="button" onClick={() => fileInputRef.current?.click()} style={{
             display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
             padding: '0.45rem 0.9rem', borderRadius: '8px',
-            background: dark ? '#1e1c25' : '#faf8f5',
+            background: dark ? '#38211D' : '#faf8f5',
             color: dark ? '#fff' : '#1a1715',
-            border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
+            border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
             fontSize: '0.8rem', fontWeight: '700', cursor: 'pointer',
             transition: 'all 0.2s'
           }}>
@@ -486,9 +486,9 @@ function MultiImageUploader({ value = [], onChange, dark }) {
           style={{
             display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
             padding: '0.45rem 0.9rem', borderRadius: '8px',
-            background: value.length >= 5 ? 'var(--color-surface-200)' : (dark ? '#1e1c25' : '#faf8f5'),
+            background: value.length >= 5 ? 'var(--color-surface-200)' : (dark ? '#38211D' : '#faf8f5'),
             color: value.length >= 5 ? 'var(--color-surface-400)' : (dark ? '#fff' : '#1a1715'),
-            border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
+            border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
             fontSize: '0.8rem', fontWeight: '700',
             cursor: value.length >= 5 ? 'not-allowed' : 'pointer',
             transition: 'all 0.2s'
@@ -506,7 +506,7 @@ function MultiImageUploader({ value = [], onChange, dark }) {
           <div key={index} style={{
             position: 'relative', width: '90px', height: '90px',
             borderRadius: '12px', overflow: 'hidden',
-            border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`
+            border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`
           }}>
             <img
               src={imgUrl.startsWith('http') ? imgUrl : `${API_BASE}/${imgUrl}`}
@@ -541,7 +541,7 @@ function MultiImageUploader({ value = [], onChange, dark }) {
         {value.length === 0 && (
           <div style={{
             width: '90px', height: '90px', borderRadius: '12px',
-            border: `2px dashed ${dark ? '#272530' : '#e8ddd0'}`,
+            border: `2px dashed ${dark ? '#4A2D28' : '#e8ddd0'}`,
             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
             color: dark ? '#7e7a8c' : '#a89580', fontSize: '0.65rem', fontWeight: '600'
           }}>
@@ -812,8 +812,8 @@ function AppReleaseManager({ dark, isDashboardWidget }) {
                 <div style={{
                   display: 'flex', alignItems: 'center', gap: '1rem',
                   padding: '1rem', borderRadius: '12px',
-                  background: dark ? '#1e1c25' : '#faf8f5',
-                  border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`
+                  background: dark ? '#38211D' : '#faf8f5',
+                  border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`
                 }}>
                   <div style={{
                     width: '48px', height: '48px', borderRadius: '12px',
@@ -828,7 +828,7 @@ function AppReleaseManager({ dark, isDashboardWidget }) {
                       <span style={{ fontSize: '1.1rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715' }}>
                         Versión {current.version}
                       </span>
-                      <span style={{ fontSize: '0.75rem', fontWeight: '700', padding: '0.15rem 0.5rem', borderRadius: '6px', background: dark ? '#272530' : '#e2d8cc', color: dark ? '#c5bfae' : '#5c5248' }}>
+                      <span style={{ fontSize: '0.75rem', fontWeight: '700', padding: '0.15rem 0.5rem', borderRadius: '6px', background: dark ? '#4A2D28' : '#e2d8cc', color: dark ? '#c5bfae' : '#5c5248' }}>
                         {fmtFileSize(current.fileSize)}
                       </span>
                     </div>
@@ -839,13 +839,13 @@ function AppReleaseManager({ dark, isDashboardWidget }) {
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
-                  <div style={{ padding: '0.75rem', borderRadius: '10px', background: dark ? '#1a1822' : '#f5f1ea', border: `1px solid ${dark ? '#272530' : '#ece5dc'}` }}>
+                  <div style={{ padding: '0.75rem', borderRadius: '10px', background: dark ? '#1a1822' : '#f5f1ea', border: `1px solid ${dark ? '#4A2D28' : '#ece5dc'}` }}>
                     <div style={{ fontSize: '0.65rem', fontWeight: '700', textTransform: 'uppercase', color: dark ? '#7e7a8c' : '#a89580' }}>Descargas Totales</div>
                     <div style={{ fontSize: '1.25rem', fontWeight: '800', color: '#10b981', marginTop: '0.2rem' }}>
                       ⬇️ {current.downloadCount}
                     </div>
                   </div>
-                  <div style={{ padding: '0.75rem', borderRadius: '10px', background: dark ? '#1a1822' : '#f5f1ea', border: `1px solid ${dark ? '#272530' : '#ece5dc'}` }}>
+                  <div style={{ padding: '0.75rem', borderRadius: '10px', background: dark ? '#1a1822' : '#f5f1ea', border: `1px solid ${dark ? '#4A2D28' : '#ece5dc'}` }}>
                     <div style={{ fontSize: '0.65rem', fontWeight: '700', textTransform: 'uppercase', color: dark ? '#7e7a8c' : '#a89580' }}>Actualizado</div>
                     <div style={{ fontSize: '0.8rem', fontWeight: '700', color: dark ? '#fff' : '#1a1715', marginTop: '0.35rem' }}>
                       {fmtDate(current.updatedAt)}
@@ -854,7 +854,7 @@ function AppReleaseManager({ dark, isDashboardWidget }) {
                 </div>
 
                 {current.releaseNotes && (
-                  <div style={{ fontSize: '0.8rem', color: dark ? '#c5bfae' : '#5c5248', padding: '0.75rem', borderRadius: '8px', background: dark ? '#1a1822' : '#fbf9f6', border: `1px dashed ${dark ? '#272530' : '#e0d6cb'}` }}>
+                  <div style={{ fontSize: '0.8rem', color: dark ? '#c5bfae' : '#5c5248', padding: '0.75rem', borderRadius: '8px', background: dark ? '#1a1822' : '#fbf9f6', border: `1px dashed ${dark ? '#4A2D28' : '#e0d6cb'}` }}>
                     <strong style={{ display: 'block', fontSize: '0.7rem', textTransform: 'uppercase', color: dark ? '#7e7a8c' : '#a89580', marginBottom: '0.2rem' }}>Notas de Versión:</strong>
                     {current.releaseNotes}
                   </div>
@@ -864,7 +864,7 @@ function AppReleaseManager({ dark, isDashboardWidget }) {
               <div style={{
                 textAlign: 'center', padding: '2rem 1rem',
                 color: dark ? '#7e7a8c' : '#a89580',
-                border: `2px dashed ${dark ? '#272530' : '#e8ddd0'}`,
+                border: `2px dashed ${dark ? '#4A2D28' : '#e8ddd0'}`,
                 borderRadius: '12px'
               }}>
                 <FaAndroid size={36} style={{ opacity: 0.3, marginBottom: '0.75rem' }} />
@@ -901,7 +901,7 @@ function AppReleaseManager({ dark, isDashboardWidget }) {
               onDrop={handleDrop}
               onClick={() => fileInputRef.current?.click()}
               style={{
-                border: `2px dashed ${dragActive ? '#10b981' : selectedFile ? '#10b981' : dark ? '#272530' : '#e0d6cb'}`,
+                border: `2px dashed ${dragActive ? '#10b981' : selectedFile ? '#10b981' : dark ? '#4A2D28' : '#e0d6cb'}`,
                 borderRadius: '14px',
                 padding: '1.5rem 1rem',
                 textAlign: 'center',
@@ -939,7 +939,7 @@ function AppReleaseManager({ dark, isDashboardWidget }) {
                 </div>
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-                  <FaCloudUploadAlt size={34} style={{ color: dark ? '#e03b60' : '#871233', opacity: 0.8 }} />
+                  <FaCloudUploadAlt size={34} style={{ color: dark ? '#C89953' : '#7A433A', opacity: 0.8 }} />
                   <span style={{ fontSize: '0.88rem', fontWeight: '700', color: dark ? '#fff' : '#1a1715' }}>
                     Arrastra y suelta el archivo .apk aquí
                   </span>
@@ -964,8 +964,8 @@ function AppReleaseManager({ dark, isDashboardWidget }) {
                   required
                   style={{
                     width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px',
-                    border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
-                    background: dark ? '#1e1c25' : '#faf8f5', color: dark ? '#fff' : '#1a1715',
+                    border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+                    background: dark ? '#38211D' : '#faf8f5', color: dark ? '#fff' : '#1a1715',
                     fontSize: '0.85rem', outline: 'none'
                   }}
                 />
@@ -978,11 +978,11 @@ function AppReleaseManager({ dark, isDashboardWidget }) {
                   type="text"
                   value={releaseNotes}
                   onChange={e => setReleaseNotes(e.target.value)}
-                  placeholder="ej. Primera versión oficial de Jóvenes con Salud"
+                  placeholder="ej. Primera versión oficial de HeartBliss — Cuida tu Corazón"
                   style={{
                     width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px',
-                    border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
-                    background: dark ? '#1e1c25' : '#faf8f5', color: dark ? '#fff' : '#1a1715',
+                    border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+                    background: dark ? '#38211D' : '#faf8f5', color: dark ? '#fff' : '#1a1715',
                     fontSize: '0.85rem', outline: 'none'
                   }}
                 />
@@ -996,8 +996,8 @@ function AppReleaseManager({ dark, isDashboardWidget }) {
                   <span>Subiendo APK al servidor...</span>
                   <span>{uploadProgress}%</span>
                 </div>
-                <div style={{ width: '100%', height: '8px', borderRadius: '4px', background: dark ? '#272530' : '#e2d8cc', overflow: 'hidden' }}>
-                  <div style={{ width: `${uploadProgress}%`, height: '100%', background: 'linear-gradient(90deg, #871233, #10b981)', transition: 'width 0.2s ease' }} />
+                <div style={{ width: '100%', height: '8px', borderRadius: '4px', background: dark ? '#4A2D28' : '#e2d8cc', overflow: 'hidden' }}>
+                  <div style={{ width: `${uploadProgress}%`, height: '100%', background: 'linear-gradient(90deg, #7A433A, #10b981)', transition: 'width 0.2s ease' }} />
                 </div>
               </div>
             )}
@@ -1024,15 +1024,15 @@ function AppReleaseManager({ dark, isDashboardWidget }) {
           <div className="admin-table-container" style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
               <thead>
-                <tr style={{ background: dark ? '#1e1c25' : '#faf8f5', borderBottom: `1px solid ${dark ? '#272530' : '#e8ddd0'}` }}>
+                <tr style={{ background: dark ? '#38211D' : '#faf8f5', borderBottom: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}` }}>
                   {['VERSIÓN', 'ARCHIVO', 'TAMAÑO', 'DESCARGAS', 'FECHA DE SUBIDA', 'ESTADO', 'ACCIONES'].map(h => (
-                    <th key={h} style={{ padding: '0.7rem 0.9rem', textAlign: 'left', fontSize: '0.68rem', fontWeight: '800', letterSpacing: '0.06em', color: dark ? '#e03b60' : '#871233' }}>{h}</th>
+                    <th key={h} style={{ padding: '0.7rem 0.9rem', textAlign: 'left', fontSize: '0.68rem', fontWeight: '800', letterSpacing: '0.06em', color: dark ? '#C89953' : '#7A433A' }}>{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {history.map(item => (
-                  <tr key={item.id} style={{ borderBottom: `1px solid ${dark ? '#1e1c25' : '#f0e8de'}` }}>
+                  <tr key={item.id} style={{ borderBottom: `1px solid ${dark ? '#38211D' : '#f0e8de'}` }}>
                     <td style={{ padding: '0.75rem 0.9rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715' }}>
                       v{item.version}
                     </td>
@@ -1054,7 +1054,7 @@ function AppReleaseManager({ dark, isDashboardWidget }) {
                           ACTIVO
                         </span>
                       ) : (
-                        <span style={{ padding: '0.2rem 0.55rem', borderRadius: '12px', background: dark ? '#272530' : '#ece5dc', color: dark ? '#7e7a8c' : '#8c8074', fontSize: '0.7rem', fontWeight: '700' }}>
+                        <span style={{ padding: '0.2rem 0.55rem', borderRadius: '12px', background: dark ? '#4A2D28' : '#ece5dc', color: dark ? '#7e7a8c' : '#8c8074', fontSize: '0.7rem', fontWeight: '700' }}>
                           Inactivo
                         </span>
                       )}
@@ -1267,8 +1267,8 @@ function ModulesSection({ dark }) {
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
             padding: '0.25rem 0.75rem', borderRadius: '20px',
-            background: dark ? 'rgba(224, 59, 96, 0.15)' : 'rgba(135, 18, 51, 0.08)',
-            color: dark ? '#e03b60' : '#871233',
+            background: dark ? 'rgba(224, 59, 96, 0.15)' : 'rgba(122, 67, 58, 0.08)',
+            color: dark ? '#C89953' : '#7A433A',
             fontSize: '0.75rem', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.06em',
             marginBottom: '0.5rem'
           }}>
@@ -1318,8 +1318,8 @@ function ModulesSection({ dark }) {
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
               padding: '0.55rem 0.9rem', borderRadius: '10px',
-              border: `1.5px solid ${dark ? '#272530' : '#d5c7b8'}`,
-              background: dark ? '#1e1c25' : '#fff',
+              border: `1.5px solid ${dark ? '#4A2D28' : '#d5c7b8'}`,
+              background: dark ? '#38211D' : '#fff',
               color: dark ? '#fff' : '#1a1715',
               cursor: batchLoading ? 'not-allowed' : 'pointer',
               fontSize: '0.8rem', fontWeight: '700',
@@ -1375,8 +1375,8 @@ function ModulesSection({ dark }) {
           </div>
           <div style={{
             width: '48px', height: '48px', borderRadius: '12px',
-            background: dark ? 'rgba(135,18,51,0.15)' : '#87123315',
-            color: dark ? '#e03b60' : '#871233',
+            background: dark ? 'rgba(122,67,58,0.15)' : '#7A433A15',
+            color: dark ? '#C89953' : '#7A433A',
             display: 'flex', alignItems: 'center', justifyContent: 'center'
           }}>
             <FaSlidersH size={22} />
@@ -1456,10 +1456,10 @@ function ModulesSection({ dark }) {
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: '0.45rem',
                   padding: '0.45rem 0.85rem', borderRadius: '8px',
-                  border: isSelected ? 'none' : `1px solid ${dark ? '#272530' : '#e0d6cb'}`,
+                  border: isSelected ? 'none' : `1px solid ${dark ? '#4A2D28' : '#e0d6cb'}`,
                   background: isSelected
-                    ? (dark ? '#e03b60' : '#871233')
-                    : (dark ? '#1e1c25' : '#faf8f5'),
+                    ? (dark ? '#C89953' : '#7A433A')
+                    : (dark ? '#38211D' : '#faf8f5'),
                   color: isSelected ? '#fff' : (dark ? '#9ea4b0' : '#5c5248'),
                   fontSize: '0.8rem', fontWeight: isSelected ? '700' : '600',
                   cursor: 'pointer', transition: 'all 0.2s ease',
@@ -1510,8 +1510,8 @@ function ModulesSection({ dark }) {
           {filtered.map(mod => {
             const meta = MODULE_META[mod.key] || {
               icon: FaLayerGroup,
-              color: '#871233',
-              gradient: 'linear-gradient(135deg, #871233, #5e0c23)',
+              color: '#7A433A',
+              gradient: 'linear-gradient(135deg, #7A433A, #522B24)',
               tag: 'Módulo General'
             }
             const IconComponent = meta.icon
@@ -1528,7 +1528,7 @@ function ModulesSection({ dark }) {
                   justifyContent: 'space-between',
                   gap: '1.25rem',
                   transition: 'all 0.25s ease',
-                  borderLeft: `4px solid ${mod.isEnabled ? meta.color : (dark ? '#272530' : '#d5c7b8')}`,
+                  borderLeft: `4px solid ${mod.isEnabled ? meta.color : (dark ? '#4A2D28' : '#d5c7b8')}`,
                   opacity: mod.isEnabled ? 1 : 0.82,
                   boxShadow: mod.isEnabled
                     ? (dark ? `0 4px 20px ${meta.color}15` : '0 2px 10px rgba(0,0,0,0.05)')
@@ -1539,7 +1539,7 @@ function ModulesSection({ dark }) {
                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
                   <div style={{
                     width: '46px', height: '46px', borderRadius: '12px',
-                    background: mod.isEnabled ? meta.gradient : (dark ? '#272530' : '#e0d6cb'),
+                    background: mod.isEnabled ? meta.gradient : (dark ? '#4A2D28' : '#e0d6cb'),
                     color: '#fff',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     flexShrink: 0,
@@ -1554,7 +1554,7 @@ function ModulesSection({ dark }) {
                       <span style={{
                         fontSize: '0.68rem', fontWeight: '800', textTransform: 'uppercase',
                         letterSpacing: '0.05em', padding: '2px 7px', borderRadius: '4px',
-                        background: mod.isEnabled ? `${meta.color}20` : (dark ? '#272530' : '#e8ddd0'),
+                        background: mod.isEnabled ? `${meta.color}20` : (dark ? '#4A2D28' : '#e8ddd0'),
                         color: mod.isEnabled ? meta.color : (dark ? '#7e7a8c' : '#7d6e5e'),
                       }}>
                         {meta.tag}
@@ -1587,7 +1587,7 @@ function ModulesSection({ dark }) {
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   paddingTop: '1rem',
-                  borderTop: `1px solid ${dark ? '#1e1c25' : '#f0e8de'}`,
+                  borderTop: `1px solid ${dark ? '#38211D' : '#f0e8de'}`,
                 }}>
                   {/* Status badge */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -1614,7 +1614,7 @@ function ModulesSection({ dark }) {
                       width: '52px',
                       height: '28px',
                       borderRadius: '14px',
-                      background: mod.isEnabled ? '#10b981' : (dark ? '#272530' : '#d5c7b8'),
+                      background: mod.isEnabled ? '#10b981' : (dark ? '#4A2D28' : '#d5c7b8'),
                       border: 'none',
                       cursor: isSaving ? 'wait' : 'pointer',
                       position: 'relative',
@@ -1667,7 +1667,7 @@ function DashboardSection({ dark, onNavigate }) {
   const cards = [
     { label: 'USUARIOS REGISTRADOS', value: stats.users.total, sub: `${stats.users.active} activos`, color: '#3b82f6', emoji: '👥' },
     { label: 'NUEVOS (30 DÍAS)', value: stats.users.newLast30, color: '#10b981', emoji: '🆕' },
-    { label: 'ENFERMEDADES', value: stats.diseases, color: '#e03b60', emoji: '💗' },
+    { label: 'ENFERMEDADES', value: stats.diseases, color: '#C89953', emoji: '💗' },
     { label: 'ARTÍCULOS', value: stats.articles, color: '#10b981', emoji: '📚' },
     { label: 'NUTRACÉUTICOS', value: stats.nutraceuticals, color: '#f59e0b', emoji: '💊' },
     { label: 'NOTICIAS', value: stats.news, color: '#8b5cf6', emoji: '📰' },
@@ -1706,13 +1706,13 @@ function DashboardSection({ dark, onNavigate }) {
           justifyContent: 'space-between',
           flexWrap: 'wrap',
           gap: '1rem',
-          background: dark ? 'linear-gradient(135deg, rgba(224,59,96,0.15), rgba(20,19,25,0.95))' : 'linear-gradient(135deg, #8712330f, #fff)',
-          borderLeft: '4px solid #e03b60'
+          background: dark ? 'linear-gradient(135deg, rgba(224,59,96,0.15), rgba(20,19,25,0.95))' : 'linear-gradient(135deg, #7A433A0f, #fff)',
+          borderLeft: '4px solid #C89953'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
             <div style={{
               width: '42px', height: '42px', borderRadius: '10px',
-              background: '#871233', color: '#fff',
+              background: '#7A433A', color: '#fff',
               display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
             }}>
               <FaMapMarkedAlt size={18} />
@@ -1828,9 +1828,9 @@ function UsersSection({ dark }) {
       <div className="admin-table-container" style={{ ...cardStyle(dark), overflow: 'hidden' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
           <thead>
-            <tr style={{ background: dark ? '#1e1c25' : '#faf8f5', borderBottom: `1px solid ${dark ? '#272530' : '#e8ddd0'}` }}>
+            <tr style={{ background: dark ? '#38211D' : '#faf8f5', borderBottom: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}` }}>
               {['NOMBRE', 'CORREO', 'ROL', 'MÉDICO ASIGNADO', 'ESTADO', 'ACCIONES'].map(h => (
-                <th key={h} style={{ padding: '0.75rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '800', letterSpacing: '0.06em', color: dark ? '#e03b60' : '#871233' }}>{h}</th>
+                <th key={h} style={{ padding: '0.75rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '800', letterSpacing: '0.06em', color: dark ? '#C89953' : '#7A433A' }}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -1840,14 +1840,14 @@ function UsersSection({ dark }) {
             ) : users.length === 0 ? (
               <tr><td colSpan={6} style={{ padding: '2rem', textAlign: 'center', color: dark ? '#7e7a8c' : '#a89580' }}>Sin resultados</td></tr>
             ) : users.map(u => (
-              <tr key={u.id} style={{ borderBottom: `1px solid ${dark ? '#1e1c25' : '#f4efe7'}` }}>
+              <tr key={u.id} style={{ borderBottom: `1px solid ${dark ? '#38211D' : '#f4efe7'}` }}>
                 <td style={{ padding: '0.75rem 1rem', fontWeight: '600', color: dark ? '#e5dfef' : '#1a1715' }}>{u.name}</td>
                 <td style={{ padding: '0.75rem 1rem', color: dark ? '#9ea4b0' : '#7d6e5e' }}>{u.email}</td>
                 <td style={{ padding: '0.75rem 1rem' }}>
                   <select value={u.role} onChange={e => changeRole(u.id, e.target.value)} style={{
                     padding: '0.3rem 0.5rem', borderRadius: '8px', fontSize: '0.8rem', fontWeight: '600',
-                    border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
-                    background: dark ? '#1e1c25' : '#faf8f5', color: dark ? '#fff' : '#1a1715',
+                    border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+                    background: dark ? '#38211D' : '#faf8f5', color: dark ? '#fff' : '#1a1715',
                     cursor: 'pointer',
                   }}>
                     <option value="user">Usuario</option>
@@ -1862,8 +1862,8 @@ function UsersSection({ dark }) {
                       onChange={e => assignDoctor(u.id, e.target.value)}
                       style={{
                         padding: '0.3rem 0.5rem', borderRadius: '8px', fontSize: '0.8rem', fontWeight: '600',
-                        border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
-                        background: dark ? '#1e1c25' : '#faf8f5', color: dark ? '#fff' : '#1a1715',
+                        border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+                        background: dark ? '#38211D' : '#faf8f5', color: dark ? '#fff' : '#1a1715',
                         cursor: 'pointer',
                       }}
                     >
@@ -2308,8 +2308,8 @@ function CrudSection({ dark, entity, title }) {
       display: 'flex',
       gap: '0.3rem',
       marginBottom: '0.2rem',
-      background: dark ? '#1e1c25' : '#faf8f5',
-      border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
+      background: dark ? '#38211D' : '#faf8f5',
+      border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
       borderRadius: '8px',
       padding: '0.25rem 0.4rem',
       alignItems: 'center',
@@ -2332,13 +2332,13 @@ function CrudSection({ dark, entity, title }) {
           justifyContent: 'center',
           transition: 'background 0.2s',
         }}
-        onMouseEnter={e => { e.currentTarget.style.background = dark ? '#272530' : '#e8ddd0' }}
+        onMouseEnter={e => { e.currentTarget.style.background = dark ? '#4A2D28' : '#e8ddd0' }}
         onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
         title="Negrita"
       >
         B
       </button>
-      <span style={{ height: '14px', width: '1px', background: dark ? '#272530' : '#e8ddd0' }} />
+      <span style={{ height: '14px', width: '1px', background: dark ? '#4A2D28' : '#e8ddd0' }} />
       <button
         type="button"
         onClick={() => handleFormat(fieldKey, 'italic', true)}
@@ -2356,13 +2356,13 @@ function CrudSection({ dark, entity, title }) {
           justifyContent: 'center',
           transition: 'background 0.2s',
         }}
-        onMouseEnter={e => { e.currentTarget.style.background = dark ? '#272530' : '#e8ddd0' }}
+        onMouseEnter={e => { e.currentTarget.style.background = dark ? '#4A2D28' : '#e8ddd0' }}
         onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
         title="Cursiva"
       >
         I
       </button>
-      <span style={{ height: '14px', width: '1px', background: dark ? '#272530' : '#e8ddd0' }} />
+      <span style={{ height: '14px', width: '1px', background: dark ? '#4A2D28' : '#e8ddd0' }} />
       <button
         type="button"
         onClick={() => handleFormat(fieldKey, 'underline', true)}
@@ -2380,7 +2380,7 @@ function CrudSection({ dark, entity, title }) {
           justifyContent: 'center',
           transition: 'background 0.2s',
         }}
-        onMouseEnter={e => { e.currentTarget.style.background = dark ? '#272530' : '#e8ddd0' }}
+        onMouseEnter={e => { e.currentTarget.style.background = dark ? '#4A2D28' : '#e8ddd0' }}
         onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
         title="Subrayado"
       >
@@ -2397,11 +2397,11 @@ function CrudSection({ dark, entity, title }) {
         : val
 
       return src ? (
-        <div style={{ width: '48px', height: '32px', borderRadius: '6px', overflow: 'hidden', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}` }}>
+        <div style={{ width: '48px', height: '32px', borderRadius: '6px', overflow: 'hidden', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}` }}>
           <img src={src.startsWith('http') ? src : `${API_BASE}/${src}`} alt="Thumbnail" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
       ) : (
-        <div style={{ width: '48px', height: '32px', borderRadius: '6px', background: dark ? '#1e1c25' : '#faf8f5', display: 'flex', alignItems: 'center', justifyContent: 'center', color: dark ? '#7e7a8c' : '#a89580', fontSize: '0.65rem' }}>
+        <div style={{ width: '48px', height: '32px', borderRadius: '6px', background: dark ? '#38211D' : '#faf8f5', display: 'flex', alignItems: 'center', justifyContent: 'center', color: dark ? '#7e7a8c' : '#a89580', fontSize: '0.65rem' }}>
           Sin img
         </div>
       )
@@ -2434,13 +2434,13 @@ function CrudSection({ dark, entity, title }) {
       <div className="admin-table-container" style={{ ...cardStyle(dark), overflow: 'hidden' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
           <thead>
-            <tr style={{ background: dark ? '#1e1c25' : '#faf8f5', borderBottom: `1px solid ${dark ? '#272530' : '#e8ddd0'}` }}>
+            <tr style={{ background: dark ? '#38211D' : '#faf8f5', borderBottom: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}` }}>
               {cfg.columns.map(col => (
-                <th key={col} style={{ padding: '0.75rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '800', letterSpacing: '0.06em', color: dark ? '#e03b60' : '#871233' }}>
+                <th key={col} style={{ padding: '0.75rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '800', letterSpacing: '0.06em', color: dark ? '#C89953' : '#7A433A' }}>
                   {cfg.columnLabels[col] || col.toUpperCase()}
                 </th>
               ))}
-              <th style={{ padding: '0.75rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '800', letterSpacing: '0.06em', color: dark ? '#e03b60' : '#871233' }}>ACCIONES</th>
+              <th style={{ padding: '0.75rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '800', letterSpacing: '0.06em', color: dark ? '#C89953' : '#7A433A' }}>ACCIONES</th>
             </tr>
           </thead>
           <tbody>
@@ -2449,7 +2449,7 @@ function CrudSection({ dark, entity, title }) {
             ) : items.length === 0 ? (
               <tr><td colSpan={cfg.columns.length + 1} style={{ padding: '2rem', textAlign: 'center', color: dark ? '#7e7a8c' : '#a89580' }}>Sin resultados</td></tr>
             ) : items.map(item => (
-              <tr key={item.id} style={{ borderBottom: `1px solid ${dark ? '#1e1c25' : '#f4efe7'}` }}>
+              <tr key={item.id} style={{ borderBottom: `1px solid ${dark ? '#38211D' : '#f4efe7'}` }}>
                 {cfg.columns.map(col => (
                   <td key={col} style={{ padding: '0.75rem 1rem', color: dark ? '#e5dfef' : '#1a1715', fontWeight: col === cfg.columns[0] ? '600' : '400' }}>
                     {formatCell(item, col)}
@@ -2549,8 +2549,8 @@ function CrudSection({ dark, entity, title }) {
                           display: 'flex',
                           gap: '0.3rem',
                           marginBottom: '0.2rem',
-                          background: dark ? '#1e1c25' : '#faf8f5',
-                          border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
+                          background: dark ? '#38211D' : '#faf8f5',
+                          border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
                           borderRadius: '8px',
                           padding: '0.25rem 0.4rem',
                           alignItems: 'center',
@@ -2573,13 +2573,13 @@ function CrudSection({ dark, entity, title }) {
                               justifyContent: 'center',
                               transition: 'background 0.2s',
                             }}
-                            onMouseEnter={e => { e.currentTarget.style.background = dark ? '#272530' : '#e8ddd0' }}
+                            onMouseEnter={e => { e.currentTarget.style.background = dark ? '#4A2D28' : '#e8ddd0' }}
                             onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
                             title="Negrita"
                           >
                             B
                           </button>
-                          <span style={{ height: '14px', width: '1px', background: dark ? '#272530' : '#e8ddd0' }} />
+                          <span style={{ height: '14px', width: '1px', background: dark ? '#4A2D28' : '#e8ddd0' }} />
                           <button
                             type="button"
                             onClick={() => handleFormat(f.key, 'italic')}
@@ -2597,13 +2597,13 @@ function CrudSection({ dark, entity, title }) {
                               justifyContent: 'center',
                               transition: 'background 0.2s',
                             }}
-                            onMouseEnter={e => { e.currentTarget.style.background = dark ? '#272530' : '#e8ddd0' }}
+                            onMouseEnter={e => { e.currentTarget.style.background = dark ? '#4A2D28' : '#e8ddd0' }}
                             onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
                             title="Cursiva"
                           >
                             I
                           </button>
-                          <span style={{ height: '14px', width: '1px', background: dark ? '#272530' : '#e8ddd0' }} />
+                          <span style={{ height: '14px', width: '1px', background: dark ? '#4A2D28' : '#e8ddd0' }} />
                           <button
                             type="button"
                             onClick={() => handleFormat(f.key, 'underline')}
@@ -2621,7 +2621,7 @@ function CrudSection({ dark, entity, title }) {
                               justifyContent: 'center',
                               transition: 'background 0.2s',
                             }}
-                            onMouseEnter={e => { e.currentTarget.style.background = dark ? '#272530' : '#e8ddd0' }}
+                            onMouseEnter={e => { e.currentTarget.style.background = dark ? '#4A2D28' : '#e8ddd0' }}
                             onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
                             title="Subrayado"
                           >
@@ -2644,7 +2644,7 @@ function CrudSection({ dark, entity, title }) {
                         type="checkbox"
                         checked={!!formData[f.key]}
                         onChange={e => setFormData(prev => ({ ...prev, [f.key]: e.target.checked }))}
-                        style={{ width: '18px', height: '18px', accentColor: '#871233' }}
+                        style={{ width: '18px', height: '18px', accentColor: '#7A433A' }}
                       />
                       {formData[f.key] ? 'Sí' : 'No'}
                     </label>
@@ -2675,7 +2675,7 @@ function CrudSection({ dark, entity, title }) {
 
               {/* List of existing variants */}
               {editing && entity === 'diseases' && (
-                <div style={{ marginTop: '2rem', borderTop: `2px solid ${dark ? '#272530' : '#e8ddd0'}`, paddingTop: '1.5rem' }}>
+                <div style={{ marginTop: '2rem', borderTop: `2px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, paddingTop: '1.5rem' }}>
                   <h3 style={{ fontSize: '1.05rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     🧬 Variantes Registradas ({variantsList.length})
                   </h3>
@@ -2695,7 +2695,7 @@ function CrudSection({ dark, entity, title }) {
                           padding: '0.65rem 0.85rem',
                           borderRadius: '8px',
                           background: dark ? '#1b1a20' : '#fcfbf9',
-                          border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
+                          border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
                         }}>
                           <div style={{ minWidth: 0, flex: 1, marginRight: '1rem' }}>
                             <h5 style={{ margin: 0, fontSize: '0.85rem', fontWeight: '700', color: dark ? '#fff' : '#1a1715' }}>
@@ -2794,9 +2794,9 @@ function MessagesSection({ dark }) {
       <div className="admin-table-container" style={{ ...cardStyle(dark), overflow: 'hidden' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
           <thead>
-            <tr style={{ background: dark ? '#1e1c25' : '#faf8f5', borderBottom: `1px solid ${dark ? '#272530' : '#e8ddd0'}` }}>
+            <tr style={{ background: dark ? '#38211D' : '#faf8f5', borderBottom: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}` }}>
               {['NOMBRE', 'CORREO', 'ASUNTO', 'ESTADO', 'FECHA', 'ACCIONES'].map(h => (
-                <th key={h} style={{ padding: '0.75rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '800', letterSpacing: '0.06em', color: dark ? '#e03b60' : '#871233' }}>{h}</th>
+                <th key={h} style={{ padding: '0.75rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '800', letterSpacing: '0.06em', color: dark ? '#C89953' : '#7A433A' }}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -2808,7 +2808,7 @@ function MessagesSection({ dark }) {
             ) : messages.map(m => {
               const sc = statusColors[m.status] || statusColors.pending
               return (
-                <tr key={m.id} style={{ borderBottom: `1px solid ${dark ? '#1e1c25' : '#f4efe7'}` }}>
+                <tr key={m.id} style={{ borderBottom: `1px solid ${dark ? '#38211D' : '#f4efe7'}` }}>
                   <td style={{ padding: '0.75rem 1rem', fontWeight: '600', color: dark ? '#e5dfef' : '#1a1715' }}>{m.name}</td>
                   <td style={{ padding: '0.75rem 1rem', color: dark ? '#9ea4b0' : '#7d6e5e' }}>{m.email}</td>
                   <td style={{ padding: '0.75rem 1rem', color: dark ? '#c5bfae' : '#5c5248', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.subject}</td>
@@ -2818,7 +2818,7 @@ function MessagesSection({ dark }) {
                       onChange={e => changeStatus(m.id, e.target.value)}
                       style={{
                         padding: '0.25rem 0.5rem', borderRadius: '8px', fontSize: '0.75rem', fontWeight: '700',
-                        border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
+                        border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
                         background: sc.bg, color: sc.color, cursor: 'pointer',
                       }}
                     >
@@ -2987,7 +2987,7 @@ function ContactSettingsSection({ dark }) {
           height: '100%',
           minHeight: '260px',
           borderRadius: '12px',
-          border: `2px dashed ${dark ? '#272530' : '#e8ddd0'}`,
+          border: `2px dashed ${dark ? '#4A2D28' : '#e8ddd0'}`,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -2995,9 +2995,9 @@ function ContactSettingsSection({ dark }) {
           color: dark ? '#7e7a8c' : '#a89580',
           padding: '2rem',
           textAlign: 'center',
-          background: dark ? '#1e1c25' : '#faf8f5',
+          background: dark ? '#38211D' : '#faf8f5',
         }}>
-          <FaMapMarkerAlt size={32} style={{ marginBottom: '0.5rem', color: '#e03b60' }} />
+          <FaMapMarkerAlt size={32} style={{ marginBottom: '0.5rem', color: '#C89953' }} />
           <span style={{ fontSize: '0.85rem', fontWeight: '600' }}>Vista previa del mapa no disponible</span>
           <span style={{ fontSize: '0.72rem', marginTop: '0.25rem' }}>Ingrese latitud y longitud válidas</span>
         </div>
@@ -3005,7 +3005,7 @@ function ContactSettingsSection({ dark }) {
     }
 
     return (
-      <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: '260px', borderRadius: '12px', overflow: 'hidden', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}` }}>
+      <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: '260px', borderRadius: '12px', overflow: 'hidden', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}` }}>
         <iframe
           title={`Vista previa — ${label || 'Ubicación'}`}
           src={mapUrl}
@@ -3047,9 +3047,9 @@ function ContactSettingsSection({ dark }) {
               <textarea rows={3} value={generalForm.schedule || ''} onChange={e => setGeneralForm(p => ({ ...p, schedule: e.target.value }))} style={{ ...inputStyle(dark), resize: 'vertical' }} />
             </FormField>
 
-            <div style={{ height: '1px', background: dark ? '#272530' : '#e8ddd0', margin: '0.75rem 0 1.25rem' }} />
+            <div style={{ height: '1px', background: dark ? '#4A2D28' : '#e8ddd0', margin: '0.75rem 0 1.25rem' }} />
 
-            <h3 style={{ fontSize: '0.9rem', fontWeight: '800', color: dark ? '#e03b60' : '#871233', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            <h3 style={{ fontSize: '0.9rem', fontWeight: '800', color: dark ? '#C89953' : '#7A433A', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               Ubicación Principal (Oficial)
             </h3>
 
@@ -3106,9 +3106,9 @@ function ContactSettingsSection({ dark }) {
         <div style={{ ...cardStyle(dark), overflow: 'hidden' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
             <thead>
-              <tr style={{ background: dark ? '#1e1c25' : '#faf8f5', borderBottom: `1px solid ${dark ? '#272530' : '#e8ddd0'}` }}>
+              <tr style={{ background: dark ? '#38211D' : '#faf8f5', borderBottom: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}` }}>
                 {['MAPA', 'SEDE', 'DIRECCIÓN', 'COORDENADAS', 'ACCIONES'].map(h => (
-                  <th key={h} style={{ padding: '0.75rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '800', letterSpacing: '0.06em', color: dark ? '#e03b60' : '#871233' }}>{h}</th>
+                  <th key={h} style={{ padding: '0.75rem 1rem', textAlign: 'left', fontSize: '0.7rem', fontWeight: '800', letterSpacing: '0.06em', color: dark ? '#C89953' : '#7A433A' }}>{h}</th>
                 ))}
               </tr>
             </thead>
@@ -3118,9 +3118,9 @@ function ContactSettingsSection({ dark }) {
               ) : locations.length === 0 ? (
                 <tr><td colSpan={5} style={{ padding: '2rem', textAlign: 'center', color: dark ? '#7e7a8c' : '#a89580' }}>No hay sedes registradas.</td></tr>
               ) : locations.map(loc => (
-                <tr key={loc.id} style={{ borderBottom: `1px solid ${dark ? '#1e1c25' : '#f4efe7'}` }}>
+                <tr key={loc.id} style={{ borderBottom: `1px solid ${dark ? '#38211D' : '#f4efe7'}` }}>
                   <td style={{ padding: '0.5rem 1rem' }}>
-                    <div style={{ width: '64px', height: '48px', borderRadius: '6px', overflow: 'hidden', border: `1px solid ${dark ? '#272530' : '#e8ddd0'}` }}>
+                    <div style={{ width: '64px', height: '48px', borderRadius: '6px', overflow: 'hidden', border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}` }}>
                       {getMapUrl(loc.latitude, loc.longitude) ? (
                         <iframe
                           title={`Sede — ${loc.label}`}
@@ -3130,12 +3130,12 @@ function ContactSettingsSection({ dark }) {
                           style={{ border: 'none', pointerEvents: 'none' }}
                         />
                       ) : (
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', background: dark ? '#1e1c25' : '#faf8f5', color: dark ? '#7e7a8c' : '#a89580', fontSize: '0.6rem' }}>Sin mapa</div>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', background: dark ? '#38211D' : '#faf8f5', color: dark ? '#7e7a8c' : '#a89580', fontSize: '0.6rem' }}>Sin mapa</div>
                       )}
                     </div>
                   </td>
                   <td style={{ padding: '0.75rem 1rem', fontWeight: '600', color: dark ? '#e5dfef' : '#1a1715' }}>
-                    {loc.label} {loc.isOfficial && <span style={{ fontSize: '0.65rem', background: '#e03b6018', color: '#e03b60', padding: '1px 5px', borderRadius: '4px', marginLeft: '5px' }}>Principal</span>}
+                    {loc.label} {loc.isOfficial && <span style={{ fontSize: '0.65rem', background: '#C8995318', color: '#C89953', padding: '1px 5px', borderRadius: '4px', marginLeft: '5px' }}>Principal</span>}
                   </td>
                   <td style={{ padding: '0.75rem 1rem', color: dark ? '#9ea4b0' : '#7d6e5e', maxWidth: '300px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {loc.address}

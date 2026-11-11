@@ -4,7 +4,7 @@ export const diseases = [
     title: 'Diabetes Tipo 2',
     icon: '🩸',
     shortDesc: 'Afecta cómo el cuerpo procesa la glucosa. Es prevenible con hábitos saludables.',
-    color: '#871233',
+    color: '#7A433A',
     what: 'La diabetes tipo 2 es una enfermedad crónica en la que el cuerpo no produce suficiente insulina o no la utiliza eficazmente, lo que causa niveles elevados de glucosa en sangre. En jóvenes, el sobrepeso, la mala alimentación y el sedentarismo son los principales factores de riesgo.',
     symptoms: [
       'Sed excesiva y boca seca',

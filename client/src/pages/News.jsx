@@ -25,7 +25,7 @@ function NewsCard({ post }) {
       onMouseEnter={e => {
         e.currentTarget.style.transform = 'translateY(-4px)'
         e.currentTarget.style.boxShadow = 'var(--shadow-elevated)'
-        e.currentTarget.style.borderColor = 'rgba(135, 18, 51, 0.3)'
+        e.currentTarget.style.borderColor = 'rgba(122, 67, 58, 0.3)'
       }}
       onMouseLeave={e => {
         e.currentTarget.style.transform = 'translateY(0)'
@@ -150,7 +150,7 @@ export default function News() {
           marginBottom: '0.75rem',
           fontFamily: 'var(--font-sans)',
         }}>
-          Jóvenes con Salud
+          HeartBliss — Cuida tu Corazón
         </p>
         <h1 style={{
           fontSize: 'clamp(2.5rem, 6vw, 3.5rem)',

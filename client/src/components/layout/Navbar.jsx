@@ -11,6 +11,7 @@ import { useModules } from '../../context/ModuleContext'
 import api, { getApiBaseUrl } from '../../services/api'
 import logoLight from '../../assets/logo-light.png'
 import logoDark from '../../assets/logo-dark.png'
+import heartEmblem from '../../assets/heart-emblem.png'
 
 
 
@@ -273,9 +274,9 @@ export default function Navbar() {
   const allLinks = [
     { to: '/', label: 'Inicio', key: 'home' },
     { to: '/enfermedades', label: 'Enfermedades', key: 'diseases' },
-    { to: '/hecho-en-tamaulipas', label: 'Hecho en Tamaulipas', key: 'hecho_en_tamaulipas' },
-    { to: '/noticias', label: 'Noticias', key: 'news' },
     { to: '/programas', label: 'Programas', key: 'programs' },
+    { to: '/hecho-en-tamaulipas', label: 'Nutracéuticos', key: 'hecho_en_tamaulipas' },
+    { to: '/noticias', label: 'Noticias', key: 'news' },
     { to: '/contacto', label: 'Contacto', key: 'contact' },
     { to: '/faq', label: 'FAQ', key: 'faq' },
   ]
@@ -283,8 +284,8 @@ export default function Navbar() {
   const links = allLinks.filter(l => l.key === 'home' || isModuleEnabled(l.key))
 
   const allMobileLinks = [
-    { to: '/hecho-en-tamaulipas', label: 'Hecho en Tamaulipas', key: 'hecho_en_tamaulipas' },
     { to: '/programas', label: 'Programas', key: 'programs' },
+    { to: '/hecho-en-tamaulipas', label: 'Nutracéuticos', key: 'hecho_en_tamaulipas' },
     { to: '/contacto', label: 'Contacto', key: 'contact' },
     { to: '/faq', label: 'FAQ', key: 'faq' },
   ]
@@ -331,36 +332,61 @@ export default function Navbar() {
     <nav className="glass fixed top-0 left-0 right-0 z-50" style={{ boxShadow: 'var(--shadow-card)' }}>
       <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 1rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '4rem' }}>
-          {/* Logo */}
-          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', flexShrink: 0 }}>
-            <img src={dark ? logoDark : logoLight} alt="Logo" style={{ width: '38px', height: '38px', borderRadius: '8px', objectFit: 'contain' }} />
-            <span style={{
-              fontSize: '1.25rem',
-              fontWeight: '700',
-              background: 'linear-gradient(135deg, var(--color-primary-500), var(--color-accent-500))',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              whiteSpace: 'nowrap',
-            }}>
-              Jóvenes con Salud
-            </span>
+          {/* Logo HeartBliss — Cuida tu Corazón */}
+          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', textDecoration: 'none', flexShrink: 0 }}>
+            <img
+              src={heartEmblem}
+              alt="Cuida tu Corazón"
+              style={{
+                width: '44px',
+                height: '32px',
+                objectFit: 'contain',
+                filter: dark ? 'drop-shadow(0 2px 6px rgba(200, 153, 83, 0.25))' : 'drop-shadow(0 1px 3px rgba(58, 36, 31, 0.15))',
+              }}
+            />
+            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.06 }}>
+              <span style={{
+                fontSize: '1.02rem',
+                fontWeight: '800',
+                fontFamily: "'Outfit', 'Inter', sans-serif",
+                color: dark ? '#C89953' : '#3A241F',
+                letterSpacing: '-0.02em',
+                whiteSpace: 'nowrap',
+              }}>
+                Cuida tu
+              </span>
+              <span style={{
+                fontSize: '1.02rem',
+                fontWeight: '800',
+                fontFamily: "'Outfit', 'Inter', sans-serif",
+                color: dark ? '#C89953' : '#3A241F',
+                letterSpacing: '-0.02em',
+                whiteSpace: 'nowrap',
+              }}>
+                Corazón
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Nav */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem' }}
                className="desktop-nav">
             {links.map(link => (
               <Link
                 key={link.to}
                 to={link.to}
                 style={{
-                  padding: '0.5rem 1rem',
-                  borderRadius: 'var(--radius-md)',
+                  padding: '0.45rem 0.85rem',
+                  borderRadius: '9999px',
                   textDecoration: 'none',
                   fontSize: '0.875rem',
-                  fontWeight: isActive(link.to) ? '600' : '500',
-                  color: isActive(link.to) ? 'var(--color-primary-500)' : 'var(--color-surface-600)',
-                  backgroundColor: isActive(link.to) ? 'var(--color-primary-50)' : 'transparent',
+                  fontWeight: isActive(link.to) ? '700' : '500',
+                  color: isActive(link.to)
+                    ? (dark ? '#C89953' : '#3A241F')
+                    : (dark ? '#E2D4C6' : '#4B322A'),
+                  backgroundColor: isActive(link.to)
+                    ? (dark ? 'rgba(200, 153, 83, 0.14)' : '#E6DBC9')
+                    : 'transparent',
                   transition: 'all 0.2s ease',
                   whiteSpace: 'nowrap',
                 }}
@@ -370,15 +396,15 @@ export default function Navbar() {
             ))}
 
             {/* Language Selector Dropdown (Desktop Nav) */}
-            <div ref={langRef} style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+            <div ref={langRef} style={{ position: 'relative', display: 'flex', alignItems: 'center', marginLeft: '0.25rem' }}>
               <button
                 onClick={() => setLangOpen(!langOpen)}
                 style={{
                   display: 'flex', alignItems: 'center', gap: '0.4rem',
-                  padding: '0.45rem 0.8rem', borderRadius: 'var(--radius-lg)',
-                  background: dark ? 'var(--color-surface-200)' : 'var(--color-surface-50)', 
-                  border: `1px solid ${dark ? '#272530' : 'var(--color-surface-200)'}`,
-                  color: 'var(--color-surface-700)', fontSize: '0.78rem', fontWeight: '700',
+                  padding: '0.4rem 0.75rem', borderRadius: '9999px',
+                  background: dark ? '#2B1815' : '#EFE7D8', 
+                  border: `1px solid ${dark ? '#4A2D28' : '#D5C5AE'}`,
+                  color: dark ? '#F5ECE1' : '#3A241F', fontSize: '0.76rem', fontWeight: '700',
                   cursor: 'pointer', transition: 'all 0.2s',
                 }}
               >
@@ -390,9 +416,9 @@ export default function Navbar() {
               {langOpen && (
                 <div style={{
                   position: 'absolute', top: 'calc(100% + 6px)', right: 0, zIndex: 100,
-                  background: dark ? 'var(--color-surface-100)' : 'var(--color-surface-50)',
-                  borderRadius: '10px', minWidth: '130px',
-                  boxShadow: 'var(--shadow-elevated)', border: `1px solid ${dark ? '#272530' : 'var(--color-surface-200)'}`,
+                  background: dark ? '#2B1815' : '#F8F4EB',
+                  borderRadius: '12px', minWidth: '135px',
+                  boxShadow: 'var(--shadow-elevated)', border: `1px solid ${dark ? '#4A2D28' : '#E6DBC9'}`,
                   padding: '0.4rem 0', animation: 'slideUp 0.15s ease',
                 }}>
                   {LANGUAGES.map(lang => (
@@ -402,12 +428,12 @@ export default function Navbar() {
                       style={{
                         display: 'flex', alignItems: 'center', gap: '0.5rem',
                         width: '100%', padding: '0.5rem 1rem', border: 'none',
-                        background: activeLang.code === lang.code ? (dark ? '#272530' : '#f0fdf4') : 'transparent',
-                        color: activeLang.code === lang.code ? 'var(--color-primary-500)' : 'var(--color-surface-700)',
+                        background: activeLang.code === lang.code ? (dark ? '#38211D' : '#E6DBC9') : 'transparent',
+                        color: activeLang.code === lang.code ? (dark ? '#C89953' : '#3A241F') : 'var(--color-surface-700)',
                         fontSize: '0.82rem', fontWeight: activeLang.code === lang.code ? '700' : '500',
                         textAlign: 'left', cursor: 'pointer', transition: 'all 0.15s',
                       }}
-                      onMouseEnter={e => { if (activeLang.code !== lang.code) e.currentTarget.style.background = dark ? '#1e1c25' : '#faf8f5' }}
+                      onMouseEnter={e => { if (activeLang.code !== lang.code) e.currentTarget.style.background = dark ? '#38211D' : '#EFE7D8' }}
                       onMouseLeave={e => { if (activeLang.code !== lang.code) e.currentTarget.style.background = 'transparent' }}
                     >
                       <span>{lang.flag}</span>
@@ -419,49 +445,52 @@ export default function Navbar() {
             </div>
 
             {isAuthenticated ? (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginLeft: '0.75rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginLeft: '0.5rem' }}>
                 <Link
                   to="/dashboard"
                   style={{
                     display: 'flex', alignItems: 'center', gap: '0.4rem',
-                    padding: '0.5rem 1rem',
-                    borderRadius: 'var(--radius-lg)',
+                    padding: '0.48rem 1.05rem',
+                    borderRadius: '9999px',
                     textDecoration: 'none',
-                    fontSize: '0.875rem',
-                    fontWeight: '600',
+                    fontSize: '0.84rem',
+                    fontWeight: '700',
                     whiteSpace: 'nowrap',
-                    color: isActive('/dashboard') ? 'white' : 'var(--color-accent-600)',
-                    background: isActive('/dashboard')
-                      ? 'linear-gradient(135deg, var(--color-accent-500), var(--color-accent-700))'
-                      : 'var(--color-accent-50)',
+                    color: '#FFFFFF',
+                    background: dark ? '#4D683E' : '#5A7B43',
+                    boxShadow: isActive('/dashboard')
+                      ? '0 4px 14px rgba(90, 123, 67, 0.45)'
+                      : '0 2px 6px rgba(90, 123, 67, 0.25)',
+                    border: isActive('/dashboard') ? '1.5px solid rgba(255,255,255,0.45)' : '1px solid rgba(255,255,255,0.12)',
                     transition: 'all 0.2s ease',
                   }}
                 >
-                  <FaChartLine size={13} /> Mi Salud
+                  <FaChartLine size={12} /> Mi Salud
                 </Link>
 
-
-
-                {/* Admin link — solo visible para administradores */}
+                {/* Admin link — Píldora #7A433A (Claro) / #8B1E18 (Oscuro) como en el boceto */}
                 {user?.role === 'admin' && (
                   <Link
                     to="/admin"
                     title="Panel de Administración"
                     style={{
                       display: 'flex', alignItems: 'center', gap: '0.4rem',
-                      padding: '0.5rem 0.875rem',
-                      borderRadius: 'var(--radius-lg)',
+                      padding: '0.48rem 1.05rem',
+                      borderRadius: '9999px',
                       textDecoration: 'none',
-                      fontSize: '0.8rem',
+                      fontSize: '0.84rem',
                       fontWeight: '700',
                       whiteSpace: 'nowrap',
-                      color: isActive('/admin') ? 'white' : '#871233',
-                      background: isActive('/admin') ? '#871233' : '#87123318',
-                      border: '1px solid #87123330',
+                      color: '#FFFFFF',
+                      background: dark ? '#8B1E18' : '#7A433A',
+                      boxShadow: dark
+                        ? '0 2px 10px rgba(139, 30, 24, 0.45)'
+                        : '0 2px 6px rgba(122, 67, 58, 0.3)',
+                      border: isActive('/admin') ? '1.5px solid rgba(255,255,255,0.45)' : '1px solid rgba(255,255,255,0.12)',
                       transition: 'all 0.2s ease',
                     }}
                   >
-                    <FaUserShield size={13} /> Admin
+                    <FaUserShield size={12} /> Admin
                   </Link>
                 )}
 
@@ -942,7 +971,7 @@ export default function Navbar() {
                           display: 'inline-block',
                           width: '36px', height: '20px',
                           borderRadius: '10px',
-                          background: dark ? '#871233' : 'var(--color-surface-300)',
+                          background: dark ? '#C89953' : 'var(--color-surface-300)',
                           transition: 'background 0.25s',
                           flexShrink: 0,
                         }}>
@@ -979,23 +1008,42 @@ export default function Navbar() {
                 </div>
               </div>
             ) : (
-              <Link
-                to="/login"
-                style={{
-                  marginLeft: '0.75rem',
-                  padding: '0.5rem 1.25rem',
-                  borderRadius: 'var(--radius-lg)',
-                  textDecoration: 'none',
-                  fontSize: '0.875rem',
-                  fontWeight: '600',
-                  color: 'white',
-                  background: 'linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700))',
-                  transition: 'all 0.2s ease',
-                  boxShadow: '0 2px 8px rgb(135 18 51 / 0.3)',
-                }}
-              >
-                Iniciar Sesión
-              </Link>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginLeft: '0.5rem' }}>
+                <button
+                  onClick={toggleDark}
+                  title={dark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+                  style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    width: '34px', height: '34px', borderRadius: '9999px',
+                    background: dark ? '#2B1815' : '#EFE7D8',
+                    border: `1px solid ${dark ? '#4A2D28' : '#D5C5AE'}`,
+                    color: dark ? '#C89953' : '#7A433A',
+                    cursor: 'pointer', transition: 'all 0.2s',
+                  }}
+                >
+                  {dark ? <FaSun size={14} /> : <FaMoon size={13} />}
+                </button>
+                <Link
+                  to="/login"
+                  style={{
+                    padding: '0.5rem 1.25rem',
+                    borderRadius: '9999px',
+                    textDecoration: 'none',
+                    fontSize: '0.85rem',
+                    fontWeight: '700',
+                    color: dark ? '#1F1210' : '#FFFFFF',
+                    background: dark
+                      ? 'linear-gradient(135deg, #D4A862, #C89953)'
+                      : 'linear-gradient(135deg, #7A433A, #522B24)',
+                    transition: 'all 0.2s ease',
+                    boxShadow: dark
+                      ? '0 4px 14px rgba(200, 153, 83, 0.35)'
+                      : '0 4px 12px rgba(122, 67, 58, 0.28)',
+                  }}
+                >
+                  Iniciar Sesión
+                </Link>
+              </div>
             )}
           </div>
 
@@ -1024,8 +1072,8 @@ export default function Navbar() {
             display: 'flex',
             flexDirection: 'column',
             gap: '0.25rem',
-            background: dark ? 'var(--color-surface-100)' : '#fff',
-            borderTop: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
+            background: dark ? '#2B1815' : '#F8F4EB',
+            borderTop: `1px solid ${dark ? '#4A2D28' : '#E6DBC9'}`,
             padding: '1rem',
             boxShadow: 'var(--shadow-elevated)',
             borderRadius: `0 0 var(--radius-lg) var(--radius-lg)`,
@@ -1106,7 +1154,7 @@ export default function Navbar() {
                       </p>
                     ) : (
                       todayDoses.map((doseItem, idx) => (
-                        <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.4rem', borderBottom: idx < todayDoses.length - 1 ? `1px solid ${dark ? '#272530' : 'var(--color-surface-200)'}` : 'none' }}>
+                        <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.4rem', borderBottom: idx < todayDoses.length - 1 ? `1px solid ${dark ? '#4A2D28' : 'var(--color-surface-200)'}` : 'none' }}>
                           <div style={{ flex: 1, minWidth: 0 }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem' }}>
                               <span style={{ fontSize: '0.8rem', fontWeight: '700', color: 'var(--color-surface-800)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
@@ -1198,7 +1246,7 @@ export default function Navbar() {
                       alerts.slice(0, 5).map((alertItem, idx) => {
                         const isCritical = alertItem.severity === 'critical'
                         return (
-                          <div key={alertItem.id} style={{ padding: '0.4rem', borderBottom: idx < alerts.slice(0, 5).length - 1 ? `1px solid ${dark ? '#272530' : 'var(--color-surface-200)'}` : 'none' }}>
+                          <div key={alertItem.id} style={{ padding: '0.4rem', borderBottom: idx < alerts.slice(0, 5).length - 1 ? `1px solid ${dark ? '#4A2D28' : 'var(--color-surface-200)'}` : 'none' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem' }}>
                               <span style={{ fontSize: '0.78rem', fontWeight: '700', color: 'var(--color-surface-800)' }}>
                                 {alertItem.metricLabel}: {alertItem.value}
@@ -1227,12 +1275,12 @@ export default function Navbar() {
                     onClick={() => setIsOpen(false)}
                     style={{
                       padding: '0.75rem 1rem',
-                      borderRadius: 'var(--radius-md)',
+                      borderRadius: '9999px',
                       textDecoration: 'none',
-                      fontSize: '0.95rem',
+                      fontSize: '0.92rem',
                       fontWeight: '700',
-                      color: '#871233',
-                      background: '#87123312',
+                      color: '#FFFFFF',
+                      background: dark ? '#8B1E18' : '#7A433A',
                       display: 'flex', alignItems: 'center', gap: '0.5rem',
                     }}
                   >
@@ -1294,7 +1342,7 @@ export default function Navbar() {
                   <span style={{
                     position: 'relative', display: 'inline-block',
                     width: '40px', height: '22px', borderRadius: '11px',
-                    background: dark ? '#871233' : 'var(--color-surface-300)',
+                    background: dark ? '#C89953' : 'var(--color-surface-300)',
                     transition: 'background 0.25s', flexShrink: 0,
                   }}>
                     <span style={{
@@ -1368,7 +1416,7 @@ export default function Navbar() {
             <div style={{
               padding: '0.75rem 1rem',
               display: 'flex', flexDirection: 'column', gap: '0.5rem',
-              borderTop: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`,
+              borderTop: `1px solid ${dark ? '#4A2D28' : '#E6DBC9'}`,
               marginTop: '0.5rem',
             }}>
               <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--color-surface-400)' }}>Idioma / Language</div>
@@ -1380,8 +1428,8 @@ export default function Navbar() {
                     style={{
                       display: 'flex', alignItems: 'center', gap: '0.35rem',
                       padding: '0.4rem 0.65rem', borderRadius: '8px',
-                      border: `1.5px solid ${activeLang.code === lang.code ? 'var(--color-primary-500)' : (dark ? '#272530' : '#e8ddd0')}`,
-                      background: activeLang.code === lang.code ? (dark ? 'rgba(135,18,51,0.15)' : 'var(--color-primary-50)') : 'transparent',
+                      border: `1.5px solid ${activeLang.code === lang.code ? 'var(--color-primary-500)' : (dark ? '#4A2D28' : '#E6DBC9')}`,
+                      background: activeLang.code === lang.code ? (dark ? 'rgba(200,153,83,0.15)' : 'var(--color-primary-50)') : 'transparent',
                       color: activeLang.code === lang.code ? 'var(--color-primary-500)' : 'var(--color-surface-700)',
                       fontSize: '0.78rem', fontWeight: '600', cursor: 'pointer',
                     }}

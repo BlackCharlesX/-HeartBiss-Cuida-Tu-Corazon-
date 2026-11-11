@@ -20,23 +20,23 @@ const FAQ_SECTIONS = [
     id: 'general',
     category: 'General y Plataforma',
     icon: FaHeartbeat,
-    color: '#e03b60',
+    color: '#C89953',
     questions: [
       {
-        q: '¿Qué es Jóvenes con Salud y cuál es su objetivo?',
-        a: 'Jóvenes con Salud es el ecosistema digital de salud integral y preventiva del Instituto de la Juventud de Tamaulipas (IJT). Su objetivo es empoderar a la juventud de Tamaulipas (12 a 29 años) y a sus familias mediante herramientas de monitoreo fisiológico en tiempo real, expedientes clínicos digitales, guías nutricionales y acceso a consultas profesionales para prevenir enfermedades cardiometabólicas como diabetes, hipertensión y obesidad.'
+        q: '¿Qué es HeartBliss — Cuida tu Corazón y cuál es su objetivo?',
+        a: 'HeartBliss — Cuida tu Corazón es el ecosistema digital de salud integral y preventiva del Instituto de la Juventud de Tamaulipas (IJT). Su objetivo es empoderar a la juventud de Tamaulipas (12 a 29 años) y a sus familias mediante herramientas de monitoreo fisiológico en tiempo real, expedientes clínicos digitales, guías nutricionales y acceso a consultas profesionales para prevenir enfermedades cardiometabólicas como diabetes, hipertensión y obesidad.'
       },
       {
         q: '¿Es completamente gratuito el uso de la plataforma?',
-        a: 'Sí, el acceso a Jóvenes con Salud es 100% gratuito. Los módulos de monitoreo de signos vitales, registro de medicamentos, catálogo nutracéutico y expedientes no tienen ningún costo para los ciudadanos.'
+        a: 'Sí, el acceso a HeartBliss — Cuida tu Corazón es 100% gratuito. Los módulos de monitoreo de signos vitales, registro de medicamentos, catálogo nutracéutico y expedientes no tienen ningún costo para los ciudadanos.'
       },
       {
         q: '¿La aplicación funciona en mi celular como una App?',
-        a: '¡Sí! Jóvenes con Salud está desarrollada como una Aplicación Web Progresiva (PWA). Puedes instalarla directamente desde tu navegador (Chrome, Safari o Edge) en tu teléfono Android o iPhone seleccionando "Instalar aplicación" o "Agregar a pantalla de inicio", permitiéndote acceder incluso con conexión intermitente.'
+        a: '¡Sí! HeartBliss — Cuida tu Corazón está desarrollada como una Aplicación Web Progresiva (PWA). Puedes instalarla directamente desde tu navegador (Chrome, Safari o Edge) en tu teléfono Android o iPhone seleccionando "Instalar aplicación" o "Agregar a pantalla de inicio", permitiéndote acceder incluso con conexión intermitente.'
       },
       {
         q: '¿La plataforma sustituye una consulta médica de urgencia?',
-        a: 'No. Jóvenes con Salud es una herramienta de medicina preventiva, monitoreo y seguimiento clínico. En caso de una emergencia médica crítica o dolor agudo severo, debes acudir de inmediato a tu centro de salud u hospital más cercano, o comunicarte al 911.'
+        a: 'No. HeartBliss — Cuida tu Corazón es una herramienta de medicina preventiva, monitoreo y seguimiento clínico. En caso de una emergencia médica crítica o dolor agudo severo, debes acudir de inmediato a tu centro de salud u hospital más cercano, o comunicarte al 911.'
       }
     ]
   },
@@ -279,7 +279,7 @@ export default function FAQ() {
           margin: '0 auto 1.75rem',
           lineHeight: 1.5
         }}>
-          Encuentra respuestas rápidas y claras sobre el monitoreo de signos vitales, uso de wearables, consultas médicas, expediente digital y seguridad en Jóvenes con Salud.
+          Encuentra respuestas rápidas y claras sobre el monitoreo de signos vitales, uso de wearables, consultas médicas, expediente digital y seguridad en HeartBliss — Cuida tu Corazón.
         </p>
 
         {/* Live Search Bar */}
@@ -510,7 +510,7 @@ export default function FAQ() {
         marginTop: '3.5rem',
         background: dark
           ? 'linear-gradient(135deg, #18080f 0%, #2e0813 60%, #1e1308 100%)'
-          : 'linear-gradient(135deg, #750f2c 0%, #871233 60%, #9a7a4e 100%)',
+          : 'linear-gradient(135deg, #66362E 0%, #7A433A 60%, #9a7a4e 100%)',
         borderRadius: 'var(--radius-2xl)',
         padding: '2rem',
         color: 'white',

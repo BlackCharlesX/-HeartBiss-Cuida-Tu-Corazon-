@@ -54,7 +54,7 @@ function EnrollmentModal({ program, onClose, onSuccess }) {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
-  const color = TYPE_COLORS[program.type] || '#871233'
+  const color = TYPE_COLORS[program.type] || '#7A433A'
   const fields = Array.isArray(program.formFields) ? program.formFields : []
   const hasAnyPdf = fields.some(f => f.requiresPdf)
 
@@ -418,7 +418,7 @@ export default function Programs() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {programs.map(program => {
             const TypeIcon = TYPE_ICONS[program.type] || FaHandHoldingHeart
-            const color = TYPE_COLORS[program.type] || '#871233'
+            const color = TYPE_COLORS[program.type] || '#7A433A'
             const isExpanded = expanded === program.id
             const requirements = Array.isArray(program.requirements)
               ? program.requirements

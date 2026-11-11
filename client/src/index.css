@@ -1,62 +1,79 @@
 @import "tailwindcss";
 
 /* ========================================
-   Jóvenes con Salud — Design System
-   Colores institucionales Gobierno de Tamaulipas
+   HeartBliss — Cuida tu Corazón · Design System
+   Paleta Oficial Modo Claro & Modo Oscuro
    ======================================== */
 
 @theme {
-  /* ===== Colores Institucionales Gobierno de Tamaulipas ===== */
+  /* ===== Paleta Oficial HeartBliss — Modo Claro ===== */
 
-  /* Primario — Guinda Institucional (#871233) */
-  --color-primary-50: #fdf2f4;
-  --color-primary-100: #fbe5ea;
-  --color-primary-200: #f5c6d1;
-  --color-primary-300: #eb9aad;
-  --color-primary-400: #d65c7e;
-  --color-primary-500: #871233;
-  --color-primary-600: #750f2c;
-  --color-primary-700: #5e0c23;
-  --color-primary-800: #4e0413;
-  --color-primary-900: #3a0310;
+  /* Primario — Corazón / Branding (#7A433A) y Títulos (#3A241F) */
+  --color-primary-50: #fbf6f4;
+  --color-primary-100: #f5eae6;
+  --color-primary-200: #ead4CC;
+  --color-primary-300: #d5afa3;
+  --color-primary-400: #a86c61;
+  --color-primary-500: #7A433A;
+  --color-primary-600: #66362E;
+  --color-primary-700: #522B24;
+  --color-primary-800: #3A241F;
+  --color-primary-900: #2B1815;
 
-  /* Acento — Dorado Institucional (#c2a378) */
-  --color-accent-50: #faf7f2;
-  --color-accent-100: #f4efe7;
-  --color-accent-200: #e8dcc8;
-  --color-accent-300: #d9c5a5;
-  --color-accent-400: #c2a378;
-  --color-accent-500: #b08e5f;
-  --color-accent-600: #9a7a4e;
-  --color-accent-700: #7d6340;
-  --color-accent-800: #654f33;
-  --color-accent-900: #4a3a26;
+  /* Acento — Botón Primario Dorado Miel (#C89953) */
+  --color-accent-50: #fcf9f2;
+  --color-accent-100: #f7f0df;
+  --color-accent-200: #ede0be;
+  --color-accent-300: #dfc894;
+  --color-accent-400: #C89953;
+  --color-accent-500: #C89953;
+  --color-accent-600: #b3843e;
+  --color-accent-700: #946b30;
+  --color-accent-800: #765526;
+  --color-accent-900: #593f1c;
+
+  /* Secundario Natural — Verde Hoja (#5A7B43 / #4D683E) */
+  --color-secondary-50: #f3f7f0;
+  --color-secondary-100: #e3ede0;
+  --color-secondary-200: #c6dbc0;
+  --color-secondary-300: #9ec094;
+  --color-secondary-400: #749c62;
+  --color-secondary-500: #5A7B43;
+  --color-secondary-600: #4D683E;
+  --color-secondary-700: #3e5432;
+  --color-secondary-800: #314228;
+  --color-secondary-900: #25321e;
+
+  /* Botones de Navegación / Píldoras */
+  --color-health-pill: #5A7B43;
+  --color-admin-pill: #7A433A;
+  --color-alert-crimson: #8B1E18;
 
   /* Colores de Estado */
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-error: #ef4444;
-  --color-info: #3b82f6;
+  --color-success: #5A7B43;
+  --color-warning: #C89953;
+  --color-error: #8B1E18;
+  --color-info: #4A7C8C;
 
-  /* Superficies — Base Crema (#f4efe7) */
-  --color-surface-50: #faf8f5;
-  --color-surface-100: #f4efe7;
-  --color-surface-200: #e8ddd0;
-  --color-surface-300: #d4c4b0;
-  --color-surface-400: #a89580;
-  --color-surface-500: #7d6e5e;
-  --color-surface-600: #5c5248;
-  --color-surface-700: #403a34;
-  --color-surface-800: #2a2623;
-  --color-surface-900: #1a1715;
+  /* Superficies — Fondo Principal (#F8F4EB) y Tarjetas/Detalles (#E6DBC9) */
+  --color-surface-50: #F8F4EB;
+  --color-surface-100: #EFE7D8;
+  --color-surface-200: #E6DBC9;
+  --color-surface-300: #D5C5AE;
+  --color-surface-400: #AA957E;
+  --color-surface-500: #7E6757;
+  --color-surface-600: #5D4339;
+  --color-surface-700: #4B322A;
+  --color-surface-800: #3F2822;
+  --color-surface-900: #3A241F;
 
   /* Tipografía */
-  --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Inter', 'Outfit', 'Segoe UI', system-ui, -apple-system, sans-serif;
 
-  /* Sombras */
-  --shadow-card: 0 1px 3px 0 rgb(78 4 19 / 0.06), 0 1px 2px -1px rgb(78 4 19 / 0.06);
-  --shadow-elevated: 0 10px 15px -3px rgb(78 4 19 / 0.08), 0 4px 6px -4px rgb(78 4 19 / 0.06);
-  --shadow-glow: 0 0 20px rgb(135 18 51 / 0.15);
+  /* Sombras Cálidas */
+  --shadow-card: 0 2px 8px 0 rgb(58 36 31 / 0.06), 0 1px 3px -1px rgb(58 36 31 / 0.05);
+  --shadow-elevated: 0 12px 24px -4px rgb(58 36 31 / 0.10), 0 4px 8px -4px rgb(58 36 31 / 0.06);
+  --shadow-glow: 0 8px 24px rgb(200 153 83 / 0.35);
 
   /* Bordes */
   --radius-sm: 0.375rem;
@@ -65,29 +82,31 @@
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
 
-  /* Banners gradients */
-  --hero-gradient: linear-gradient(135deg, var(--color-primary-800) 0%, var(--color-primary-600) 50%, var(--color-accent-700) 100%);
-  --cta-gradient: linear-gradient(135deg, var(--color-primary-500), var(--color-accent-600));
-  --institutions-gradient: linear-gradient(135deg, var(--color-primary-900) 0%, var(--color-primary-800) 100%);
-  --color-hero-badge: #ffffff;
-  --color-hero-highlight: var(--color-accent-300);
+  /* Banners gradients — Modo Claro Cálido */
+  --hero-gradient: radial-gradient(circle at 78% 35%, rgba(90, 123, 67, 0.14) 0%, transparent 45%), radial-gradient(circle at 20% 80%, rgba(200, 153, 83, 0.18) 0%, transparent 50%), linear-gradient(135deg, #F8F4EB 0%, #F2EBD9 55%, #E6DBC9 100%);
+  --cta-gradient: linear-gradient(135deg, #7A433A 0%, #3A241F 55%, #5A7B43 100%);
+  --institutions-gradient: linear-gradient(135deg, #3A241F 0%, #2B1815 100%);
+  --color-footer-bg-start: #2B1815;
+  --color-footer-bg-end: #1F1210;
+  --color-hero-badge: #7A433A;
+  --color-hero-highlight: #3A241F;
 
   /* Health tracking metrics — Light mode defaults */
-  --color-metric-weight: #871233;
-  --color-metric-weight-grad-0: #eb9aad;
-  --color-metric-weight-grad-1: #fdf2f4;
+  --color-metric-weight: #7A433A;
+  --color-metric-weight-grad-0: #d5afa3;
+  --color-metric-weight-grad-1: #fbf6f4;
 
-  --color-metric-glucose: #d97706;
-  --color-metric-glucose-grad-0: #fde68a;
-  --color-metric-glucose-grad-1: #fefbeb;
+  --color-metric-glucose: #C89953;
+  --color-metric-glucose-grad-0: #ede0be;
+  --color-metric-glucose-grad-1: #fcf9f2;
 
-  --color-metric-bloodPressure: #dc2626;
+  --color-metric-bloodPressure: #8B1E18;
   --color-metric-bloodPressure-grad-0: #fecaca;
   --color-metric-bloodPressure-grad-1: #fef2f2;
 
-  --color-metric-heartRate: #0d9488;
-  --color-metric-heartRate-grad-0: #99f6e4;
-  --color-metric-heartRate-grad-1: #f0fdfa;
+  --color-metric-heartRate: #5A7B43;
+  --color-metric-heartRate-grad-0: #c6dbc0;
+  --color-metric-heartRate-grad-1: #f3f7f0;
 
   --color-metric-cholesterol: #2563eb;
   --color-metric-cholesterol-grad-0: #bfdbfe;
@@ -100,7 +119,7 @@
   /* Custom Theme Accent Variables */
   --color-theme-accent: var(--color-primary-500);
   --color-theme-accent-border: var(--color-surface-200);
-  --color-theme-accent-bg: #ffffff;
+  --color-theme-accent-bg: #FCF9F3;
 }
 
 /* ========================================
@@ -148,10 +167,10 @@ p, span, a, li, h1, h2, h3, h4, h5, h6 {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(248, 244, 235, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid #E6DBC9;
 }
 
 .text-gradient {
@@ -230,77 +249,90 @@ p, span, a, li, h1, h2, h3, h4, h5, h6 {
 }
 
 /* ========================================
-   Dark Mode System & Variables
+   Dark Mode System & Variables (HeartBliss Modo Oscuro)
    ======================================== */
 
 .dark {
-  /* Surface Overrides - Sleek Charcoal/Navy Dark Theme */
-  --color-surface-50: #0c0b0f;   /* Main page background */
-  --color-surface-100: #141319;  /* Card / nav / primary surface background */
-  --color-surface-200: #1e1c25;  /* Secondary surface / border / input background */
-  --color-surface-300: #272530;  /* Active hover surface / border */
-  --color-surface-400: #3f3b4e;  /* Muted elements / borders */
-  --color-surface-500: #7e7a8c;  /* Subtitles / inactive labels */
-  --color-surface-600: #9ea4b0;  /* Standard paragraph texts */
-  --color-surface-700: #c5bfae;  /* Highlight texts */
-  --color-surface-800: #e5dfef;  /* Heading accents */
-  --color-surface-900: #ffffff;  /* High-contrast pure white heading text */
+  /* Superficies — Fondo Principal (#1F1210) y Tarjetas/Secciones (#2B1815) */
+  --color-surface-50: #1F1210;   /* Fondo Principal Modo Oscuro */
+  --color-surface-100: #2B1815;  /* Tarjetas / Secciones Modo Oscuro */
+  --color-surface-200: #38211D;  /* Superficie secundaria / inputs */
+  --color-surface-300: #4A2D28;  /* Bordes / hover */
+  --color-surface-400: #6B4740;  /* Elementos atenuados */
+  --color-surface-500: #A38A7C;  /* Subtítulos / etiquetas */
+  --color-surface-600: #CBB9AA;  /* Párrafos estándar */
+  --color-surface-700: #E2D4C6;  /* Textos destacados */
+  --color-surface-800: #EFE4D8;  /* Subtítulos altos */
+  --color-surface-900: #F5ECE1;  /* Corazón / Branding / Texto Principal (#F5ECE1) */
 
   /* Custom Theme Accent Variables in Dark Mode */
   --color-theme-accent: var(--color-primary-500);
   --color-theme-accent-border: var(--color-surface-300);
   --color-theme-accent-bg: var(--color-surface-100);
 
-  /* Primary Accent - Government Guinda in Dark Mode */
-  --color-primary-50: #29030a;
-  --color-primary-100: #420410;
-  --color-primary-200: #5c0817;
-  --color-primary-300: #7d0f23;
-  --color-primary-400: #a81a33;
-  --color-primary-500: #e03b60;  /* Vibrant high-contrast red/guinda for visibility */
-  --color-primary-600: #eb5575;
-  --color-primary-700: #f47590;
-  --color-primary-800: #fca5b7;
-  --color-primary-900: #fde5ea;
+  /* Botones de Navegación / Píldoras en Modo Oscuro */
+  --color-health-pill: #4D683E;
+  --color-admin-pill: #8B1E18;
+  --color-alert-crimson: #8B1E18;
 
-  /* Golden Accent in Dark Mode */
-  --color-accent-50: #231c12;
-  --color-accent-100: #362c1c;
-  --color-accent-200: #4d3e29;
-  --color-accent-300: #675439;
-  --color-accent-400: #937b5a;
-  --color-accent-500: #d4a96a;  /* Readable gold */
-  --color-accent-600: #e3c49a;
+  /* Primario / Acento Principal en Modo Oscuro (#C89953 y #8B1E18) */
+  --color-primary-50: #2A1613;
+  --color-primary-100: #3B1D18;
+  --color-primary-200: #542821;
+  --color-primary-300: #7A433A;
+  --color-primary-400: #B3843E;
+  --color-primary-500: #C89953;  /* Botón Primario Dorado (#C89953) */
+  --color-primary-600: #D6AB68;
+  --color-primary-700: #E3BE84;
+  --color-primary-800: #EFE1B6;
+  --color-primary-900: #F5ECE1;
+
+  /* Dorado Miel en Modo Oscuro (#C89953) */
+  --color-accent-50: #261B12;
+  --color-accent-100: #36271A;
+  --color-accent-200: #4E3925;
+  --color-accent-300: #755636;
+  --color-accent-400: #C89953;
+  --color-accent-500: #C89953;
+  --color-accent-600: #DEC08E;
+
+  /* Verde Bosque en Modo Oscuro (#4D683E) */
+  --color-secondary-500: #4D683E;
+  --color-secondary-600: #5A7B43;
+  --color-success: #5A7B43;
+  --color-error: #8B1E18;
 
   /* Elevation and Shadow tweaks for Dark Mode */
-  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.55);
-  --shadow-elevated: 0 12px 35px rgba(0, 0, 0, 0.75);
-  --shadow-glow: 0 0 25px rgba(224, 59, 96, 0.2);
-  --color-footer-border: rgba(255, 255, 255, 0.06);
+  --shadow-card: 0 4px 20px rgba(10, 5, 4, 0.55);
+  --shadow-elevated: 0 12px 35px rgba(10, 5, 4, 0.78);
+  --shadow-glow: 0 0 28px rgba(200, 153, 83, 0.35);
+  --color-footer-border: rgba(245, 236, 225, 0.08);
+  --color-footer-bg-start: #1B0F0D;
+  --color-footer-bg-end: #140B09;
 
   /* Banners gradients - Dark Mode overrides */
-  --hero-gradient: linear-gradient(135deg, #0c0b0f 0%, #29030a 60%, #141319 100%);
-  --cta-gradient: linear-gradient(135deg, #141319 0%, #29030a 100%);
-  --institutions-gradient: linear-gradient(135deg, #0c0b0f 0%, #141319 100%);
-  --color-hero-badge: var(--color-accent-400);
-  --color-hero-highlight: var(--color-accent-500);
+  --hero-gradient: radial-gradient(circle at 78% 30%, rgba(77, 104, 62, 0.25) 0%, transparent 45%), radial-gradient(circle at 82% 85%, rgba(139, 30, 24, 0.32) 0%, transparent 48%), linear-gradient(135deg, #1F1210 0%, #2B1815 60%, #1F1210 100%);
+  --cta-gradient: linear-gradient(135deg, #2B1815 0%, #4A1C17 55%, #1F1210 100%);
+  --institutions-gradient: linear-gradient(135deg, #1F1210 0%, #2B1815 100%);
+  --color-hero-badge: #C89953;
+  --color-hero-highlight: #C89953;
 
   /* Health tracking metrics — Dark mode overrides */
-  --color-metric-weight: #e03b60;
-  --color-metric-weight-grad-0: rgba(224, 59, 96, 0.4);
-  --color-metric-weight-grad-1: rgba(224, 59, 96, 0.05);
+  --color-metric-weight: #C89953;
+  --color-metric-weight-grad-0: rgba(200, 153, 83, 0.4);
+  --color-metric-weight-grad-1: rgba(200, 153, 83, 0.05);
 
   --color-metric-glucose: #fb923c;
   --color-metric-glucose-grad-0: rgba(251, 146, 60, 0.4);
   --color-metric-glucose-grad-1: rgba(251, 146, 60, 0.05);
 
-  --color-metric-bloodPressure: #f87171;
-  --color-metric-bloodPressure-grad-0: rgba(248, 113, 113, 0.4);
-  --color-metric-bloodPressure-grad-1: rgba(248, 113, 113, 0.05);
+  --color-metric-bloodPressure: #e0524b;
+  --color-metric-bloodPressure-grad-0: rgba(224, 82, 75, 0.4);
+  --color-metric-bloodPressure-grad-1: rgba(224, 82, 75, 0.05);
 
-  --color-metric-heartRate: #2dd4bf;
-  --color-metric-heartRate-grad-0: rgba(45, 212, 191, 0.4);
-  --color-metric-heartRate-grad-1: rgba(45, 212, 191, 0.05);
+  --color-metric-heartRate: #68944c;
+  --color-metric-heartRate-grad-0: rgba(104, 148, 76, 0.4);
+  --color-metric-heartRate-grad-1: rgba(104, 148, 76, 0.05);
 
   --color-metric-cholesterol: #60a5fa;
   --color-metric-cholesterol-grad-0: rgba(96, 165, 250, 0.4);
@@ -311,6 +343,32 @@ p, span, a, li, h1, h2, h3, h4, h5, h6 {
   --color-metric-triglycerides-grad-1: rgba(167, 139, 250, 0.05);
 }
 
+/* Light Mode HeartBliss Warm Surface Normalization */
+html:not(.dark) div[style*="background: #f8fafc"],
+html:not(.dark) div[style*="background-color: #f8fafc"],
+html:not(.dark) div[style*="background: rgb(248, 250, 252)"],
+html:not(.dark) div[style*="background-color: rgb(248, 250, 252)"],
+html:not(.dark) div[style*="background: #f9fafb"],
+html:not(.dark) div[style*="background-color: #f9fafb"] {
+  background: var(--color-surface-50) !important;
+  background-color: var(--color-surface-50) !important;
+}
+
+html:not(.dark) [style*="color: #0f172a"],
+html:not(.dark) [style*="color:#0f172a"],
+html:not(.dark) [style*="color: #1e293b"],
+html:not(.dark) [style*="color:#1e293b"],
+html:not(.dark) [style*="color: rgb(15, 23, 42)"],
+html:not(.dark) [style*="color: rgb(30, 41, 59)"] {
+  color: #3A241F !important;
+}
+
+html:not(.dark) [style*="color: #871233"],
+html:not(.dark) [style*="color:#871233"],
+html:not(.dark) [style*="color: rgb(135, 18, 51)"] {
+  color: #7A433A !important;
+}
+
 /* Base Body override */
 .dark body {
   background-color: var(--color-surface-50) !important;
@@ -319,8 +377,8 @@ p, span, a, li, h1, h2, h3, h4, h5, h6 {
 
 /* Glassmorphism Navigation in Dark Mode */
 .dark .glass {
-  background: rgba(12, 11, 15, 0.85) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: rgba(31, 18, 16, 0.92) !important;
+  border-bottom: 1px solid rgba(200, 153, 83, 0.14) !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
 }
@@ -398,7 +456,7 @@ p, span, a, li, h1, h2, h3, h4, h5, h6 {
 .dark select:focus,
 .dark textarea:focus {
   border-color: var(--color-primary-500) !important;
-  box-shadow: 0 0 0 2px rgba(235, 71, 112, 0.2) !important;
+  box-shadow: 0 0 0 2px rgba(200, 153, 83, 0.25) !important;
 }
 
 /* Hover style dropdown containers and popup cards */

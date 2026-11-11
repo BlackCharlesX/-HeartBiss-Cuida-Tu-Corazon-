@@ -85,7 +85,7 @@ const LAYERS = [
     icon: FaUsers,
     unit: 'beneficiarios',
     description: 'Concentración de usuarios registrados y familiares',
-    colorScale: ['#fce7f3', '#f43f5e', '#871233'],
+    colorScale: ['#fce7f3', '#f43f5e', '#7A433A'],
     stops: [0, 50, 100],
     legend: { min: 'Baja densidad', mid: 'Media', max: 'Alta concentración' }
   },
@@ -196,9 +196,9 @@ function getMunicipalityColor(m, layerId, isDark, minVal, maxVal) {
     const range = Math.max(1, maxVal - minVal)
     const factor = Math.min(1, Math.max(0, (val - minVal) / range))
     if (isDark) {
-      return interpolateColor('#2d1525', '#e03b60', factor)
+      return interpolateColor('#2d1525', '#C89953', factor)
     }
-    return interpolateColor('#fce7f3', '#871233', factor)
+    return interpolateColor('#fce7f3', '#7A433A', factor)
   }
 
   const [s0, s1, s2] = layer.stops
@@ -396,10 +396,10 @@ export default function TamaulipasMap({ dark }) {
   if (loading && !stateData) {
     return (
       <div style={{
-        background: dark ? '#141319' : '#fff',
+        background: dark ? '#2B1815' : '#fff',
         borderRadius: '20px',
         padding: '4rem 2rem',
-        border: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`,
+        border: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`,
         textAlign: 'center',
         display: 'flex',
         flexDirection: 'column',
@@ -407,7 +407,7 @@ export default function TamaulipasMap({ dark }) {
         justifyContent: 'center',
         gap: '1rem',
       }}>
-        <FaSyncAlt className="animate-spin" size={28} style={{ color: '#871233' }} />
+        <FaSyncAlt className="animate-spin" size={28} style={{ color: '#7A433A' }} />
         <div>
           <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715' }}>
             Cargando Mapa Epidemiológico de Tamaulipas
@@ -425,12 +425,12 @@ export default function TamaulipasMap({ dark }) {
       {/* ── HEADER BANNER ────────────────────────────────────────── */}
       <div style={{
         background: dark
-          ? 'linear-gradient(135deg, rgba(135,18,51,0.25) 0%, rgba(20,19,25,0.95) 100%)'
-          : 'linear-gradient(135deg, #87123314 0%, #ffffff 100%)',
+          ? 'linear-gradient(135deg, rgba(122,67,58,0.25) 0%, rgba(20,19,25,0.95) 100%)'
+          : 'linear-gradient(135deg, #7A433A14 0%, #ffffff 100%)',
         borderRadius: '20px',
         padding: '1.75rem 2rem',
-        border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
-        boxShadow: dark ? '0 10px 30px rgba(0,0,0,0.3)' : '0 4px 16px rgba(135,18,51,0.06)',
+        border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+        boxShadow: dark ? '0 10px 30px rgba(0,0,0,0.3)' : '0 4px 16px rgba(122,67,58,0.06)',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -442,7 +442,7 @@ export default function TamaulipasMap({ dark }) {
             width: '54px',
             height: '54px',
             borderRadius: '16px',
-            background: 'linear-gradient(135deg, #871233 0%, #e03b60 100%)',
+            background: 'linear-gradient(135deg, #7A433A 0%, #C89953 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -461,9 +461,9 @@ export default function TamaulipasMap({ dark }) {
                 textTransform: 'uppercase',
                 padding: '0.2rem 0.65rem',
                 borderRadius: '999px',
-                background: dark ? 'rgba(224,59,96,0.2)' : '#87123318',
-                color: dark ? '#e03b60' : '#871233',
-                border: `1px solid ${dark ? 'rgba(224,59,96,0.3)' : '#87123330'}`,
+                background: dark ? 'rgba(224,59,96,0.2)' : '#7A433A18',
+                color: dark ? '#C89953' : '#7A433A',
+                border: `1px solid ${dark ? 'rgba(224,59,96,0.3)' : '#7A433A30'}`,
               }}>
                 GEO-MONITOREO EPIDEMIOLÓGICO
               </span>
@@ -485,7 +485,7 @@ export default function TamaulipasMap({ dark }) {
               color: dark ? '#9ea4b0' : '#5c5248',
               margin: '0.25rem 0 0',
             }}>
-              Supervisión territorial en tiempo real de salud metabólica, factores de riesgo y cobertura del programa Jóvenes con Salud.
+              Supervisión territorial en tiempo real de salud metabólica, factores de riesgo y cobertura del programa HeartBliss — Cuida tu Corazón.
             </p>
           </div>
         </div>
@@ -495,10 +495,10 @@ export default function TamaulipasMap({ dark }) {
           {/* View mode toggle */}
           <div style={{
             display: 'flex',
-            background: dark ? '#1e1c25' : '#faf8f5',
+            background: dark ? '#38211D' : '#faf8f5',
             padding: '3px',
             borderRadius: '12px',
-            border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
+            border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
           }}>
             <button
               onClick={() => setViewMode('map')}
@@ -512,7 +512,7 @@ export default function TamaulipasMap({ dark }) {
                 cursor: 'pointer',
                 fontSize: '0.78rem',
                 fontWeight: '700',
-                background: viewMode === 'map' ? '#871233' : 'transparent',
+                background: viewMode === 'map' ? '#7A433A' : 'transparent',
                 color: viewMode === 'map' ? '#fff' : (dark ? '#9ea4b0' : '#73665c'),
                 transition: 'all 0.2s',
               }}
@@ -531,7 +531,7 @@ export default function TamaulipasMap({ dark }) {
                 cursor: 'pointer',
                 fontSize: '0.78rem',
                 fontWeight: '700',
-                background: viewMode === 'table' ? '#871233' : 'transparent',
+                background: viewMode === 'table' ? '#7A433A' : 'transparent',
                 color: viewMode === 'table' ? '#fff' : (dark ? '#9ea4b0' : '#73665c'),
                 transition: 'all 0.2s',
               }}
@@ -550,8 +550,8 @@ export default function TamaulipasMap({ dark }) {
                 gap: '0.45rem',
                 padding: '0.55rem 0.95rem',
                 borderRadius: '11px',
-                border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
-                background: dark ? '#1e1c25' : '#faf8f5',
+                border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+                background: dark ? '#38211D' : '#faf8f5',
                 color: dark ? '#fff' : '#1a1715',
                 fontSize: '0.8rem',
                 fontWeight: '700',
@@ -577,12 +577,12 @@ export default function TamaulipasMap({ dark }) {
               padding: '0.55rem 1rem',
               borderRadius: '11px',
               border: 'none',
-              background: 'linear-gradient(135deg, #871233 0%, #a81c44 100%)',
+              background: 'linear-gradient(135deg, #7A433A 0%, #a81c44 100%)',
               color: '#fff',
               fontSize: '0.8rem',
               fontWeight: '700',
               cursor: 'pointer',
-              boxShadow: '0 4px 12px rgba(135,18,51,0.3)',
+              boxShadow: '0 4px 12px rgba(122,67,58,0.3)',
               transition: 'all 0.2s',
             }}
           >
@@ -599,10 +599,10 @@ export default function TamaulipasMap({ dark }) {
       }}>
         {/* Total Beneficiarios */}
         <div style={{
-          background: dark ? '#141319' : '#fff',
+          background: dark ? '#2B1815' : '#fff',
           borderRadius: '16px',
           padding: '1.15rem 1.25rem',
-          border: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`,
+          border: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`,
           display: 'flex',
           flexDirection: 'column',
           gap: '0.35rem',
@@ -625,10 +625,10 @@ export default function TamaulipasMap({ dark }) {
 
         {/* Cobertura de Municipios */}
         <div style={{
-          background: dark ? '#141319' : '#fff',
+          background: dark ? '#2B1815' : '#fff',
           borderRadius: '16px',
           padding: '1.15rem 1.25rem',
-          border: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`,
+          border: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`,
           display: 'flex',
           flexDirection: 'column',
           gap: '0.35rem',
@@ -651,10 +651,10 @@ export default function TamaulipasMap({ dark }) {
 
         {/* IMC Estatal Promedio */}
         <div style={{
-          background: dark ? '#141319' : '#fff',
+          background: dark ? '#2B1815' : '#fff',
           borderRadius: '16px',
           padding: '1.15rem 1.25rem',
-          border: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`,
+          border: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`,
           display: 'flex',
           flexDirection: 'column',
           gap: '0.35rem',
@@ -677,10 +677,10 @@ export default function TamaulipasMap({ dark }) {
 
         {/* Glucosa Promedio */}
         <div style={{
-          background: dark ? '#141319' : '#fff',
+          background: dark ? '#2B1815' : '#fff',
           borderRadius: '16px',
           padding: '1.15rem 1.25rem',
-          border: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`,
+          border: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`,
           display: 'flex',
           flexDirection: 'column',
           gap: '0.35rem',
@@ -703,10 +703,10 @@ export default function TamaulipasMap({ dark }) {
 
         {/* Presión Arterial */}
         <div style={{
-          background: dark ? '#141319' : '#fff',
+          background: dark ? '#2B1815' : '#fff',
           borderRadius: '16px',
           padding: '1.15rem 1.25rem',
-          border: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`,
+          border: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`,
           display: 'flex',
           flexDirection: 'column',
           gap: '0.35rem',
@@ -730,10 +730,10 @@ export default function TamaulipasMap({ dark }) {
 
         {/* Wearables Sincronizados */}
         <div style={{
-          background: dark ? '#141319' : '#fff',
+          background: dark ? '#2B1815' : '#fff',
           borderRadius: '16px',
           padding: '1.15rem 1.25rem',
-          border: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`,
+          border: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`,
           display: 'flex',
           flexDirection: 'column',
           gap: '0.35rem',
@@ -757,10 +757,10 @@ export default function TamaulipasMap({ dark }) {
 
       {/* ── CONTROLS & FILTER BAR ─────────────────────────────────── */}
       <div style={{
-        background: dark ? '#141319' : '#fff',
+        background: dark ? '#2B1815' : '#fff',
         borderRadius: '16px',
         padding: '1.25rem 1.5rem',
-        border: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`,
+        border: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`,
         display: 'flex',
         flexDirection: 'column',
         gap: '1rem',
@@ -796,18 +796,18 @@ export default function TamaulipasMap({ dark }) {
                     gap: '0.5rem',
                     padding: '0.6rem 1rem',
                     borderRadius: '12px',
-                    border: `1.5px solid ${active ? '#871233' : (dark ? '#272530' : '#e8ddd0')}`,
+                    border: `1.5px solid ${active ? '#7A433A' : (dark ? '#4A2D28' : '#e8ddd0')}`,
                     background: active
-                      ? (dark ? 'rgba(135,18,51,0.25)' : '#87123312')
-                      : (dark ? '#1e1c25' : '#faf8f5'),
-                    color: active ? (dark ? '#e03b60' : '#871233') : (dark ? '#fff' : '#1a1715'),
+                      ? (dark ? 'rgba(122,67,58,0.25)' : '#7A433A12')
+                      : (dark ? '#38211D' : '#faf8f5'),
+                    color: active ? (dark ? '#C89953' : '#7A433A') : (dark ? '#fff' : '#1a1715'),
                     fontSize: '0.82rem',
                     fontWeight: active ? '800' : '600',
                     cursor: 'pointer',
                     transition: 'all 0.2s ease',
                   }}
                 >
-                  <Icon size={14} style={{ color: active ? (dark ? '#e03b60' : '#871233') : (dark ? '#7e7a8c' : '#8c827a') }} />
+                  <Icon size={14} style={{ color: active ? (dark ? '#C89953' : '#7A433A') : (dark ? '#7e7a8c' : '#8c827a') }} />
                   {layer.shortName}
                 </button>
               )
@@ -823,7 +823,7 @@ export default function TamaulipasMap({ dark }) {
           flexWrap: 'wrap',
           gap: '1rem',
           paddingTop: '0.75rem',
-          borderTop: `1px solid ${dark ? '#1e1c25' : '#f0e8dc'}`,
+          borderTop: `1px solid ${dark ? '#38211D' : '#f0e8dc'}`,
         }}>
           {/* Region Chips */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
@@ -841,8 +841,8 @@ export default function TamaulipasMap({ dark }) {
                     borderRadius: '999px',
                     border: 'none',
                     background: active
-                      ? (dark ? '#e03b60' : '#871233')
-                      : (dark ? '#1e1c25' : '#f0ece4'),
+                      ? (dark ? '#C89953' : '#7A433A')
+                      : (dark ? '#38211D' : '#f0ece4'),
                     color: active ? '#fff' : (dark ? '#9ea4b0' : '#5c5248'),
                     fontSize: '0.75rem',
                     fontWeight: active ? '800' : '600',
@@ -866,9 +866,9 @@ export default function TamaulipasMap({ dark }) {
                 gap: '0.4rem',
                 padding: '0.45rem 0.85rem',
                 borderRadius: '10px',
-                border: `1.5px solid ${showLabels ? (dark ? '#e03b60' : '#871233') : (dark ? '#272530' : '#e8ddd0')}`,
-                background: showLabels ? (dark ? 'rgba(224,59,96,0.15)' : 'rgba(135,18,51,0.08)') : 'transparent',
-                color: showLabels ? (dark ? '#e03b60' : '#871233') : (dark ? '#9ea4b0' : '#5c5248'),
+                border: `1.5px solid ${showLabels ? (dark ? '#C89953' : '#7A433A') : (dark ? '#4A2D28' : '#e8ddd0')}`,
+                background: showLabels ? (dark ? 'rgba(224,59,96,0.15)' : 'rgba(122,67,58,0.08)') : 'transparent',
+                color: showLabels ? (dark ? '#C89953' : '#7A433A') : (dark ? '#9ea4b0' : '#5c5248'),
                 fontSize: '0.75rem',
                 fontWeight: '700',
                 cursor: 'pointer',
@@ -898,8 +898,8 @@ export default function TamaulipasMap({ dark }) {
                   width: '100%',
                   padding: '0.5rem 0.85rem 0.5rem 2.2rem',
                   borderRadius: '10px',
-                  border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
-                  background: dark ? '#1e1c25' : '#faf8f5',
+                  border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+                  background: dark ? '#38211D' : '#faf8f5',
                   color: dark ? '#fff' : '#1a1715',
                   fontSize: '0.8rem',
                   outline: 'none',
@@ -929,10 +929,10 @@ export default function TamaulipasMap({ dark }) {
 
       {/* ── ACTIVE LAYER LEGEND BAR ──────────────────────────────── */}
       <div style={{
-        background: dark ? '#141319' : '#fff',
+        background: dark ? '#2B1815' : '#fff',
         borderRadius: '14px',
         padding: '0.85rem 1.25rem',
-        border: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`,
+        border: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -1012,9 +1012,9 @@ export default function TamaulipasMap({ dark }) {
             onMouseMove={handleMouseMove}
             style={{
               position: 'relative',
-              background: dark ? '#141319' : '#ffffff',
+              background: dark ? '#2B1815' : '#ffffff',
               borderRadius: '20px',
-              border: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`,
+              border: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`,
               boxShadow: dark ? '0 10px 35px rgba(0,0,0,0.35)' : '0 4px 20px rgba(0,0,0,0.05)',
               overflow: 'hidden',
               minHeight: '620px',
@@ -1041,8 +1041,8 @@ export default function TamaulipasMap({ dark }) {
                 borderRadius: '8px',
                 background: dark ? 'rgba(30,28,37,0.85)' : 'rgba(250,248,245,0.85)',
                 backdropFilter: 'blur(4px)',
-                border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
-                color: dark ? '#e03b60' : '#871233',
+                border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+                color: dark ? '#C89953' : '#7A433A',
                 fontSize: '0.75rem',
                 fontWeight: '800',
               }}>
@@ -1064,15 +1064,15 @@ export default function TamaulipasMap({ dark }) {
               height: '42px',
               borderRadius: '50%',
               background: dark ? 'rgba(30,28,37,0.85)' : 'rgba(250,248,245,0.85)',
-              border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
+              border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
               backdropFilter: 'blur(4px)',
             }}>
-              <span style={{ fontSize: '0.65rem', fontWeight: '900', color: dark ? '#e03b60' : '#871233' }}>N</span>
-              <div style={{ width: '0', height: '0', borderLeft: '3px solid transparent', borderRight: '3px solid transparent', borderBottom: '6px solid #871233' }} />
+              <span style={{ fontSize: '0.65rem', fontWeight: '900', color: dark ? '#C89953' : '#7A433A' }}>N</span>
+              <div style={{ width: '0', height: '0', borderLeft: '3px solid transparent', borderRight: '3px solid transparent', borderBottom: '6px solid #7A433A' }} />
             </div>
 
             {/* SVG MAP - EXACT CARTOGRAPHIC PROJECTION */}
@@ -1221,7 +1221,7 @@ export default function TamaulipasMap({ dark }) {
                   strokeWidth="1.5"
                   style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }}
                 />
-                <rect x="2" y="2" width="176" height="40" rx="2" fill="none" stroke={dark ? '#272530' : '#e4e4e7'} strokeWidth="0.8" />
+                <rect x="2" y="2" width="176" height="40" rx="2" fill="none" stroke={dark ? '#4A2D28' : '#e4e4e7'} strokeWidth="0.8" />
                 <text x="90" y="22" textAnchor="middle" fontFamily="'Times New Roman', Georgia, serif" fontSize="15" fontWeight="900" letterSpacing="3" fill={dark ? '#ffffff' : '#18181b'}>
                   TAMAULIPAS
                 </text>
@@ -1234,7 +1234,7 @@ export default function TamaulipasMap({ dark }) {
               <g id="compass-rose" transform="translate(565, 68)">
                 <circle cx="0" cy="0" r="16" fill={dark ? 'rgba(20,19,25,0.85)' : '#ffffff'} stroke={dark ? '#383545' : '#18181b'} strokeWidth="1" />
                 {/* 4 Points */}
-                <polygon points="0,-14 3,-3 0,0" fill={dark ? '#e03b60' : '#871233'} />
+                <polygon points="0,-14 3,-3 0,0" fill={dark ? '#C89953' : '#7A433A'} />
                 <polygon points="0,-14 -3,-3 0,0" fill={dark ? '#ffffff' : '#18181b'} />
                 <polygon points="14,0 3,3 0,0" fill={dark ? '#71717a' : '#a1a1aa'} />
                 <polygon points="14,0 3,-3 0,0" fill={dark ? '#ffffff' : '#18181b'} />
@@ -1242,7 +1242,7 @@ export default function TamaulipasMap({ dark }) {
                 <polygon points="0,14 3,3 0,0" fill={dark ? '#ffffff' : '#18181b'} />
                 <polygon points="-14,0 -3,-3 0,0" fill={dark ? '#71717a' : '#a1a1aa'} />
                 <polygon points="-14,0 -3,3 0,0" fill={dark ? '#ffffff' : '#18181b'} />
-                <text x="0" y="-17" textAnchor="middle" fontSize="8" fontWeight="900" fill={dark ? '#e03b60' : '#871233'}>N</text>
+                <text x="0" y="-17" textAnchor="middle" fontSize="8" fontWeight="900" fill={dark ? '#C89953' : '#7A433A'}>N</text>
               </g>
 
               {/* ── 43 OFFICIAL INEGI MUNICIPALITIES POLYGONS ── */}
@@ -1259,7 +1259,7 @@ export default function TamaulipasMap({ dark }) {
                   const strokeColor = isSelected
                     ? (dark ? '#ffffff' : '#000000')
                     : isHovered
-                    ? '#871233'
+                    ? '#7A433A'
                     : (activeLayer === 'political' ? (dark ? '#27272a' : '#3f3f46') : (dark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)'))
 
                   const strokeWidth = isSelected ? 3 : isHovered ? 2.5 : (activeLayer === 'political' ? 1.2 : 0.9)
@@ -1349,7 +1349,7 @@ export default function TamaulipasMap({ dark }) {
                                 cx="0"
                                 cy="0"
                                 r="3.5"
-                                fill={isSelected ? '#ffffff' : '#871233'}
+                                fill={isSelected ? '#ffffff' : '#7A433A'}
                                 stroke="#000000"
                                 strokeWidth="1.5"
                               />
@@ -1410,7 +1410,7 @@ export default function TamaulipasMap({ dark }) {
                 {/* Graphic Scale Bar (0, 20, 40, 80 KM) */}
                 <g transform="translate(14, 95)">
                   <rect x="0" y="0" width="23" height="4.5" fill={dark ? '#ffffff' : '#18181b'} />
-                  <rect x="23" y="0" width="23" height="4.5" fill={dark ? '#1e1c25' : '#ffffff'} stroke={dark ? '#ffffff' : '#18181b'} strokeWidth="0.8" />
+                  <rect x="23" y="0" width="23" height="4.5" fill={dark ? '#38211D' : '#ffffff'} stroke={dark ? '#ffffff' : '#18181b'} strokeWidth="0.8" />
                   <rect x="46" y="0" width="46" height="4.5" fill={dark ? '#ffffff' : '#18181b'} />
                   <text x="0" y="-3" fontSize="7.5" fontWeight="700" fill={dark ? '#ffffff' : '#18181b'} textAnchor="middle">0</text>
                   <text x="23" y="-3" fontSize="7.5" fontWeight="700" fill={dark ? '#ffffff' : '#18181b'} textAnchor="middle">20</text>
@@ -1436,7 +1436,7 @@ export default function TamaulipasMap({ dark }) {
                   backdropFilter: 'blur(10px)',
                   borderRadius: '14px',
                   padding: '0.85rem 1.1rem',
-                  border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
+                  border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
                   boxShadow: '0 12px 30px rgba(0,0,0,0.3)',
                   pointerEvents: 'none',
                   zIndex: 30,
@@ -1453,7 +1453,7 @@ export default function TamaulipasMap({ dark }) {
                     fontWeight: '700',
                     padding: '0.15rem 0.45rem',
                     borderRadius: '6px',
-                    background: dark ? '#272530' : '#f0ece4',
+                    background: dark ? '#4A2D28' : '#f0ece4',
                     color: dark ? '#c5bfae' : '#73665c',
                   }}>
                     {hoveredMun.region}
@@ -1504,7 +1504,7 @@ export default function TamaulipasMap({ dark }) {
                 <div style={{
                   marginTop: '0.45rem',
                   fontSize: '0.65rem',
-                  color: dark ? '#e03b60' : '#871233',
+                  color: dark ? '#C89953' : '#7A433A',
                   fontWeight: '700',
                   textAlign: 'right',
                 }}>
@@ -1527,9 +1527,9 @@ export default function TamaulipasMap({ dark }) {
       ) : (
         /* ── TABLE VIEW (DATA AUDIT) ─────────────────────────────── */
         <div style={{
-          background: dark ? '#141319' : '#fff',
+          background: dark ? '#2B1815' : '#fff',
           borderRadius: '20px',
-          border: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`,
+          border: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`,
           boxShadow: dark ? '0 10px 30px rgba(0,0,0,0.3)' : '0 4px 16px rgba(0,0,0,0.04)',
           overflow: 'hidden',
           display: 'flex',
@@ -1538,7 +1538,7 @@ export default function TamaulipasMap({ dark }) {
           {/* Table Toolbar */}
           <div style={{
             padding: '1.25rem 1.5rem',
-            borderBottom: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`,
+            borderBottom: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`,
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -1565,8 +1565,8 @@ export default function TamaulipasMap({ dark }) {
                 style={{
                   padding: '0.45rem 0.85rem',
                   borderRadius: '10px',
-                  border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
-                  background: dark ? '#1e1c25' : '#faf8f5',
+                  border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+                  background: dark ? '#38211D' : '#faf8f5',
                   color: dark ? '#fff' : '#1a1715',
                   fontSize: '0.78rem',
                   fontWeight: '700',
@@ -1590,7 +1590,7 @@ export default function TamaulipasMap({ dark }) {
               <thead>
                 <tr style={{
                   background: dark ? '#1a1822' : '#f9f6f0',
-                  borderBottom: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
+                  borderBottom: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
                   textAlign: 'left',
                 }}>
                   <th style={{ padding: '0.85rem 1.25rem', fontWeight: '800', color: dark ? '#9ea4b0' : '#5c5248' }}>Municipio</th>
@@ -1612,11 +1612,11 @@ export default function TamaulipasMap({ dark }) {
                     <tr
                       key={m.id}
                       style={{
-                        borderBottom: `1px solid ${dark ? '#1e1c25' : '#f0ece4'}`,
+                        borderBottom: `1px solid ${dark ? '#38211D' : '#f0ece4'}`,
                         background: idx % 2 === 0 ? 'transparent' : (dark ? 'rgba(255,255,255,0.015)' : 'rgba(0,0,0,0.015)'),
                         transition: 'background 0.15s',
                       }}
-                      onMouseEnter={e => e.currentTarget.style.background = dark ? '#1e1c25' : '#faf5ee'}
+                      onMouseEnter={e => e.currentTarget.style.background = dark ? '#38211D' : '#faf5ee'}
                       onMouseLeave={e => e.currentTarget.style.background = idx % 2 === 0 ? 'transparent' : (dark ? 'rgba(255,255,255,0.015)' : 'rgba(0,0,0,0.015)')}
                     >
                       <td style={{ padding: '0.85rem 1.25rem' }}>
@@ -1629,7 +1629,7 @@ export default function TamaulipasMap({ dark }) {
                           fontWeight: '700',
                           padding: '0.2rem 0.55rem',
                           borderRadius: '6px',
-                          background: dark ? '#272530' : '#f0ece4',
+                          background: dark ? '#4A2D28' : '#f0ece4',
                           color: dark ? '#c5bfae' : '#73665c',
                         }}>
                           {m.region}
@@ -1638,7 +1638,7 @@ export default function TamaulipasMap({ dark }) {
                       <td style={{ padding: '0.85rem 1rem', color: dark ? '#fff' : '#1a1715' }}>
                         {m.popYouth?.toLocaleString()}
                       </td>
-                      <td style={{ padding: '0.85rem 1rem', fontWeight: '700', color: dark ? '#e03b60' : '#871233' }}>
+                      <td style={{ padding: '0.85rem 1rem', fontWeight: '700', color: dark ? '#C89953' : '#7A433A' }}>
                         {m.totalBeneficiaries?.toLocaleString() || 0}
                       </td>
                       <td style={{ padding: '0.85rem 1rem' }}>
@@ -1647,13 +1647,13 @@ export default function TamaulipasMap({ dark }) {
                             width: '45px',
                             height: '6px',
                             borderRadius: '3px',
-                            background: dark ? '#272530' : '#e8ddd0',
+                            background: dark ? '#4A2D28' : '#e8ddd0',
                             overflow: 'hidden',
                           }}>
                             <div style={{
                               width: `${Math.min(100, (m.adoptionRate || 0) * 10)}%`,
                               height: '100%',
-                              background: '#871233',
+                              background: '#7A433A',
                             }} />
                           </div>
                           <span style={{ fontSize: '0.75rem', fontWeight: '700', color: dark ? '#fff' : '#1a1715' }}>
@@ -1704,8 +1704,8 @@ export default function TamaulipasMap({ dark }) {
                           style={{
                             padding: '0.35rem 0.85rem',
                             borderRadius: '8px',
-                            border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
-                            background: dark ? '#1e1c25' : '#faf8f5',
+                            border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+                            background: dark ? '#38211D' : '#faf8f5',
                             color: dark ? '#fff' : '#1a1715',
                             fontSize: '0.75rem',
                             fontWeight: '700',
@@ -1713,11 +1713,11 @@ export default function TamaulipasMap({ dark }) {
                             transition: 'all 0.2s',
                           }}
                           onMouseEnter={e => {
-                            e.currentTarget.style.background = '#871233'
+                            e.currentTarget.style.background = '#7A433A'
                             e.currentTarget.style.color = '#fff'
                           }}
                           onMouseLeave={e => {
-                            e.currentTarget.style.background = dark ? '#1e1c25' : '#faf8f5'
+                            e.currentTarget.style.background = dark ? '#38211D' : '#faf8f5'
                             e.currentTarget.style.color = dark ? '#fff' : '#1a1715'
                           }}
                         >
@@ -1748,10 +1748,10 @@ function MunicipalityInspector({ municipality, dark, onClose, onPrint }) {
 
   return (
     <div style={{
-      background: dark ? '#141319' : '#fff',
+      background: dark ? '#2B1815' : '#fff',
       borderRadius: '20px',
-      border: `1px solid ${dark ? '#1e1c25' : '#e8ddd0'}`,
-      boxShadow: dark ? '0 10px 35px rgba(0,0,0,0.4)' : '0 6px 24px rgba(135,18,51,0.08)',
+      border: `1px solid ${dark ? '#38211D' : '#e8ddd0'}`,
+      boxShadow: dark ? '0 10px 35px rgba(0,0,0,0.4)' : '0 6px 24px rgba(122,67,58,0.08)',
       overflow: 'hidden',
       display: 'flex',
       flexDirection: 'column',
@@ -1763,8 +1763,8 @@ function MunicipalityInspector({ municipality, dark, onClose, onPrint }) {
       {/* Drawer Header */}
       <div style={{
         padding: '1.25rem 1.5rem',
-        background: dark ? 'linear-gradient(135deg, rgba(135,18,51,0.3) 0%, #1e1c25 100%)' : 'linear-gradient(135deg, #87123314 0%, #faf8f5 100%)',
-        borderBottom: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
+        background: dark ? 'linear-gradient(135deg, rgba(122,67,58,0.3) 0%, #38211D 100%)' : 'linear-gradient(135deg, #7A433A14 0%, #faf8f5 100%)',
+        borderBottom: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
@@ -1776,7 +1776,7 @@ function MunicipalityInspector({ municipality, dark, onClose, onPrint }) {
               fontWeight: '800',
               padding: '0.15rem 0.5rem',
               borderRadius: '6px',
-              background: '#871233',
+              background: '#7A433A',
               color: '#fff',
               letterSpacing: '0.04em',
             }}>
@@ -1824,7 +1824,7 @@ function MunicipalityInspector({ municipality, dark, onClose, onPrint }) {
           background: dark ? '#1a1822' : '#f9f6f0',
           borderRadius: '14px',
           padding: '1rem 1.25rem',
-          border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
+          border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -1879,10 +1879,10 @@ function MunicipalityInspector({ municipality, dark, onClose, onPrint }) {
             gap: '0.75rem',
           }}>
             <div style={{
-              background: dark ? '#1e1c25' : '#faf8f5',
+              background: dark ? '#38211D' : '#faf8f5',
               padding: '0.75rem 0.85rem',
               borderRadius: '10px',
-              border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
+              border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
             }}>
               <span style={{ fontSize: '0.68rem', color: dark ? '#7e7a8c' : '#8c827a' }}>Población Joven (12-29):</span>
               <div style={{ fontSize: '1.1rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715' }}>
@@ -1890,13 +1890,13 @@ function MunicipalityInspector({ municipality, dark, onClose, onPrint }) {
               </div>
             </div>
             <div style={{
-              background: dark ? '#1e1c25' : '#faf8f5',
+              background: dark ? '#38211D' : '#faf8f5',
               padding: '0.75rem 0.85rem',
               borderRadius: '10px',
-              border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
+              border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
             }}>
               <span style={{ fontSize: '0.68rem', color: dark ? '#7e7a8c' : '#8c827a' }}>Total Beneficiarios:</span>
-              <div style={{ fontSize: '1.1rem', fontWeight: '800', color: '#871233' }}>
+              <div style={{ fontSize: '1.1rem', fontWeight: '800', color: '#7A433A' }}>
                 {m.totalBeneficiaries?.toLocaleString() || 0}
               </div>
             </div>
@@ -1907,8 +1907,8 @@ function MunicipalityInspector({ municipality, dark, onClose, onPrint }) {
               <span style={{ color: dark ? '#7e7a8c' : '#8c827a' }}>Penetración en Población Joven</span>
               <strong style={{ color: dark ? '#fff' : '#1a1715' }}>{m.adoptionRate || 0}%</strong>
             </div>
-            <div style={{ width: '100%', height: '6px', borderRadius: '3px', background: dark ? '#272530' : '#e8ddd0', overflow: 'hidden' }}>
-              <div style={{ width: `${Math.min(100, (m.adoptionRate || 0) * 10)}%`, height: '100%', background: '#871233' }} />
+            <div style={{ width: '100%', height: '6px', borderRadius: '3px', background: dark ? '#4A2D28' : '#e8ddd0', overflow: 'hidden' }}>
+              <div style={{ width: `${Math.min(100, (m.adoptionRate || 0) * 10)}%`, height: '100%', background: '#7A433A' }} />
             </div>
           </div>
         </div>
@@ -1929,10 +1929,10 @@ function MunicipalityInspector({ municipality, dark, onClose, onPrint }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
             {/* BMI Meter */}
             <div style={{
-              background: dark ? '#1e1c25' : '#faf8f5',
+              background: dark ? '#38211D' : '#faf8f5',
               padding: '0.85rem 1rem',
               borderRadius: '12px',
-              border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
+              border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
@@ -1953,7 +1953,7 @@ function MunicipalityInspector({ municipality, dark, onClose, onPrint }) {
                 <span>Sobrepeso (25-29.9)</span>
                 <span>Obesidad (≥30)</span>
               </div>
-              <div style={{ width: '100%', height: '6px', borderRadius: '3px', background: dark ? '#272530' : '#e8ddd0', marginTop: '0.2rem', overflow: 'hidden', display: 'flex' }}>
+              <div style={{ width: '100%', height: '6px', borderRadius: '3px', background: dark ? '#4A2D28' : '#e8ddd0', marginTop: '0.2rem', overflow: 'hidden', display: 'flex' }}>
                 <div style={{ width: '33%', height: '100%', background: '#10b981' }} />
                 <div style={{ width: '33%', height: '100%', background: '#f59e0b' }} />
                 <div style={{ width: '34%', height: '100%', background: '#ef4444' }} />
@@ -1962,10 +1962,10 @@ function MunicipalityInspector({ municipality, dark, onClose, onPrint }) {
 
             {/* Glucose Meter */}
             <div style={{
-              background: dark ? '#1e1c25' : '#faf8f5',
+              background: dark ? '#38211D' : '#faf8f5',
               padding: '0.85rem 1rem',
               borderRadius: '12px',
-              border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
+              border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
@@ -1986,7 +1986,7 @@ function MunicipalityInspector({ municipality, dark, onClose, onPrint }) {
                 <span>Prediabetes (100-125)</span>
                 <span>Alerta (≥126)</span>
               </div>
-              <div style={{ width: '100%', height: '6px', borderRadius: '3px', background: dark ? '#272530' : '#e8ddd0', marginTop: '0.2rem', overflow: 'hidden', display: 'flex' }}>
+              <div style={{ width: '100%', height: '6px', borderRadius: '3px', background: dark ? '#4A2D28' : '#e8ddd0', marginTop: '0.2rem', overflow: 'hidden', display: 'flex' }}>
                 <div style={{ width: '40%', height: '100%', background: '#06b6d4' }} />
                 <div style={{ width: '35%', height: '100%', background: '#f59e0b' }} />
                 <div style={{ width: '25%', height: '100%', background: '#ef4444' }} />
@@ -1995,10 +1995,10 @@ function MunicipalityInspector({ municipality, dark, onClose, onPrint }) {
 
             {/* Blood Pressure Meter */}
             <div style={{
-              background: dark ? '#1e1c25' : '#faf8f5',
+              background: dark ? '#38211D' : '#faf8f5',
               padding: '0.85rem 1rem',
               borderRadius: '12px',
-              border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
+              border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
@@ -2023,10 +2023,10 @@ function MunicipalityInspector({ municipality, dark, onClose, onPrint }) {
             {/* Telemetry row */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.65rem' }}>
               <div style={{
-                background: dark ? '#1e1c25' : '#faf8f5',
+                background: dark ? '#38211D' : '#faf8f5',
                 padding: '0.65rem 0.85rem',
                 borderRadius: '10px',
-                border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
+                border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
               }}>
                 <span style={{ fontSize: '0.68rem', color: dark ? '#7e7a8c' : '#8c827a' }}>Ritmo Cardíaco:</span>
                 <div style={{ fontSize: '0.95rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715' }}>
@@ -2034,10 +2034,10 @@ function MunicipalityInspector({ municipality, dark, onClose, onPrint }) {
                 </div>
               </div>
               <div style={{
-                background: dark ? '#1e1c25' : '#faf8f5',
+                background: dark ? '#38211D' : '#faf8f5',
                 padding: '0.65rem 0.85rem',
                 borderRadius: '10px',
-                border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
+                border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
               }}>
                 <span style={{ fontSize: '0.68rem', color: dark ? '#7e7a8c' : '#8c827a' }}>Oxígeno SpO2:</span>
                 <div style={{ fontSize: '0.95rem', fontWeight: '800', color: '#10b981' }}>
@@ -2070,7 +2070,7 @@ function MunicipalityInspector({ municipality, dark, onClose, onPrint }) {
       {/* Drawer Footer Actions */}
       <div style={{
         padding: '1rem 1.5rem',
-        borderTop: `1px solid ${dark ? '#272530' : '#e8ddd0'}`,
+        borderTop: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
         display: 'flex',
         gap: '0.75rem',
       }}>
@@ -2084,8 +2084,8 @@ function MunicipalityInspector({ municipality, dark, onClose, onPrint }) {
             gap: '0.4rem',
             padding: '0.6rem 1rem',
             borderRadius: '10px',
-            border: `1.5px solid ${dark ? '#272530' : '#e8ddd0'}`,
-            background: dark ? '#1e1c25' : '#faf8f5',
+            border: `1.5px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+            background: dark ? '#38211D' : '#faf8f5',
             color: dark ? '#fff' : '#1a1715',
             fontSize: '0.8rem',
             fontWeight: '700',
@@ -2104,7 +2104,7 @@ function MunicipalityInspector({ municipality, dark, onClose, onPrint }) {
             padding: '0.6rem 1rem',
             borderRadius: '10px',
             border: 'none',
-            background: '#871233',
+            background: '#7A433A',
             color: '#fff',
             fontSize: '0.8rem',
             fontWeight: '700',

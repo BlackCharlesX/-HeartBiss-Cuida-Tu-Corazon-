@@ -120,7 +120,7 @@ export default function DiseaseDetail() {
         : [])
     : (disease.youtubeVideos || disease.youtube_videos || [])
 
-  const color = disease.colorHex || '#871233'
+  const color = disease.colorHex || '#7A433A'
 
   const tabs = [
     { id: 'main', label: 'Ficha Principal', icon: FaBookOpen },
@@ -288,7 +288,7 @@ export default function DiseaseDetail() {
               background: dark ? 'rgba(255,255,255,0.02)' : '#faf8f6',
               padding: '1rem 1.25rem',
               borderRadius: '16px',
-              border: `1.5px dashed ${dark ? 'rgba(255,255,255,0.08)' : 'rgba(135,18,51,0.12)'}`,
+              border: `1.5px dashed ${dark ? 'rgba(255,255,255,0.08)' : 'rgba(122,67,58,0.12)'}`,
             }}>
               <style>{`
                 .no-scrollbar::-webkit-scrollbar {
@@ -303,7 +303,7 @@ export default function DiseaseDetail() {
                 fontWeight: '800',
                 textTransform: 'uppercase',
                 letterSpacing: '0.05em',
-                color: dark ? '#c2a378' : '#871233',
+                color: dark ? '#c2a378' : '#7A433A',
               }}>
                 <span>🧬</span> Selección de Variante o Tipo:
               </div>
@@ -326,10 +326,10 @@ export default function DiseaseDetail() {
                     border: 'none',
                     background: !selectedVariant 
                       ? color 
-                      : (dark ? 'rgba(255,255,255,0.05)' : 'rgba(135,18,51,0.06)'),
+                      : (dark ? 'rgba(255,255,255,0.05)' : 'rgba(122,67,58,0.06)'),
                     color: !selectedVariant
                       ? '#fff'
-                      : (dark ? '#b8a690' : '#871233'),
+                      : (dark ? '#b8a690' : '#7A433A'),
                     fontSize: '0.85rem',
                     fontWeight: '700',
                     cursor: 'pointer',
@@ -355,10 +355,10 @@ export default function DiseaseDetail() {
                         border: 'none',
                         background: isSelected 
                           ? color 
-                          : (dark ? 'rgba(255,255,255,0.05)' : 'rgba(135,18,51,0.06)'),
+                          : (dark ? 'rgba(255,255,255,0.05)' : 'rgba(122,67,58,0.06)'),
                         color: isSelected
                           ? '#fff'
-                          : (dark ? '#b8a690' : '#871233'),
+                          : (dark ? '#b8a690' : '#7A433A'),
                         fontSize: '0.85rem',
                         fontWeight: '700',
                         cursor: 'pointer',

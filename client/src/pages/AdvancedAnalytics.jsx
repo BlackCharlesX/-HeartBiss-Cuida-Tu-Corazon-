@@ -14,7 +14,7 @@ import { useTheme } from '../context/ThemeContext'
 import api from '../services/api'
 
 const METRIC_CONFIGS = {
-  weight: { label: 'Peso', icon: FaWeight, unit: 'kg', color: '#871233' },
+  weight: { label: 'Peso', icon: FaWeight, unit: 'kg', color: '#7A433A' },
   glucose: { label: 'Glucosa', icon: FaTint, unit: 'mg/dL', color: '#d97706' },
   bloodPressure: { label: 'Presión Arterial', icon: FaHeartbeat, unit: 'mmHg', color: '#dc2626' },
   heartRate: { label: 'Frec. Cardíaca', icon: FaRunning, unit: 'bpm', color: '#0d9488' },
@@ -146,13 +146,13 @@ export default function AdvancedAnalytics({ propUserId, propFamilyMemberId, fami
 
   if (error) {
     return (
-      <div style={{ padding: '2.5rem 1.5rem', maxWidth: '800px', margin: '2rem auto', background: dark ? '#1e1c25' : '#fef2f2', borderRadius: '16px', border: `1px solid ${dark ? '#272530' : '#fecaca'}`, textAlign: 'center' }}>
+      <div style={{ padding: '2.5rem 1.5rem', maxWidth: '800px', margin: '2rem auto', background: dark ? '#38211D' : '#fef2f2', borderRadius: '16px', border: `1px solid ${dark ? '#4A2D28' : '#fecaca'}`, textAlign: 'center' }}>
         <FaExclamationTriangle size={42} style={{ color: '#ef4444', marginBottom: '1rem' }} />
         <h3 style={{ fontSize: '1.25rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715', marginBottom: '0.5rem' }}>No se pudieron generar analíticas</h3>
         <p style={{ color: dark ? '#a89580' : '#7d6e5e', fontSize: '0.9rem', marginBottom: '1.5rem' }}>{error}</p>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
           {!isDoctorView && (
-            <Link to="/dashboard" style={{ padding: '0.6rem 1.25rem', background: dark ? '#272530' : '#fff', color: dark ? '#fff' : '#1a1715', border: `1px solid ${dark ? '#3a3845' : '#d4c4b0'}`, borderRadius: '10px', textDecoration: 'none', fontWeight: '700', fontSize: '0.85rem' }}>
+            <Link to="/dashboard" style={{ padding: '0.6rem 1.25rem', background: dark ? '#4A2D28' : '#fff', color: dark ? '#fff' : '#1a1715', border: `1px solid ${dark ? '#3a3845' : '#d4c4b0'}`, borderRadius: '10px', textDecoration: 'none', fontWeight: '700', fontSize: '0.85rem' }}>
               Volver al Panel
             </Link>
           )}
@@ -168,8 +168,8 @@ export default function AdvancedAnalytics({ propUserId, propFamilyMemberId, fami
   const { cardiovascularRisk, predictions: projected, recommendations } = predictions || { cardiovascularRisk: {}, predictions: {}, recommendations: [] }
 
   // Custom styling elements based on mode
-  const bgCard = dark ? '#141319' : '#ffffff'
-  const borderCard = dark ? '1px solid #1e1c25' : '1px solid #e8ddd0'
+  const bgCard = dark ? '#2B1815' : '#ffffff'
+  const borderCard = dark ? '1px solid #38211D' : '1px solid #e8ddd0'
   const textTitle = dark ? '#ffffff' : '#1a1715'
   const textMuted = dark ? '#a89580' : '#7d6e5e'
 
@@ -185,13 +185,13 @@ export default function AdvancedAnalytics({ propUserId, propFamilyMemberId, fami
   }
 
   return (
-    <div style={{ padding: isDoctorView ? '0' : '2rem 1.5rem', maxWidth: '1280px', margin: '0 auto', background: isDoctorView ? 'transparent' : (dark ? '#0c0b0f' : '#f8fafc'), minHeight: '100vh' }}>
+    <div style={{ padding: isDoctorView ? '0' : '2rem 1.5rem', maxWidth: '1280px', margin: '0 auto', background: isDoctorView ? 'transparent' : (dark ? '#1F1210' : '#f8fafc'), minHeight: '100vh' }}>
       
       {/* Header section (Hide in doctor panel since it has its own headers) */}
       {!isDoctorView && (
         <div style={{ marginBottom: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <Link to="/dashboard" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '12px', background: dark ? '#1e1c25' : '#ffffff', color: dark ? '#fff' : '#1a1715', border: borderCard, textDecoration: 'none' }} title="Volver al Dashboard">
+            <Link to="/dashboard" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '12px', background: dark ? '#38211D' : '#ffffff', color: dark ? '#fff' : '#1a1715', border: borderCard, textDecoration: 'none' }} title="Volver al Dashboard">
               <FaChevronLeft />
             </Link>
             <div>
@@ -210,7 +210,7 @@ export default function AdvancedAnalytics({ propUserId, propFamilyMemberId, fami
           gap: '0.5rem',
           padding: '0.4rem',
           marginBottom: '1.5rem',
-          background: dark ? '#141319' : '#f1ede6',
+          background: dark ? '#2B1815' : '#f1ede6',
           border: borderCard,
           borderRadius: '14px',
           overflowX: 'auto',
@@ -381,7 +381,7 @@ export default function AdvancedAnalytics({ propUserId, propFamilyMemberId, fami
               if (!pred) return null
 
               return (
-                <div key={type} style={{ padding: '1.25rem', borderRadius: '14px', background: dark ? 'rgba(255,255,255,0.01)' : 'rgba(0,0,0,0.01)', border: dark ? '1px solid #1e1c25' : '1px solid #faf8f5', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div key={type} style={{ padding: '1.25rem', borderRadius: '14px', background: dark ? 'rgba(255,255,255,0.01)' : 'rgba(0,0,0,0.01)', border: dark ? '1px solid #38211D' : '1px solid #faf8f5', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                       <config.icon style={{ color: config.color, fontSize: '1.2rem' }} />
@@ -425,7 +425,7 @@ export default function AdvancedAnalytics({ propUserId, propFamilyMemberId, fami
                               </linearGradient>
                             </defs>
                             <CartesianGrid strokeDasharray="3 3" stroke={dark ? '#22202a' : '#f1ede6'} />
-                            <Tooltip contentStyle={{ background: bgCard, borderColor: dark ? '#1e1c25' : '#e8ddd0', color: textTitle }} />
+                            <Tooltip contentStyle={{ background: bgCard, borderColor: dark ? '#38211D' : '#e8ddd0', color: textTitle }} />
                             <Area type="monotone" dataKey="valor" stroke={config.color} strokeWidth={2} fill={`url(#grad-${type})`} />
                           </AreaChart>
                         </ResponsiveContainer>
@@ -436,7 +436,7 @@ export default function AdvancedAnalytics({ propUserId, propFamilyMemberId, fami
                       </p>
                     </div>
                   ) : (
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '1rem', border: `1px dashed ${dark ? '#272530' : '#e8ddd0'}`, borderRadius: '10px', textAlign: 'center', minHeight: '120px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '1rem', border: `1px dashed ${dark ? '#4A2D28' : '#e8ddd0'}`, borderRadius: '10px', textAlign: 'center', minHeight: '120px' }}>
                       <FaInfoCircle size={20} style={{ color: textMuted, marginBottom: '0.4rem' }} />
                       <p style={{ fontSize: '0.72rem', color: textMuted, margin: 0, lineHeight: 1.4 }}>
                         {pred.message || 'Datos insuficientes para proyectar.'}
@@ -469,7 +469,7 @@ export default function AdvancedAnalytics({ propUserId, propFamilyMemberId, fami
                     onClick={() => setTrendMetric(key)}
                     style={{
                       padding: '0.35rem 0.75rem', borderRadius: '8px', border: 'none',
-                      background: isSelected ? conf.color : (dark ? '#1e1c25' : '#faf8f5'),
+                      background: isSelected ? conf.color : (dark ? '#38211D' : '#faf8f5'),
                       color: isSelected ? 'white' : textMuted,
                       fontSize: '0.72rem', fontWeight: '700', cursor: 'pointer',
                       transition: 'all 0.15s ease',
@@ -484,7 +484,7 @@ export default function AdvancedAnalytics({ propUserId, propFamilyMemberId, fami
           </div>
 
           {trends.length === 0 ? (
-            <div style={{ height: '260px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: `1px dashed ${dark ? '#1e1c25' : '#e8ddd0'}`, borderRadius: '12px' }}>
+            <div style={{ height: '260px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: `1px dashed ${dark ? '#38211D' : '#e8ddd0'}`, borderRadius: '12px' }}>
               <p style={{ fontSize: '0.85rem', color: textMuted, margin: 0 }}>Sin registros históricos en los últimos 12 meses para esta métrica.</p>
             </div>
           ) : (
@@ -494,7 +494,7 @@ export default function AdvancedAnalytics({ propUserId, propFamilyMemberId, fami
                   <CartesianGrid strokeDasharray="3 3" stroke={dark ? '#22202a' : '#f1ede6'} />
                   <XAxis dataKey="label" stroke={textMuted} style={{ fontSize: '0.72rem', fontWeight: '600' }} />
                   <YAxis stroke={textMuted} style={{ fontSize: '0.72rem', fontWeight: '600' }} />
-                  <Tooltip contentStyle={{ background: bgCard, borderColor: dark ? '#1e1c25' : '#e8ddd0', color: textTitle }} />
+                  <Tooltip contentStyle={{ background: bgCard, borderColor: dark ? '#38211D' : '#e8ddd0', color: textTitle }} />
                   <Legend verticalAlign="top" height={36} wrapperStyle={{ fontSize: '0.75rem', fontWeight: '700' }} />
                   <Bar dataKey="value" fill={METRIC_CONFIGS[trendMetric].color} radius={[4, 4, 0, 0]} name={`Promedio de ${METRIC_CONFIGS[trendMetric].label} (${METRIC_CONFIGS[trendMetric].unit})`} />
                   {trendMetric === 'bloodPressure' && (

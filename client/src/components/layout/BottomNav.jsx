@@ -108,12 +108,12 @@ export default function BottomNav() {
     iconInactive: <RiUser3Line size={18} />,
   }
 
-  // 3. Right items (Hecho en Tam., Noticias)
+  // 3. Right items (Nutracéuticos, Noticias)
   const rightItems = [
     {
       key: 'hecho_en_tamaulipas',
       to: '/hecho-en-tamaulipas',
-      label: 'Hecho en Tam.',
+      label: 'Nutracéuticos',
       active: isNutraceuticalsActive,
       iconActive: <RiCapsuleFill size={21} />,
       iconInactive: <RiCapsuleLine size={21} />,
@@ -128,9 +128,9 @@ export default function BottomNav() {
     },
   ].filter(item => isModuleEnabled(item.key))
 
-  const activeColor = dark ? 'var(--color-primary-400)' : 'var(--color-primary-500)'
-  const inactiveColor = dark ? '#7e7a8c' : '#7d6e5e'
-  const activeBgPill = dark ? 'rgba(214, 92, 126, 0.12)' : 'rgba(135, 18, 51, 0.08)'
+  const activeColor = dark ? '#C89953' : '#7A433A'
+  const inactiveColor = dark ? '#A38A7C' : '#7E6757'
+  const activeBgPill = dark ? 'rgba(200, 153, 83, 0.16)' : 'rgba(122, 67, 58, 0.12)'
 
   const renderStandardItem = (item) => {
     const isCurrent = item.active
@@ -224,14 +224,14 @@ export default function BottomNav() {
         paddingLeft: '0.35rem',
         paddingRight: '0.35rem',
         background: dark
-          ? 'rgba(16, 15, 22, 0.94)'
-          : 'rgba(255, 255, 255, 0.95)',
+          ? 'rgba(31, 18, 16, 0.95)'
+          : 'rgba(248, 244, 235, 0.96)',
         backdropFilter: 'blur(24px)',
         WebkitBackdropFilter: 'blur(24px)',
-        borderTop: `1px solid ${dark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(135, 18, 51, 0.1)'}`,
+        borderTop: `1px solid ${dark ? 'rgba(200, 153, 83, 0.16)' : '#E6DBC9'}`,
         boxShadow: dark
           ? '0 -4px 25px rgba(0, 0, 0, 0.55)'
-          : '0 -2px 20px rgba(135, 18, 51, 0.08)',
+          : '0 -2px 20px rgba(58, 36, 31, 0.08)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -253,12 +253,12 @@ export default function BottomNav() {
           padding: '4px 6px',
           borderRadius: '24px',
           background: dark
-            ? 'linear-gradient(135deg, rgba(135, 18, 51, 0.3), rgba(28, 25, 36, 0.95))'
-            : 'linear-gradient(135deg, rgba(135, 18, 51, 0.12), rgba(255, 255, 255, 0.98))',
-          border: `1.5px solid ${dark ? 'rgba(224, 59, 96, 0.4)' : 'rgba(135, 18, 51, 0.25)'}`,
+            ? 'linear-gradient(135deg, rgba(77, 104, 62, 0.25), rgba(43, 24, 21, 0.96))'
+            : 'linear-gradient(135deg, rgba(90, 123, 67, 0.14), rgba(248, 244, 235, 0.98))',
+          border: `1.5px solid ${dark ? 'rgba(200, 153, 83, 0.35)' : 'rgba(90, 123, 67, 0.3)'}`,
           boxShadow: dark
-            ? '0 4px 18px rgba(0, 0, 0, 0.6), 0 0 14px rgba(135, 18, 51, 0.3)'
-            : '0 4px 16px rgba(135, 18, 51, 0.16), 0 2px 6px rgba(0, 0, 0, 0.04)',
+            ? '0 4px 18px rgba(0, 0, 0, 0.6), 0 0 14px rgba(200, 153, 83, 0.2)'
+            : '0 4px 16px rgba(58, 36, 31, 0.14), 0 2px 6px rgba(0, 0, 0, 0.04)',
           transform: 'translateY(-3px)',
           backdropFilter: 'blur(16px)',
           WebkitBackdropFilter: 'blur(16px)',
@@ -280,11 +280,11 @@ export default function BottomNav() {
               borderRadius: '16px',
               textDecoration: 'none',
               background: healthItem.active
-                ? 'linear-gradient(135deg, #871233, #e03b60)'
-                : (dark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(135, 18, 51, 0.05)'),
-              color: healthItem.active ? '#ffffff' : (dark ? '#e03b60' : '#871233'),
+                ? (dark ? '#4D683E' : '#5A7B43')
+                : (dark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(90, 123, 67, 0.08)'),
+              color: healthItem.active ? '#ffffff' : (dark ? '#C89953' : '#5A7B43'),
               boxShadow: healthItem.active
-                ? '0 2px 10px rgba(135, 18, 51, 0.5)'
+                ? '0 2px 10px rgba(90, 123, 67, 0.45)'
                 : 'none',
               transition: 'all 0.2s ease',
               position: 'relative',
@@ -294,7 +294,7 @@ export default function BottomNav() {
               <FaChartLine
                 size={16}
                 style={{
-                  color: healthItem.active ? '#ffffff' : (dark ? '#e03b60' : '#871233'),
+                  color: healthItem.active ? '#ffffff' : (dark ? '#C89953' : '#5A7B43'),
                   transform: healthItem.active ? 'scale(1.1)' : 'scale(1)',
                   transition: 'transform 0.2s ease'
                 }}
@@ -309,14 +309,14 @@ export default function BottomNav() {
                     height: '15px',
                     padding: '0 3px',
                     borderRadius: '8px',
-                    background: '#dc2626',
+                    background: '#8B1E18',
                     color: '#ffffff',
                     fontSize: '0.55rem',
                     fontWeight: '800',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    border: `1.5px solid ${dark ? '#141319' : '#ffffff'}`,
+                    border: `1.5px solid ${dark ? '#1F1210' : '#F8F4EB'}`,
                     lineHeight: 1,
                   }}
                 >
@@ -331,7 +331,7 @@ export default function BottomNav() {
                 letterSpacing: '-0.01em',
                 marginTop: '2px',
                 whiteSpace: 'nowrap',
-                color: healthItem.active ? '#ffffff' : (dark ? '#e03b60' : '#871233'),
+                color: healthItem.active ? '#ffffff' : (dark ? '#C89953' : '#5A7B43'),
               }}
             >
               Mi Salud
@@ -352,11 +352,11 @@ export default function BottomNav() {
             borderRadius: '16px',
             textDecoration: 'none',
             background: profileItem.active
-              ? 'linear-gradient(135deg, #871233, #e03b60)'
-              : (dark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(135, 18, 51, 0.05)'),
-            color: profileItem.active ? '#ffffff' : (dark ? '#e03b60' : '#871233'),
+              ? (dark ? '#8B1E18' : '#7A433A')
+              : (dark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(122, 67, 58, 0.08)'),
+            color: profileItem.active ? '#ffffff' : (dark ? '#C89953' : '#7A433A'),
             boxShadow: profileItem.active
-              ? '0 2px 10px rgba(135, 18, 51, 0.5)'
+              ? '0 2px 10px rgba(122, 67, 58, 0.45)'
               : 'none',
             transition: 'all 0.2s ease',
             position: 'relative',
@@ -370,7 +370,7 @@ export default function BottomNav() {
                   height: '20px',
                   borderRadius: '50%',
                   overflow: 'hidden',
-                  border: `1.5px solid ${profileItem.active ? '#ffffff' : (dark ? '#e03b60' : '#871233')}`,
+                  border: `1.5px solid ${profileItem.active ? '#ffffff' : (dark ? '#C89953' : '#7A433A')}`,
                   boxSizing: 'border-box',
                 }}
               >
@@ -385,7 +385,7 @@ export default function BottomNav() {
               <RiUser3Fill
                 size={17}
                 style={{
-                  color: profileItem.active ? '#ffffff' : (dark ? '#e03b60' : '#871233'),
+                  color: profileItem.active ? '#ffffff' : (dark ? '#C89953' : '#7A433A'),
                   transform: profileItem.active ? 'scale(1.1)' : 'scale(1)',
                   transition: 'transform 0.2s ease'
                 }}
@@ -399,7 +399,7 @@ export default function BottomNav() {
               letterSpacing: '-0.01em',
               marginTop: '2px',
               whiteSpace: 'nowrap',
-              color: profileItem.active ? '#ffffff' : (dark ? '#e03b60' : '#871233'),
+              color: profileItem.active ? '#ffffff' : (dark ? '#C89953' : '#7A433A'),
             }}
           >
             Mi Perfil

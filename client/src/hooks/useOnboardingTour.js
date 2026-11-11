@@ -9,7 +9,7 @@ export function useOnboardingTour({ onTourComplete } = {}) {
       {
         element: '#tour-welcome-title',
         popover: {
-          title: '¡Bienvenido a Jóvenes con Salud! 👋',
+          title: '¡Bienvenido a HeartBliss — Cuida tu Corazón! 👋',
           description: 'Este es tu panel personalizado para monitorear tu estado de salud, medicamentos y hábitos diarios.',
           side: 'bottom',
           align: 'start',

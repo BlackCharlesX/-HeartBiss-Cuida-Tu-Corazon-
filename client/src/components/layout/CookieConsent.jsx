@@ -52,13 +52,13 @@ export default function CookieConsent() {
     borderRadius: '16px',
     boxShadow: dark 
       ? '0 10px 30px -5px rgba(0,0,0,0.6), 0 0 1px 1px rgba(255,255,255,0.08)' 
-      : '0 10px 30px -5px rgba(135,18,51,0.08), 0 0 1px 1px rgba(135,18,51,0.05)',
+      : '0 10px 30px -5px rgba(122,67,58,0.08), 0 0 1px 1px rgba(122,67,58,0.05)',
     background: dark 
       ? 'rgba(26, 21, 32, 0.85)' 
       : 'rgba(255, 254, 252, 0.85)',
     backdropFilter: 'blur(16px)',
     WebkitBackdropFilter: 'blur(16px)',
-    border: `1px solid ${dark ? 'rgba(255,255,255,0.08)' : 'rgba(135, 18, 51, 0.12)'}`,
+    border: `1px solid ${dark ? 'rgba(255,255,255,0.08)' : 'rgba(122, 67, 58, 0.12)'}`,
     color: dark ? '#f3f4f6' : '#1f2937',
     fontFamily: 'var(--font-sans)',
     display: 'flex',
@@ -73,7 +73,7 @@ export default function CookieConsent() {
     flex: 1,
     padding: '0.65rem 1.25rem',
     borderRadius: '10px',
-    background: '#871233',
+    background: '#7A433A',
     color: 'white',
     border: 'none',
     fontWeight: '700',
@@ -83,7 +83,7 @@ export default function CookieConsent() {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    boxShadow: '0 2px 4px rgba(135,18,51,0.15)',
+    boxShadow: '0 2px 4px rgba(122,67,58,0.15)',
   }
 
   const btnDeclineStyle = {
@@ -108,9 +108,9 @@ export default function CookieConsent() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
           <div style={{ 
             width: '36px', height: '36px', borderRadius: '50%', 
-            background: dark ? 'rgba(194, 163, 120, 0.15)' : 'rgba(135, 18, 51, 0.08)',
+            background: dark ? 'rgba(194, 163, 120, 0.15)' : 'rgba(122, 67, 58, 0.08)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: dark ? '#c2a378' : '#871233', fontSize: '1.1rem'
+            color: dark ? '#c2a378' : '#7A433A', fontSize: '1.1rem'
           }}>
             <FaCookieBite />
           </div>
@@ -132,7 +132,7 @@ export default function CookieConsent() {
         Utilizamos cookies y almacenamiento local técnico indispensable para optimizar tu experiencia, gestionar el inicio de sesión seguro y mantener tus preferencias de idioma. Al continuar navegando, aceptas nuestro{' '}
         <Link 
           to="/aviso-de-privacidad" 
-          style={{ color: dark ? '#c2a378' : '#871233', textDecoration: 'underline', fontWeight: '600' }}
+          style={{ color: dark ? '#c2a378' : '#7A433A', textDecoration: 'underline', fontWeight: '600' }}
           onClick={() => {
             // Smoothly dismiss banner on navigation to policy to avoid obstruction
             setIsVisible(false);
@@ -163,11 +163,11 @@ export default function CookieConsent() {
           onClick={handleAccept}
           style={btnAcceptStyle}
           onMouseEnter={e => {
-            e.currentTarget.style.background = '#750f2c'
+            e.currentTarget.style.background = '#66362E'
             e.currentTarget.style.transform = 'scale(1.02)'
           }}
           onMouseLeave={e => {
-            e.currentTarget.style.background = '#871233'
+            e.currentTarget.style.background = '#7A433A'
             e.currentTarget.style.transform = 'scale(1)'
           }}
         >

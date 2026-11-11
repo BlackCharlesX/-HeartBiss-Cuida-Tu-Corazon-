@@ -374,10 +374,10 @@ export default function VirtualAppointments() {
                             onClick={() => { setSelectedDate(dateStr); setSelectedTime('') }}
                             style={{
                               flexShrink: 0, padding: '0.6rem 1rem', borderRadius: '12px', border: '1px solid',
-                              borderColor: isSel ? 'var(--color-primary-500)' : (dark ? '#272530' : '#e8ddd0'),
+                              borderColor: isSel ? 'var(--color-primary-500)' : (dark ? '#4A2D28' : '#e8ddd0'),
                               background: isSel 
                                 ? (dark ? 'rgba(56, 189, 248, 0.15)' : 'var(--color-primary-50)') 
-                                : (dark ? '#1e1c25' : '#ffffff'),
+                                : (dark ? '#38211D' : '#ffffff'),
                               color: isSel 
                                 ? (dark ? '#38bdf8' : 'var(--color-primary-600)') 
                                 : (dateInfo.available ? (dark ? '#e8e6e3' : '#334155') : (dark ? '#5e5a6c' : '#94a3b8')),
@@ -411,10 +411,10 @@ export default function VirtualAppointments() {
                               onClick={() => setSelectedTime(tStr)}
                               style={{
                                 padding: '0.5rem', borderRadius: '8px', border: '1px solid',
-                                borderColor: isSel ? 'var(--color-primary-500)' : (dark ? '#272530' : '#e8ddd0'),
+                                borderColor: isSel ? 'var(--color-primary-500)' : (dark ? '#4A2D28' : '#e8ddd0'),
                                 background: isSel 
                                   ? 'var(--color-primary-500)' 
-                                  : (dark ? '#1e1c25' : '#ffffff'),
+                                  : (dark ? '#38211D' : '#ffffff'),
                                 color: isSel 
                                   ? '#ffffff' 
                                   : (dark ? '#e8e6e3' : '#334155'),
@@ -444,8 +444,8 @@ export default function VirtualAppointments() {
                         minHeight: '80px', 
                         padding: '0.75rem', 
                         borderRadius: '8px', 
-                        border: `1px solid ${dark ? '#272530' : '#e8ddd0'}`, 
-                        background: dark ? '#1e1c25' : '#ffffff',
+                        border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`, 
+                        background: dark ? '#38211D' : '#ffffff',
                         color: dark ? '#ffffff' : '#1a1715',
                         fontSize: '0.9rem', 
                         resize: 'vertical' 

@@ -13,7 +13,7 @@ export const TAMAULIPAS_MAP_CONFIG = {
 };
 
 export const TAMAULIPAS_REGIONS = [
-  { id: 'all', name: 'Todo el Estado', color: '#871233' },
+  { id: 'all', name: 'Todo el Estado', color: '#7A433A' },
   { id: 'Frontera Norte', name: 'Frontera Norte', color: '#3b82f6' },
   { id: 'Valle de San Fernando', name: 'Valle de San Fernando', color: '#06b6d4' },
   { id: 'Centro', name: 'Región Centro', color: '#10b981' },

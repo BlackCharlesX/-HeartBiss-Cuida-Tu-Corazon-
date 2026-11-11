@@ -551,7 +551,7 @@ export default function UniversalMedicalHistory() {
                 padding: '0.65rem 1.1rem', borderRadius: '10px',
                 border: 'none', background: 'linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700))',
                 color: 'white', fontSize: '0.82rem', fontWeight: '700',
-                cursor: 'pointer', boxShadow: '0 4px 12px rgba(135,18,51,0.25)',
+                cursor: 'pointer', boxShadow: '0 4px 12px rgba(122,67,58,0.25)',
               }}
             >
               <FaFilePdf /> Exportar Expediente PDF
@@ -605,7 +605,7 @@ export default function UniversalMedicalHistory() {
                 style={{
                   padding: '1.1rem 1.25rem',
                   borderRadius: '14px',
-                  background: dark ? '#1e1c25' : '#ffffff',
+                  background: dark ? '#38211D' : '#ffffff',
                   border: inst.linked
                     ? `2px solid ${inst.color}`
                     : `1.5px solid ${dark ? '#334155' : '#e2e8f0'}`,
@@ -684,7 +684,7 @@ export default function UniversalMedicalHistory() {
                           onChange={e => setLinkedInstitutions(prev => prev.map(i => i.id === inst.id ? { ...i, code: e.target.value } : i))}
                           style={{
                             width: '100%', padding: '0.5rem 0.7rem', borderRadius: '8px',
-                            border: `1.5px solid ${inst.color}`, background: dark ? '#141319' : '#fff',
+                            border: `1.5px solid ${inst.color}`, background: dark ? '#2B1815' : '#fff',
                             color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem', outline: 'none'
                           }}
                         />
@@ -732,7 +732,7 @@ export default function UniversalMedicalHistory() {
             ))}
           </div>
 
-          <div style={{ marginTop: '1rem', padding: '0.75rem 1rem', borderRadius: '10px', background: dark ? '#1e1c2580' : '#f0f9ff', border: `1px solid ${dark ? '#334155' : '#bae6fd'}` }}>
+          <div style={{ marginTop: '1rem', padding: '0.75rem 1rem', borderRadius: '10px', background: dark ? '#38211D80' : '#f0f9ff', border: `1px solid ${dark ? '#334155' : '#bae6fd'}` }}>
             <p style={{ fontSize: '0.75rem', color: dark ? '#94a3b8' : '#0369a1', margin: 0, lineHeight: '1.45' }}>
               <FaInfoCircle style={{ marginRight: '0.3rem' }} />
               <strong>¿Cómo obtener tu código?</strong> El NSS del IMSS aparece en tu carnet o puedes consultarlo en <a href="https://serviciosdigitales.imss.gob.mx" target="_blank" rel="noopener noreferrer" style={{ color: '#0369a1', fontWeight: '700' }}>serviciosdigitales.imss.gob.mx</a>. Para ISSSTE, consulta en <a href="https://www.gob.mx/issste" target="_blank" rel="noopener noreferrer" style={{ color: '#1e3a5f', fontWeight: '700' }}>gob.mx/issste</a>. Para tu seguro privado, consulta tu póliza vigente.
@@ -775,7 +775,7 @@ export default function UniversalMedicalHistory() {
                     style={{
                       width: '100%', padding: '0.65rem 0.85rem', borderRadius: '8px',
                       border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
-                      background: dark ? '#1e1c25' : '#ffffff', color: dark ? '#ffffff' : '#0f172a',
+                      background: dark ? '#38211D' : '#ffffff', color: dark ? '#ffffff' : '#0f172a',
                       fontSize: '0.88rem', outline: 'none'
                     }}
                   />
@@ -793,7 +793,7 @@ export default function UniversalMedicalHistory() {
                     style={{
                       width: '100%', padding: '0.65rem 0.85rem', borderRadius: '8px',
                       border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
-                      background: dark ? '#1e1c25' : '#ffffff', color: dark ? '#ffffff' : '#0f172a',
+                      background: dark ? '#38211D' : '#ffffff', color: dark ? '#ffffff' : '#0f172a',
                       fontSize: '0.88rem', outline: 'none'
                     }}
                   />
@@ -809,7 +809,7 @@ export default function UniversalMedicalHistory() {
                     style={{
                       width: '100%', padding: '0.65rem 0.85rem', borderRadius: '8px',
                       border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`,
-                      background: dark ? '#1e1c25' : '#ffffff', color: dark ? '#ffffff' : '#0f172a',
+                      background: dark ? '#38211D' : '#ffffff', color: dark ? '#ffffff' : '#0f172a',
                       fontSize: '0.88rem', outline: 'none', cursor: 'pointer'
                     }}
                   >
@@ -843,21 +843,21 @@ export default function UniversalMedicalHistory() {
                     placeholder="Nombre completo"
                     value={history.emergencyContactName}
                     onChange={e => setHistory({ ...history, emergencyContactName: e.target.value })}
-                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.85rem' }}
+                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.85rem' }}
                   />
                   <input
                     type="text"
                     placeholder="Teléfono (10 dígitos)"
                     value={history.emergencyContactPhone}
                     onChange={e => setHistory({ ...history, emergencyContactPhone: e.target.value })}
-                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.85rem' }}
+                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.85rem' }}
                   />
                   <input
                     type="text"
                     placeholder="Parentesco / Relación"
                     value={history.emergencyContactRelation}
                     onChange={e => setHistory({ ...history, emergencyContactRelation: e.target.value })}
-                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.85rem' }}
+                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.85rem' }}
                   />
                 </div>
               </div>
@@ -911,7 +911,7 @@ export default function UniversalMedicalHistory() {
                   value={newAllergy}
                   onChange={e => setNewAllergy(e.target.value)}
                   onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addAllergy(); } }}
-                  style={{ flex: 1, padding: '0.45rem 0.75rem', borderRadius: '8px', border: `1px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.85rem' }}
+                  style={{ flex: 1, padding: '0.45rem 0.75rem', borderRadius: '8px', border: `1px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.85rem' }}
                 />
                 <button
                   type="button"
@@ -956,7 +956,7 @@ export default function UniversalMedicalHistory() {
                       value={newHereditary}
                       onChange={e => setNewHereditary(e.target.value)}
                       onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addHereditary(); } }}
-                      style={{ flex: 1, padding: '0.4rem 0.6rem', borderRadius: '6px', border: `1px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.8rem' }}
+                      style={{ flex: 1, padding: '0.4rem 0.6rem', borderRadius: '6px', border: `1px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.8rem' }}
                     />
                     <button type="button" onClick={addHereditary} style={{ padding: '0.4rem 0.65rem', borderRadius: '6px', border: 'none', background: '#0369a1', color: 'white', fontWeight: '700', fontSize: '0.78rem', cursor: 'pointer' }}>+ Add</button>
                   </div>
@@ -982,7 +982,7 @@ export default function UniversalMedicalHistory() {
                       value={newPathology}
                       onChange={e => setNewPathology(e.target.value)}
                       onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addPathology(); } }}
-                      style={{ flex: 1, padding: '0.4rem 0.6rem', borderRadius: '6px', border: `1px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.8rem' }}
+                      style={{ flex: 1, padding: '0.4rem 0.6rem', borderRadius: '6px', border: `1px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.8rem' }}
                     />
                     <button type="button" onClick={addPathology} style={{ padding: '0.4rem 0.65rem', borderRadius: '6px', border: 'none', background: '#0369a1', color: 'white', fontWeight: '700', fontSize: '0.78rem', cursor: 'pointer' }}>+ Add</button>
                   </div>
@@ -1010,7 +1010,7 @@ export default function UniversalMedicalHistory() {
               </div>
 
               {showDiagForm && (
-                <div style={{ padding: '1rem', borderRadius: '12px', background: dark ? '#1e1c25' : '#faf8f5', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, marginBottom: '1.25rem' }}>
+                <div style={{ padding: '1rem', borderRadius: '12px', background: dark ? '#38211D' : '#faf8f5', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}`, marginBottom: '1.25rem' }}>
                   <h4 style={{ fontSize: '0.85rem', fontWeight: '700', margin: '0 0 0.75rem' }}>Registrar Diagnóstico CIE-10</h4>
                   <div style={{ display: 'grid', gridTemplateColumns: '100px 1fr 140px auto', gap: '0.6rem', alignItems: 'center' }}>
                     <input
@@ -1049,7 +1049,7 @@ export default function UniversalMedicalHistory() {
                   </p>
                 ) : (
                   (history.diagnoses || []).map((d) => (
-                    <div key={d.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.65rem 0.85rem', borderRadius: '8px', background: dark ? '#1e1c25' : '#f8fafc', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}` }}>
+                    <div key={d.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.65rem 0.85rem', borderRadius: '8px', background: dark ? '#38211D' : '#f8fafc', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}` }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                         <span style={{ padding: '0.2rem 0.5rem', borderRadius: '6px', background: 'var(--color-primary-500)20', color: 'var(--color-primary-500)', fontSize: '0.75rem', fontWeight: '800' }}>
                           {d.code}
@@ -1095,7 +1095,7 @@ export default function UniversalMedicalHistory() {
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
                 {(!history.labReports || history.labReports.length === 0) ? (
-                  <div style={{ gridColumn: '1 / -1', padding: '1.5rem', textAlign: 'center', borderRadius: '12px', background: dark ? '#1e1c25' : '#f8fafc', border: `2px dashed ${dark ? '#334155' : '#e2e8f0'}` }}>
+                  <div style={{ gridColumn: '1 / -1', padding: '1.5rem', textAlign: 'center', borderRadius: '12px', background: dark ? '#38211D' : '#f8fafc', border: `2px dashed ${dark ? '#334155' : '#e2e8f0'}` }}>
                     <FaFilePdf size={32} style={{ color: '#cbd5e1', marginBottom: '0.5rem' }} />
                     <p style={{ fontSize: '0.88rem', fontWeight: '600', color: dark ? '#cbd5e1' : '#64748b', margin: 0 }}>
                       No has adjuntado archivos PDF de análisis o pruebas clínicas.
@@ -1106,7 +1106,7 @@ export default function UniversalMedicalHistory() {
                   </div>
                 ) : (
                   (history.labReports || []).map((report) => (
-                    <div key={report.id} style={{ padding: '1rem', borderRadius: '12px', background: dark ? '#1e1c25' : '#ffffff', border: `1.5px solid ${dark ? '#334155' : '#e2e8f0'}`, boxShadow: '0 2px 8px rgba(0,0,0,0.04)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div key={report.id} style={{ padding: '1rem', borderRadius: '12px', background: dark ? '#38211D' : '#ffffff', border: `1.5px solid ${dark ? '#334155' : '#e2e8f0'}`, boxShadow: '0 2px 8px rgba(0,0,0,0.04)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                       <div>
                         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -1169,7 +1169,7 @@ export default function UniversalMedicalHistory() {
               </div>
 
               {(!healthRecords || healthRecords.length === 0) ? (
-                <div style={{ padding: '1.25rem', textAlign: 'center', borderRadius: '12px', background: dark ? '#1e1c25' : '#f8fafc', border: `1px dashed ${dark ? '#334155' : '#e2e8f0'}` }}>
+                <div style={{ padding: '1.25rem', textAlign: 'center', borderRadius: '12px', background: dark ? '#38211D' : '#f8fafc', border: `1px dashed ${dark ? '#334155' : '#e2e8f0'}` }}>
                   <p style={{ fontSize: '0.85rem', color: dark ? '#cbd5e1' : '#64748b', margin: 0 }}>
                     No se han registrado signos vitales recientemente. Registra tus mediciones desde el Dashboard de Salud.
                   </p>
@@ -1201,7 +1201,7 @@ export default function UniversalMedicalHistory() {
                     }
 
                     return Object.entries(latestByType).map(([type, record]) => (
-                      <div key={type} style={{ padding: '0.9rem', borderRadius: '10px', background: dark ? '#1e1c25' : '#ffffff', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}` }}>
+                      <div key={type} style={{ padding: '0.9rem', borderRadius: '10px', background: dark ? '#38211D' : '#ffffff', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}` }}>
                         <div style={{ fontSize: '0.75rem', fontWeight: '700', color: typeColors[type] || '#64748b', marginBottom: '0.3rem' }}>
                           {typeNames[type] || type}
                         </div>
@@ -1241,7 +1241,7 @@ export default function UniversalMedicalHistory() {
               </div>
 
               {(!medications || medications.length === 0) ? (
-                <div style={{ padding: '1.25rem', textAlign: 'center', borderRadius: '12px', background: dark ? '#1e1c25' : '#f8fafc', border: `1px dashed ${dark ? '#334155' : '#e2e8f0'}` }}>
+                <div style={{ padding: '1.25rem', textAlign: 'center', borderRadius: '12px', background: dark ? '#38211D' : '#f8fafc', border: `1px dashed ${dark ? '#334155' : '#e2e8f0'}` }}>
                   <p style={{ fontSize: '0.85rem', color: dark ? '#cbd5e1' : '#64748b', margin: 0 }}>
                     No tienes medicamentos registrados actualmente. Administra tus recetas e indicaciones desde el Dashboard de Salud.
                   </p>
@@ -1249,7 +1249,7 @@ export default function UniversalMedicalHistory() {
               ) : (
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '0.85rem' }}>
                   {(medications || []).map(med => (
-                    <div key={med.id} style={{ padding: '0.85rem 1rem', borderRadius: '10px', background: dark ? '#1e1c25' : '#ffffff', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}` }}>
+                    <div key={med.id} style={{ padding: '0.85rem 1rem', borderRadius: '10px', background: dark ? '#38211D' : '#ffffff', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}` }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
                         <h4 style={{ fontSize: '0.92rem', fontWeight: '700', color: dark ? '#ffffff' : '#0f172a', margin: 0 }}>
                           {med.name}
@@ -1306,7 +1306,7 @@ export default function UniversalMedicalHistory() {
                   </p>
                 ) : (
                   (history.vaccines || []).map(vac => (
-                    <div key={vac.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.65rem 0.85rem', borderRadius: '8px', background: dark ? '#1e1c25' : '#f8fafc', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}` }}>
+                    <div key={vac.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.65rem 0.85rem', borderRadius: '8px', background: dark ? '#38211D' : '#f8fafc', border: `1px solid ${dark ? '#334155' : '#e2e8f0'}` }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                         <FaSyringe style={{ color: '#0284c7' }} />
                         <div>
@@ -1357,7 +1357,7 @@ export default function UniversalMedicalHistory() {
                       ...history,
                       nonPathologicalHistory: { ...history.nonPathologicalHistory, smoking: e.target.value }
                     })}
-                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
+                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
                   >
                     <option value="Nunca">Nunca</option>
                     <option value="Ex-fumador">Ex-fumador</option>
@@ -1378,7 +1378,7 @@ export default function UniversalMedicalHistory() {
                       ...history,
                       nonPathologicalHistory: { ...history.nonPathologicalHistory, alcohol: e.target.value }
                     })}
-                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
+                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
                   >
                     <option value="Nunca">Nunca</option>
                     <option value="Ex-alcoholismo">Ex-alcoholismo</option>
@@ -1398,7 +1398,7 @@ export default function UniversalMedicalHistory() {
                       ...history,
                       nonPathologicalHistory: { ...history.nonPathologicalHistory, exercise: e.target.value }
                     })}
-                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
+                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
                   >
                     <option value="Sedentario">Sedentario</option>
                     <option value="Ligera (1-2 días/sem)">Ligera (1-2 días/sem)</option>
@@ -1417,7 +1417,7 @@ export default function UniversalMedicalHistory() {
                       ...history,
                       nonPathologicalHistory: { ...history.nonPathologicalHistory, diet: e.target.value }
                     })}
-                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
+                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
                   >
                     <option value="Equilibrada">Equilibrada / Saludable</option>
                     <option value="Alta en Carbohidratos/Grasas">Alta en Carbohidratos/Grasas</option>
@@ -1454,7 +1454,7 @@ export default function UniversalMedicalHistory() {
                   </p>
                 ) : (
                   (history.clinicalNotes || []).map(note => (
-                    <div key={note.id} style={{ padding: '1rem', borderRadius: '12px', background: dark ? '#1e1c25' : '#ffffff', border: `1.5px solid ${dark ? '#334155' : '#e2e8f0'}` }}>
+                    <div key={note.id} style={{ padding: '1rem', borderRadius: '12px', background: dark ? '#38211D' : '#ffffff', border: `1.5px solid ${dark ? '#334155' : '#e2e8f0'}` }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem' }}>
                         <div>
                           <strong style={{ fontSize: '0.88rem', color: dark ? '#ffffff' : '#0f172a' }}>{note.doctor}</strong>
@@ -1465,10 +1465,10 @@ export default function UniversalMedicalHistory() {
                         </button>
                       </div>
                       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.6rem', fontSize: '0.8rem' }}>
-                        {note.subjective && <div style={{ background: dark ? '#141319' : '#f8fafc', padding: '0.5rem', borderRadius: '6px' }}><strong>S (Subjetivo):</strong> {note.subjective}</div>}
-                        {note.objective && <div style={{ background: dark ? '#141319' : '#f8fafc', padding: '0.5rem', borderRadius: '6px' }}><strong>O (Objetivo):</strong> {note.objective}</div>}
-                        {note.analysis && <div style={{ background: dark ? '#141319' : '#f8fafc', padding: '0.5rem', borderRadius: '6px' }}><strong>A (Análisis):</strong> {note.analysis}</div>}
-                        {note.plan && <div style={{ background: dark ? '#141319' : '#f8fafc', padding: '0.5rem', borderRadius: '6px' }}><strong>P (Plan):</strong> {note.plan}</div>}
+                        {note.subjective && <div style={{ background: dark ? '#2B1815' : '#f8fafc', padding: '0.5rem', borderRadius: '6px' }}><strong>S (Subjetivo):</strong> {note.subjective}</div>}
+                        {note.objective && <div style={{ background: dark ? '#2B1815' : '#f8fafc', padding: '0.5rem', borderRadius: '6px' }}><strong>O (Objetivo):</strong> {note.objective}</div>}
+                        {note.analysis && <div style={{ background: dark ? '#2B1815' : '#f8fafc', padding: '0.5rem', borderRadius: '6px' }}><strong>A (Análisis):</strong> {note.analysis}</div>}
+                        {note.plan && <div style={{ background: dark ? '#2B1815' : '#f8fafc', padding: '0.5rem', borderRadius: '6px' }}><strong>P (Plan):</strong> {note.plan}</div>}
                       </div>
                     </div>
                   ))
@@ -1486,7 +1486,7 @@ export default function UniversalMedicalHistory() {
                   background: 'linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700))',
                   color: 'white', fontSize: '0.95rem', fontWeight: '700',
                   cursor: saving ? 'not-allowed' : 'pointer',
-                  boxShadow: '0 4px 14px rgba(135,18,51,0.3)', transition: 'all 0.2s'
+                  boxShadow: '0 4px 14px rgba(122,67,58,0.3)', transition: 'all 0.2s'
                 }}
               >
                 {saving ? 'Guardando Expediente...' : '💾 Guardar Expediente Clínico'}
@@ -1508,8 +1508,8 @@ export default function UniversalMedicalHistory() {
         }}>
           <div style={{
             width: '100%', maxWidth: '440px', padding: '1.75rem',
-            borderRadius: '16px', background: dark ? '#141319' : '#ffffff',
-            border: `1px solid ${dark ? '#1e1c25' : '#e2e8f0'}`,
+            borderRadius: '16px', background: dark ? '#2B1815' : '#ffffff',
+            border: `1px solid ${dark ? '#38211D' : '#e2e8f0'}`,
             boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
@@ -1533,7 +1533,7 @@ export default function UniversalMedicalHistory() {
                     placeholder="ej. Química Sanguínea 6 Elementos"
                     value={pdfForm.title}
                     onChange={e => setPdfForm({ ...pdfForm, title: e.target.value })}
-                    style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.85rem' }}
+                    style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.85rem' }}
                   />
                 </div>
 
@@ -1547,7 +1547,7 @@ export default function UniversalMedicalHistory() {
                     placeholder="ej. Salud Digna / Chopo / IMSS"
                     value={pdfForm.labName}
                     onChange={e => setPdfForm({ ...pdfForm, labName: e.target.value })}
-                    style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.85rem' }}
+                    style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.85rem' }}
                   />
                 </div>
 
@@ -1560,7 +1560,7 @@ export default function UniversalMedicalHistory() {
                     required
                     value={pdfForm.date}
                     onChange={e => setPdfForm({ ...pdfForm, date: e.target.value })}
-                    style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.85rem' }}
+                    style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.85rem' }}
                   />
                 </div>
 
@@ -1573,7 +1573,7 @@ export default function UniversalMedicalHistory() {
                     required
                     accept="application/pdf,.pdf"
                     onChange={e => setPdfForm({ ...pdfForm, file: e.target.files[0] })}
-                    style={{ width: '100%', padding: '0.4rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.82rem' }}
+                    style={{ width: '100%', padding: '0.4rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.82rem' }}
                   />
                 </div>
               </div>
@@ -1613,8 +1613,8 @@ export default function UniversalMedicalHistory() {
         }}>
           <div style={{
             width: '100%', maxWidth: '460px', padding: '1.75rem',
-            borderRadius: '16px', background: dark ? '#141319' : '#ffffff',
-            border: `1px solid ${dark ? '#1e1c25' : '#e2e8f0'}`,
+            borderRadius: '16px', background: dark ? '#2B1815' : '#ffffff',
+            border: `1px solid ${dark ? '#38211D' : '#e2e8f0'}`,
             boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
@@ -1640,7 +1640,7 @@ export default function UniversalMedicalHistory() {
                   required
                   accept=".json,.fhir,application/json"
                   onChange={e => setFhirFile(e.target.files[0])}
-                  style={{ width: '100%', padding: '0.5rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.82rem' }}
+                  style={{ width: '100%', padding: '0.5rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.82rem' }}
                 />
               </div>
 
@@ -1678,8 +1678,8 @@ export default function UniversalMedicalHistory() {
         }}>
           <div style={{
             width: '100%', maxWidth: '440px', padding: '1.75rem',
-            borderRadius: '16px', background: dark ? '#141319' : '#ffffff',
-            border: `1px solid ${dark ? '#1e1c25' : '#e2e8f0'}`,
+            borderRadius: '16px', background: dark ? '#2B1815' : '#ffffff',
+            border: `1px solid ${dark ? '#38211D' : '#e2e8f0'}`,
             boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
@@ -1700,7 +1700,7 @@ export default function UniversalMedicalHistory() {
                   <select
                     value={vaccineForm.name}
                     onChange={e => setVaccineForm({ ...vaccineForm, name: e.target.value })}
-                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
+                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
                   >
                     {COMMON_VACCINES.map(v => (
                       <option key={v} value={v}>{v}</option>
@@ -1720,7 +1720,7 @@ export default function UniversalMedicalHistory() {
                       placeholder="ej. Varicela / Fiebre Amarilla"
                       value={vaccineForm.customName}
                       onChange={e => setVaccineForm({ ...vaccineForm, customName: e.target.value })}
-                      style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
+                      style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
                     />
                   </div>
                 )}
@@ -1734,7 +1734,7 @@ export default function UniversalMedicalHistory() {
                     required
                     value={vaccineForm.date}
                     onChange={e => setVaccineForm({ ...vaccineForm, date: e.target.value })}
-                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
+                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
                   />
                 </div>
 
@@ -1747,7 +1747,7 @@ export default function UniversalMedicalHistory() {
                     placeholder="ej. IMSS Clinica 22 / Centro de Salud"
                     value={vaccineForm.institution}
                     onChange={e => setVaccineForm({ ...vaccineForm, institution: e.target.value })}
-                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
+                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
                   />
                 </div>
 
@@ -1761,7 +1761,7 @@ export default function UniversalMedicalHistory() {
                       placeholder="ej. AB12345"
                       value={vaccineForm.lot}
                       onChange={e => setVaccineForm({ ...vaccineForm, lot: e.target.value })}
-                      style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
+                      style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
                     />
                   </div>
 
@@ -1772,7 +1772,7 @@ export default function UniversalMedicalHistory() {
                     <select
                       value={vaccineForm.status}
                       onChange={e => setVaccineForm({ ...vaccineForm, status: e.target.value })}
-                      style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
+                      style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
                     >
                       <option value="Aplicada">Aplicada</option>
                       <option value="Pendiente">Pendiente</option>
@@ -1816,8 +1816,8 @@ export default function UniversalMedicalHistory() {
         }}>
           <div style={{
             width: '100%', maxWidth: '560px', padding: '1.75rem',
-            borderRadius: '16px', background: dark ? '#141319' : '#ffffff',
-            border: `1px solid ${dark ? '#1e1c25' : '#e2e8f0'}`,
+            borderRadius: '16px', background: dark ? '#2B1815' : '#ffffff',
+            border: `1px solid ${dark ? '#38211D' : '#e2e8f0'}`,
             boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
             maxHeight: '90vh', overflowY: 'auto'
           }}>
@@ -1842,7 +1842,7 @@ export default function UniversalMedicalHistory() {
                       placeholder="Dr(a). Nombre Apellido"
                       value={noteForm.doctor}
                       onChange={e => setNoteForm({ ...noteForm, doctor: e.target.value })}
-                      style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
+                      style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
                     />
                   </div>
                   <div>
@@ -1854,7 +1854,7 @@ export default function UniversalMedicalHistory() {
                       required
                       value={noteForm.date}
                       onChange={e => setNoteForm({ ...noteForm, date: e.target.value })}
-                      style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
+                      style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem' }}
                     />
                   </div>
                 </div>
@@ -1868,7 +1868,7 @@ export default function UniversalMedicalHistory() {
                     placeholder="ej. Paciente refiere cefalea de 2 días de evolución..."
                     value={noteForm.subjective}
                     onChange={e => setNoteForm({ ...noteForm, subjective: e.target.value })}
-                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem', resize: 'vertical' }}
+                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem', resize: 'vertical' }}
                   />
                 </div>
 
@@ -1881,7 +1881,7 @@ export default function UniversalMedicalHistory() {
                     placeholder="ej. TA 120/80, FC 72bpm. Abdomen blando, sin dolor..."
                     value={noteForm.objective}
                     onChange={e => setNoteForm({ ...noteForm, objective: e.target.value })}
-                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem', resize: 'vertical' }}
+                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem', resize: 'vertical' }}
                   />
                 </div>
 
@@ -1894,7 +1894,7 @@ export default function UniversalMedicalHistory() {
                     placeholder="ej. Cefalea tensional. Buena respuesta a analgésicos..."
                     value={noteForm.analysis}
                     onChange={e => setNoteForm({ ...noteForm, analysis: e.target.value })}
-                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem', resize: 'vertical' }}
+                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem', resize: 'vertical' }}
                   />
                 </div>
 
@@ -1907,7 +1907,7 @@ export default function UniversalMedicalHistory() {
                     placeholder="ej. Paracetamol 500mg c/8h por 3 días. Cita de control en 1 mes..."
                     value={noteForm.plan}
                     onChange={e => setNoteForm({ ...noteForm, plan: e.target.value })}
-                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#1e1c25' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem', resize: 'vertical' }}
+                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '8px', border: `1.5px solid ${dark ? '#334155' : '#cbd5e1'}`, background: dark ? '#38211D' : '#fff', color: dark ? '#fff' : '#0f172a', fontSize: '0.84rem', resize: 'vertical' }}
                   />
                 </div>
               </div>

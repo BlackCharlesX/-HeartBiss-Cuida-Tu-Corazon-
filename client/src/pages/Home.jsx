@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { FaHeartbeat, FaBookMedical, FaHandsHelping, FaChartLine, FaTimes, FaNewspaper, FaThumbtack, FaGlobe, FaMapMarkerAlt, FaAndroid, FaDownload } from 'react-icons/fa'
+import { FaHeart, FaRegHeart, FaHeartbeat, FaBookMedical, FaHandsHelping, FaChartLine, FaTimes, FaNewspaper, FaThumbtack, FaGlobe, FaMapMarkerAlt, FaAndroid, FaDownload } from 'react-icons/fa'
 import { HiArrowRight } from 'react-icons/hi'
 import { useAuth } from '../context/AuthContext'
 import { useTheme } from '../context/ThemeContext'
@@ -22,23 +22,23 @@ const allFeatures = [
     title: 'Información sobre ECNT',
     description: 'Conoce sobre diabetes, hipertensión, obesidad y otras enfermedades crónicas no transmisibles.',
     to: '/enfermedades',
-    color: 'var(--color-info)',
+    color: '#7A433A',
   },
   {
     key: 'programs',
     icon: FaHandsHelping,
     title: 'Programas Sociales',
-    description: 'Descubre programas de apoyo gubernamental enfocados en la salud de los jóvenes.',
+    description: 'Descubre programas de apoyo enfocados en la salud y bienestar integral de los jóvenes.',
     to: '/programas',
-    color: 'var(--color-accent-500)',
+    color: '#C89953',
   },
   {
     key: 'health_tracking',
     icon: FaChartLine,
     title: 'Seguimiento de Salud',
-    description: 'Registra y monitorea tus indicadores de salud con gráficas personalizadas.',
+    description: 'Registra y monitorea tus indicadores cardiovasculares y metabólicos con gráficas personalizadas.',
     to: '/login',
-    color: 'var(--color-warning)',
+    color: '#5A7B43',
   },
 ]
 
@@ -91,7 +91,7 @@ export default function Home() {
           setApkInfo(res.data)
           const link = document.createElement('a')
           link.href = downloadUrl
-          link.setAttribute('download', res.data.fileName || 'jovenes-con-salud.apk')
+          link.setAttribute('download', res.data.fileName || 'heartbliss-cuida-tu-corazon.apk')
           document.body.appendChild(link)
           link.click()
           document.body.removeChild(link)
@@ -111,100 +111,143 @@ export default function Home() {
 
   return (
     <div>
-      {/* Hero Section */}
+      {/* Hero Section — HeartBliss Cuida tu Corazón (Modo Claro & Modo Oscuro) */}
       <section style={{
         position: 'relative',
-        minHeight: '85vh',
+        minHeight: '86vh',
         display: 'flex',
         alignItems: 'center',
-        background: 'var(--hero-gradient)',
+        background: dark
+          ? 'radial-gradient(circle at 76% 32%, rgba(77, 104, 62, 0.28) 0%, transparent 42%), radial-gradient(circle at 82% 84%, rgba(139, 30, 24, 0.36) 0%, transparent 45%), radial-gradient(circle at 18% 82%, rgba(200, 153, 83, 0.16) 0%, transparent 38%), linear-gradient(135deg, #1F1210 0%, #2B1815 58%, #1F1210 100%)'
+          : 'radial-gradient(circle at 76% 32%, rgba(90, 123, 67, 0.16) 0%, transparent 44%), radial-gradient(circle at 18% 82%, rgba(200, 153, 83, 0.20) 0%, transparent 42%), linear-gradient(135deg, #F8F4EB 0%, #F3ECDC 55%, #E6DBC9 100%)',
         overflow: 'hidden',
+        borderBottom: `1px solid ${dark ? '#38211D' : '#E6DBC9'}`,
       }}>
-        {/* Background pattern */}
+        {/* Ambient organic glow blobs */}
         <div style={{
           position: 'absolute',
-          inset: 0,
-          opacity: 0.05,
-          backgroundImage: `radial-gradient(circle at 25% 25%, white 1px, transparent 1px),
-                           radial-gradient(circle at 75% 75%, white 1px, transparent 1px)`,
-          backgroundSize: '50px 50px',
+          top: '12%', right: '8%',
+          width: '340px', height: '340px',
+          borderRadius: '50%',
+          background: dark
+            ? 'radial-gradient(circle, rgba(77, 104, 62, 0.28), transparent 70%)'
+            : 'radial-gradient(circle, rgba(90, 123, 67, 0.18), transparent 70%)',
+          filter: 'blur(50px)',
+          pointerEvents: 'none',
+        }} />
+        <div style={{
+          position: 'absolute',
+          bottom: '8%', right: '14%',
+          width: '280px', height: '280px',
+          borderRadius: '50%',
+          background: dark
+            ? 'radial-gradient(circle, rgba(139, 30, 24, 0.35), transparent 70%)'
+            : 'radial-gradient(circle, rgba(200, 153, 83, 0.22), transparent 70%)',
+          filter: 'blur(45px)',
+          pointerEvents: 'none',
         }} />
 
-        {/* Floating shapes */}
-        <div style={{
-          position: 'absolute',
-          top: '10%', right: '10%',
-          width: '300px', height: '300px',
-          borderRadius: '50%',
-          background: 'linear-gradient(135deg, rgba(52, 211, 153, 0.15), rgba(59, 130, 246, 0.15))',
-          filter: 'blur(60px)',
-        }} />
-        <div style={{
-          position: 'absolute',
-          bottom: '20%', left: '5%',
-          width: '200px', height: '200px',
-          borderRadius: '50%',
-          background: 'rgba(96, 165, 250, 0.1)',
-          filter: 'blur(40px)',
-        }} />
+        {/* Decorative flowing wave lines at bottom of Hero (matching Image 1) */}
+        <svg
+          viewBox="0 0 1440 220"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            width: '100%',
+            height: '180px',
+            pointerEvents: 'none',
+            opacity: dark ? 0.35 : 0.42,
+          }}
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M380 215 C 520 140, 640 95, 760 155 C 880 215, 980 85, 1140 120 C 1260 145, 1360 90, 1440 110"
+            stroke={dark ? '#8B1E18' : '#7A433A'}
+            strokeWidth="1.6"
+            fill="none"
+          />
+          <path
+            d="M450 220 C 590 155, 700 110, 820 168 C 940 220, 1040 105, 1190 135 C 1300 155, 1380 110, 1440 130"
+            stroke={dark ? '#C89953' : '#A88455'}
+            strokeWidth="1.3"
+            fill="none"
+          />
+          <path
+            d="M520 220 C 660 170, 770 125, 890 180 C 1000 225, 1100 125, 1240 150 C 1330 165, 1400 130, 1440 145"
+            stroke={dark ? '#4D683E' : '#5A7B43'}
+            strokeWidth="1.2"
+            fill="none"
+          />
+        </svg>
 
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1.5rem', width: '100%', position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '3rem', flexWrap: 'wrap' }}>
-          <div style={{ maxWidth: '650px', flex: '1 1 500px' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '3.5rem 1.5rem', width: '100%', position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '3rem', flexWrap: 'wrap' }}>
+          <div style={{ maxWidth: '640px', flex: '1 1 480px' }}>
+            {/* Top Pill Badge: ♥ HeartBliss */}
             <div className="animate-fade-in-up" style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              padding: '0.4rem 1rem',
+              padding: '0.42rem 1.1rem',
               borderRadius: '9999px',
-              background: 'rgba(255,255,255,0.1)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255,255,255,0.15)',
+              background: dark ? '#2B1815' : '#E6DBC9',
+              border: `1px solid ${dark ? 'rgba(200, 153, 83, 0.28)' : 'rgba(122, 67, 58, 0.16)'}`,
               marginBottom: '1.5rem',
-              fontSize: '0.85rem',
-              color: 'var(--color-hero-badge)',
+              fontSize: '0.88rem',
+              fontWeight: '700',
+              color: dark ? '#C89953' : '#7A433A',
+              boxShadow: dark ? '0 2px 10px rgba(0,0,0,0.3)' : '0 2px 8px rgba(58, 36, 31, 0.06)',
             }}>
-              <FaHeartbeat />
-              Instituto de la Juventud de Tamaulipas
+              <FaHeart size={13} style={{ color: dark ? '#C89953' : '#7A433A' }} />
+              HeartBliss
             </div>
 
             <h1 className="animate-fade-in-up stagger-1" style={{
-              fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+              fontSize: 'clamp(2.5rem, 5vw, 4.1rem)',
               fontWeight: '800',
-              color: 'white',
-              lineHeight: '1.1',
+              fontFamily: "'Outfit', 'Inter', sans-serif",
+              color: dark ? '#F5ECE1' : '#3A241F',
+              lineHeight: '1.08',
+              letterSpacing: '-0.025em',
               marginBottom: '1.5rem',
             }}>
-              Tu salud importa,{' '}
-              <span style={{ color: 'var(--color-hero-highlight)' }}>infórmate y actúa</span>
+              Tu salud importa,
+              <br />
+              <span style={{ color: dark ? '#C89953' : '#4E241C' }}>infórmate y actúa</span>
             </h1>
 
             <p className="animate-fade-in-up stagger-2" style={{
-              fontSize: '1.125rem',
-              color: 'rgba(255,255,255,0.8)',
-              lineHeight: '1.8',
-              marginBottom: '2rem',
+              fontSize: '1.1rem',
+              color: dark ? '#D9C8B8' : '#4B322A',
+              lineHeight: '1.75',
+              marginBottom: '2.25rem',
               maxWidth: '560px',
+              fontWeight: '400',
             }}>
               Plataforma digital para jóvenes de 18 a 29 años con información sobre
               enfermedades crónicas, programas de apoyo social y herramientas de
               seguimiento de salud personalizado.
             </p>
 
-            <div className="animate-fade-in-up stagger-3" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+            <div className="animate-fade-in-up stagger-3" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center' }}>
               {isAuthenticated ? (
                 <Link to={user?.role === 'admin' ? '/admin' : user?.role === 'doctor' ? '/doctor' : '/dashboard'} style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.875rem 2rem',
-                  borderRadius: 'var(--radius-xl)',
-                  background: 'linear-gradient(135deg, var(--color-accent-400), var(--color-accent-600))',
-                  color: 'white',
+                  gap: '0.55rem',
+                  padding: '0.9rem 2rem',
+                  borderRadius: '9999px',
+                  background: 'linear-gradient(135deg, #D6AA65 0%, #C89953 55%, #B0803B 100%)',
+                  color: dark ? '#1F1210' : '#FFFFFF',
                   textDecoration: 'none',
-                  fontWeight: '600',
-                  fontSize: '1rem',
-                  boxShadow: '0 4px 15px rgba(5, 150, 105, 0.4)',
-                  transition: 'all 0.3s ease',
+                  fontWeight: '700',
+                  fontSize: '0.98rem',
+                  boxShadow: dark
+                    ? '0 8px 25px rgba(200, 153, 83, 0.45), 0 0 15px rgba(200, 153, 83, 0.25)'
+                    : '0 8px 22px rgba(200, 153, 83, 0.42)',
+                  transition: 'all 0.25s ease',
                 }}>
                   {user?.role === 'admin' ? 'Ir al Panel Admin' : user?.role === 'doctor' ? 'Ir al Panel Médico' : 'Ir a Mi Salud'}
                   <HiArrowRight />
@@ -213,22 +256,54 @@ export default function Home() {
                 <Link to="/registro" style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.875rem 2rem',
-                  borderRadius: 'var(--radius-xl)',
-                  background: 'linear-gradient(135deg, var(--color-accent-400), var(--color-accent-600))',
-                  color: 'white',
+                  gap: '0.55rem',
+                  padding: '0.9rem 2rem',
+                  borderRadius: '9999px',
+                  background: 'linear-gradient(135deg, #D6AA65 0%, #C89953 55%, #B0803B 100%)',
+                  color: dark ? '#1F1210' : '#FFFFFF',
                   textDecoration: 'none',
-                  fontWeight: '600',
-                  fontSize: '1rem',
-                  boxShadow: '0 4px 15px rgba(5, 150, 105, 0.4)',
-                  transition: 'all 0.3s ease',
+                  fontWeight: '700',
+                  fontSize: '0.98rem',
+                  boxShadow: dark
+                    ? '0 8px 25px rgba(200, 153, 83, 0.45), 0 0 15px rgba(200, 153, 83, 0.25)'
+                    : '0 8px 22px rgba(200, 153, 83, 0.42)',
+                  transition: 'all 0.25s ease',
                 }}>
                   Crear Cuenta Gratis
                   <HiArrowRight />
                 </Link>
               )}
-              {isModuleEnabled('download_apk') ? (
+
+              {/* Botón Secundario "♡ Explorar Información" como en el boceto */}
+              <Link to="/enfermedades" style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.55rem',
+                padding: '0.88rem 1.85rem',
+                borderRadius: '9999px',
+                background: dark ? 'rgba(43, 24, 21, 0.55)' : 'rgba(248, 244, 235, 0.65)',
+                backdropFilter: 'blur(8px)',
+                border: `1.5px solid ${dark ? '#C89953' : '#3A241F'}`,
+                color: dark ? '#F5ECE1' : '#3A241F',
+                textDecoration: 'none',
+                fontWeight: '600',
+                fontSize: '0.98rem',
+                transition: 'all 0.25s ease',
+              }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = dark ? 'rgba(200, 153, 83, 0.15)' : '#E6DBC9'
+                  e.currentTarget.style.transform = 'translateY(-2px)'
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = dark ? 'rgba(43, 24, 21, 0.55)' : 'rgba(248, 244, 235, 0.65)'
+                  e.currentTarget.style.transform = 'translateY(0)'
+                }}
+              >
+                <FaRegHeart size={15} style={{ color: dark ? '#C89953' : '#7A433A' }} />
+                Explorar Información
+              </Link>
+
+              {isModuleEnabled('download_apk') && (
                 <button
                   type="button"
                   onClick={handleDownloadApk}
@@ -236,118 +311,91 @@ export default function Home() {
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '0.65rem',
-                    padding: '0.875rem 2rem',
-                    borderRadius: 'var(--radius-xl)',
-                    background: 'rgba(255,255,255,0.12)',
-                    backdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(255,255,255,0.25)',
-                    color: 'white',
+                    gap: '0.55rem',
+                    padding: '0.85rem 1.5rem',
+                    borderRadius: '9999px',
+                    background: dark ? '#4D683E' : '#5A7B43',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    color: '#FFFFFF',
                     fontWeight: '700',
-                    fontSize: '1rem',
+                    fontSize: '0.92rem',
                     cursor: downloadingApk ? 'wait' : 'pointer',
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 4px 15px rgba(0,0,0,0.15)',
+                    transition: 'all 0.25s ease',
+                    boxShadow: '0 4px 14px rgba(90, 123, 67, 0.32)',
                   }}
                   onMouseEnter={e => {
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.22)'
                     e.currentTarget.style.transform = 'translateY(-2px)'
-                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(0,0,0,0.25)'
+                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(90, 123, 67, 0.45)'
                   }}
                   onMouseLeave={e => {
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.12)'
                     e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.15)'
+                    e.currentTarget.style.boxShadow = '0 4px 14px rgba(90, 123, 67, 0.32)'
                   }}
                   title={apkInfo?.version ? `Descargar APK v${apkInfo.version} (${(apkInfo.fileSize / (1024 * 1024)).toFixed(1)} MB)` : 'Descargar instalador APK para Android'}
                 >
-                  <FaAndroid style={{ fontSize: '1.25rem', color: '#4ade80' }} />
+                  <FaAndroid style={{ fontSize: '1.15rem', color: '#E3EDE0' }} />
                   <span>{downloadingApk ? 'Descargando...' : 'Descargar Apk'}</span>
-                  <FaDownload style={{ fontSize: '0.85rem', opacity: 0.8 }} />
+                  <FaDownload style={{ fontSize: '0.8rem', opacity: 0.85 }} />
                 </button>
-              ) : (
-                <Link to="/enfermedades" style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.875rem 2rem',
-                  borderRadius: 'var(--radius-xl)',
-                  background: 'rgba(255,255,255,0.1)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  color: 'white',
-                  textDecoration: 'none',
-                  fontWeight: '600',
-                  fontSize: '1rem',
-                  transition: 'all 0.3s ease',
-                }}>
-                  Explorar Información
-                  <HiArrowRight />
-                </Link>
               )}
             </div>
 
             {isModuleEnabled('download_apk') && apkNotice && (
               <div style={{
-                marginTop: '0.75rem',
+                marginTop: '0.85rem',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                padding: '0.4rem 1rem',
-                borderRadius: '8px',
-                background: 'rgba(0,0,0,0.5)',
-                backdropFilter: 'blur(8px)',
-                border: '1px solid rgba(255,255,255,0.2)',
-                color: '#fff',
+                padding: '0.45rem 1rem',
+                borderRadius: '9999px',
+                background: dark ? '#2B1815' : '#E6DBC9',
+                border: `1px solid ${dark ? '#C89953' : '#7A433A'}`,
+                color: dark ? '#F5ECE1' : '#3A241F',
                 fontSize: '0.82rem',
                 fontWeight: '600',
                 animation: 'fadeIn 0.3s ease',
               }}>
-                <FaAndroid style={{ color: '#4ade80' }} />
+                <FaAndroid style={{ color: '#5A7B43' }} />
                 {apkNotice}
               </div>
             )}
           </div>
 
-          {/* Right Logo Column */}
+          {/* Right Logo Column — Tarjeta HeartBliss Cuida tu Corazón */}
           <div className="animate-fade-in-up stagger-3" style={{ flex: '1 1 300px', display: 'flex', justifyContent: 'center', position: 'relative' }}>
             <div style={{
               position: 'relative',
               width: '100%',
-              maxWidth: '360px',
+              maxWidth: '370px',
               aspectRatio: '1/1',
-              borderRadius: '2rem',
+              borderRadius: '2.25rem',
               overflow: 'hidden',
               boxShadow: dark
-                ? '0 25px 50px -12px rgba(0, 0, 0, 0.55), 0 0 35px rgba(135, 18, 51, 0.3)'
-                : '0 25px 50px -12px rgba(135, 18, 51, 0.18), 0 0 30px rgba(135, 18, 51, 0.12)',
-              border: `2px solid ${dark ? 'rgba(214, 92, 126, 0.3)' : 'rgba(255, 255, 255, 0.4)'}`,
+                ? '0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(77, 104, 62, 0.25), 0 0 40px rgba(139, 30, 24, 0.28)'
+                : '0 22px 45px -12px rgba(58, 36, 31, 0.16), 0 0 35px rgba(90, 123, 67, 0.15)',
+              border: `1.5px solid ${dark ? 'rgba(200, 153, 83, 0.32)' : 'rgba(122, 67, 58, 0.18)'}`,
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              background: dark ? '#0a0a0c' : '#ffffff',
+              background: dark
+                ? 'radial-gradient(circle at 75% 25%, rgba(77, 104, 62, 0.32), rgba(43, 24, 21, 0.92) 70%)'
+                : 'radial-gradient(circle at 75% 25%, rgba(90, 123, 67, 0.15), #F8F4EB 70%)',
             }}
             onMouseEnter={e => {
               e.currentTarget.style.transform = 'translateY(-6px) scale(1.02)'
-              e.currentTarget.style.boxShadow = dark
-                ? '0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 45px rgba(135, 18, 51, 0.45)'
-                : '0 30px 60px -12px rgba(135, 18, 51, 0.25), 0 0 40px rgba(135, 18, 51, 0.2)'
             }}
             onMouseLeave={e => {
               e.currentTarget.style.transform = 'translateY(0) scale(1)'
-              e.currentTarget.style.boxShadow = dark
-                ? '0 25px 50px -12px rgba(0, 0, 0, 0.55), 0 0 35px rgba(135, 18, 51, 0.3)'
-                : '0 25px 50px -12px rgba(135, 18, 51, 0.18), 0 0 30px rgba(135, 18, 51, 0.12)'
             }}
             >
               <img
                 src={dark ? logoDark : logoLight}
-                alt="Jóvenes con Salud"
+                alt="HeartBliss — Cuida tu Corazón"
                 style={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'cover',
+                  objectFit: 'contain',
                   display: 'block',
                 }}
               />
@@ -443,15 +491,16 @@ export default function Home() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              padding: '0.3rem 0.875rem',
-              borderRadius: '20px',
-              background: 'rgba(135,18,51,0.08)',
-              color: '#871233',
+              padding: '0.35rem 1rem',
+              borderRadius: '9999px',
+              background: dark ? '#2B1815' : '#E6DBC9',
+              color: dark ? '#C89953' : '#7A433A',
               fontSize: '0.75rem',
               fontWeight: '800',
               textTransform: 'uppercase',
               letterSpacing: '0.08em',
-              marginBottom: '0.75rem'
+              marginBottom: '0.75rem',
+              border: `1px solid ${dark ? 'rgba(200,153,83,0.25)' : 'rgba(122,67,58,0.18)'}`,
             }}>
               <FaChartLine size={11} /> Impacto & Justificación
             </div>
@@ -499,11 +548,11 @@ export default function Home() {
                     width: '42px',
                     height: '42px',
                     borderRadius: '12px',
-                    background: 'rgba(59, 130, 246, 0.1)',
+                    background: dark ? 'rgba(200, 153, 83, 0.15)' : 'rgba(122, 67, 58, 0.12)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: '#3b82f6'
+                    color: dark ? '#C89953' : '#7A433A'
                   }}>
                     <FaGlobe size={20} />
                   </div>
@@ -560,11 +609,11 @@ export default function Home() {
                     width: '42px',
                     height: '42px',
                     borderRadius: '12px',
-                    background: 'rgba(16, 185, 129, 0.1)',
+                    background: 'rgba(90, 123, 67, 0.14)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: '#10b981'
+                    color: '#5A7B43'
                   }}>
                     <FaMapMarkerAlt size={20} />
                   </div>
@@ -695,14 +744,14 @@ export default function Home() {
           <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2.5rem', flexWrap: 'wrap', gap: '1rem' }}>
               <div>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.3rem 0.875rem', borderRadius: '20px', background: 'rgba(135,18,51,0.08)', color: '#871233', fontSize: '0.75rem', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.75rem' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.35rem 1rem', borderRadius: '9999px', background: dark ? '#2B1815' : '#E6DBC9', color: dark ? '#C89953' : '#7A433A', fontSize: '0.75rem', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.75rem' }}>
                   <FaNewspaper size={11} /> Noticias
                 </div>
                 <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: '800', color: 'var(--color-surface-900)', margin: 0, letterSpacing: '-0.02em' }}>Últimas Noticias</h2>
               </div>
-              <Link to="/noticias" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '0.6rem 1.25rem', borderRadius: '10px', border: '1.5px solid #871233', color: '#871233', fontWeight: '700', textDecoration: 'none', fontSize: '0.875rem', transition: 'all 0.2s', whiteSpace: 'nowrap' }}
-                onMouseEnter={e => { e.currentTarget.style.background = '#871233'; e.currentTarget.style.color = 'white' }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#871233' }}>
+              <Link to="/noticias" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '0.6rem 1.35rem', borderRadius: '9999px', border: `1.5px solid ${dark ? '#C89953' : '#7A433A'}`, color: dark ? '#C89953' : '#7A433A', fontWeight: '700', textDecoration: 'none', fontSize: '0.875rem', transition: 'all 0.2s', whiteSpace: 'nowrap' }}
+                onMouseEnter={e => { e.currentTarget.style.background = dark ? '#C89953' : '#7A433A'; e.currentTarget.style.color = dark ? '#1F1210' : 'white' }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = dark ? '#C89953' : '#7A433A' }}>
                 Explorar <HiArrowRight />
               </Link>
             </div>
@@ -710,14 +759,14 @@ export default function Home() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1.25rem' }}>
               {featuredNews.map(post => (
                 <Link key={post.id} to={`/noticias/${post.slug}`} style={{ display: 'block', textDecoration: 'none', background: 'var(--color-surface-50)', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--color-surface-200)', transition: 'transform 0.2s, box-shadow 0.2s' }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.1)' }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(58, 36, 31, 0.12)' }}
                   onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}>
-                  <div style={{ height: '160px', overflow: 'hidden', background: 'linear-gradient(135deg, #871233, #5e0c23)', position: 'relative' }}>
+                  <div style={{ height: '160px', overflow: 'hidden', background: 'linear-gradient(135deg, #7A433A, #3A241F)', position: 'relative' }}>
                     {newsImgSrc(post.coverImage)
                       ? <img src={newsImgSrc(post.coverImage)} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       : <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2.5rem' }}>📰</div>
                     }
-                    {post.isPinned && <span style={{ position: 'absolute', top: '8px', left: '8px', padding: '2px 8px', borderRadius: '20px', background: '#871233', color: 'white', fontSize: '0.6rem', fontWeight: '700', display: 'inline-flex', alignItems: 'center', gap: '3px' }}><FaThumbtack size={8} /></span>}
+                    {post.isPinned && <span style={{ position: 'absolute', top: '8px', left: '8px', padding: '2px 8px', borderRadius: '20px', background: '#C89953', color: '#1F1210', fontSize: '0.6rem', fontWeight: '700', display: 'inline-flex', alignItems: 'center', gap: '3px' }}><FaThumbtack size={8} /></span>}
                   </div>
                   <div style={{ padding: '1rem' }}>
                     <p style={{ fontSize: '0.7rem', color: 'var(--color-surface-500)', fontWeight: '700', marginBottom: '0.4rem' }}>{fmtDate(post.publishedAt)}</p>
@@ -738,11 +787,11 @@ export default function Home() {
         textAlign: 'center',
       }}>
         <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2rem', fontWeight: '700', color: 'white', marginBottom: '1rem' }}>
-            Empieza a cuidar tu salud hoy
+          <h2 style={{ fontSize: '2rem', fontWeight: '800', color: '#F5ECE1', marginBottom: '1rem' }}>
+            Empieza a cuidar tu corazón hoy
           </h2>
-          <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.85)', marginBottom: '2rem', lineHeight: '1.7' }}>
-            Regístrate gratis y accede a herramientas de seguimiento personalizado,
+          <p style={{ fontSize: '1rem', color: 'rgba(245, 236, 225, 0.88)', marginBottom: '2rem', lineHeight: '1.7' }}>
+            Regístrate gratis en HeartBliss y accede a herramientas de seguimiento personalizado,
             información confiable y programas de apoyo social.
           </p>
           {isAuthenticated ? (
@@ -750,14 +799,14 @@ export default function Home() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              padding: '1rem 2.5rem',
-              borderRadius: 'var(--radius-xl)',
-              background: 'white',
-              color: 'var(--color-primary-600)',
+              padding: '0.95rem 2.5rem',
+              borderRadius: '9999px',
+              background: 'linear-gradient(135deg, #D6AA65, #C89953)',
+              color: '#1F1210',
               textDecoration: 'none',
               fontWeight: '700',
               fontSize: '1.05rem',
-              boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+              boxShadow: '0 8px 24px rgba(200, 153, 83, 0.4)',
             }}>
               {user?.role === 'admin' ? 'Ir al Panel Admin' : user?.role === 'doctor' ? 'Ir al Panel Médico' : 'Ir a Mi Salud'}
               <HiArrowRight />
@@ -767,14 +816,14 @@ export default function Home() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              padding: '1rem 2.5rem',
-              borderRadius: 'var(--radius-xl)',
-              background: 'white',
-              color: 'var(--color-primary-600)',
+              padding: '0.95rem 2.5rem',
+              borderRadius: '9999px',
+              background: 'linear-gradient(135deg, #D6AA65, #C89953)',
+              color: '#1F1210',
               textDecoration: 'none',
               fontWeight: '700',
               fontSize: '1.05rem',
-              boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+              boxShadow: '0 8px 24px rgba(200, 153, 83, 0.4)',
             }}>
               Crear Mi Cuenta
               <HiArrowRight />
