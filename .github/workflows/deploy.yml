@@ -1,7 +1,7 @@
 name: Despliegue CI/CD (Vercel + Google Cloud VM)
 
 on:
-  # 1. Despliegue AUTOMÁTICO cada vez que se hace push a la rama main
+  # 1. Despliegue AUTOMÁTICO cada vez que se hace push a la rama main o master
   push:
     branches:
       - main
@@ -22,8 +22,6 @@ on:
 jobs:
   # ==========================================================
   # Verificación de compilación del Frontend (Client)
-  # Vercel despliega automáticamente al detectar push en main,
-  # y opcionalmente por CLI si se configuran los secrets de Vercel.
   # ==========================================================
   build-frontend:
     name: Build & Verify Frontend (Vercel)
@@ -58,10 +56,13 @@ jobs:
   # ==========================================================
   deploy-backend-vm:
     name: Deploy Backend to Google Cloud VM (SSH)
-    if: (github.event_name == 'push' || github.event.inputs.target == 'all' || github.event.inputs.target == 'backend-vm') && secrets.GCP_VM_SSH_KEY != ''
+    if: github.event_name == 'push' || github.event.inputs.target == 'all' || github.event.inputs.target == 'backend-vm'
     runs-on: ubuntu-latest
+    env:
+      SSH_KEY: ${{ secrets.GCP_VM_SSH_KEY }}
     steps:
       - name: Actualizar código y reiniciar servidor en VM de Google Cloud
+        if: env.SSH_KEY != ''
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.GCP_VM_HOST || '35.202.222.119' }}
