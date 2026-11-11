@@ -5,7 +5,13 @@
   "server": {
     "androidScheme": "http",
     "cleartext": true,
-    "allowNavigation": ["172.20.10.6", "192.168.1.128", "10.0.2.2", "localhost", "34-26-57-247.sslip.io"]
+    "allowNavigation": [
+      "35.202.222.119.nip.io",
+      "35.202.222.119",
+      "172.20.10.6",
+      "192.168.1.128",
+      "10.0.2.2",
+      "localhost"
+    ]
   }
 }
-

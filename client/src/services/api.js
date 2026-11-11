@@ -13,10 +13,19 @@ function normalizeEnvUrl(rawUrl) {
 
 function getApiUrl() {
   const envUrl = normalizeEnvUrl(import.meta.env.VITE_API_URL)
+  const isLocalUrl = envUrl && (envUrl.includes('localhost') || envUrl.includes('127.0.0.1'))
+
+  if (Capacitor.isNativePlatform()) {
+    if (envUrl && !isLocalUrl) {
+      return envUrl.endsWith('/api') ? envUrl : `${envUrl}/api`
+    }
+    return `${PRODUCTION_GCP_URL}/api`
+  }
+
   if (envUrl) {
     return envUrl.endsWith('/api') ? envUrl : `${envUrl}/api`
   }
-  if (Capacitor.isNativePlatform() || import.meta.env.PROD) {
+  if (import.meta.env.PROD) {
     return `${PRODUCTION_GCP_URL}/api`
   }
   return `http://localhost:${LOCAL_SERVER_PORT}/api`
@@ -24,10 +33,19 @@ function getApiUrl() {
 
 export function getApiBaseUrl() {
   const envUrl = normalizeEnvUrl(import.meta.env.VITE_API_URL)
+  const isLocalUrl = envUrl && (envUrl.includes('localhost') || envUrl.includes('127.0.0.1'))
+
+  if (Capacitor.isNativePlatform()) {
+    if (envUrl && !isLocalUrl) {
+      return envUrl.replace(/\/api$/, '')
+    }
+    return PRODUCTION_GCP_URL
+  }
+
   if (envUrl) {
     return envUrl.replace(/\/api$/, '')
   }
-  if (Capacitor.isNativePlatform() || import.meta.env.PROD) {
+  if (import.meta.env.PROD) {
     return PRODUCTION_GCP_URL
   }
   return `http://localhost:${LOCAL_SERVER_PORT}`

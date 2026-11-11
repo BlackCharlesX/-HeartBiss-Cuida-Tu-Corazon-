@@ -61,7 +61,7 @@ else
 fi
 
 cd "$APP_DIR/server"
-mkdir -p public/uploads public/images/uploads
+mkdir -p public/uploads/apk public/images/uploads
 npm install --omit=dev
 
 FIRST_INSTALL=false
@@ -111,7 +111,7 @@ if [ "$LOCAL" != "$REMOTE" ]; then
   echo "[$(date)] Detectada nueva versión ($REMOTE). Actualizando..."
   git reset --hard origin/main
   cd "$HOME/app/server"
-  mkdir -p public/uploads public/images/uploads
+  mkdir -p public/uploads/apk public/images/uploads
   npm install --omit=dev
   pm2 restart heartbiss-api
   echo "[$(date)] Actualización completada."
