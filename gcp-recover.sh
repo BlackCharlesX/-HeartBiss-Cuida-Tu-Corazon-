@@ -14,13 +14,15 @@ sudo systemctl status postgresql --no-pager | head -n 8
 
 # 2. Navegar al directorio del servidor
 echo "➔ Localizando directorio del proyecto..."
-if [ -d "$HOME/jovenes-con-salud/server" ]; then
+if [ -d "$HOME/app/server" ]; then
+  cd "$HOME/app/server"
+elif [ -d "$HOME/jovenes-con-salud/server" ]; then
   cd "$HOME/jovenes-con-salud/server"
 elif [ -d "/var/www/jovenes-con-salud/server" ]; then
   cd "/var/www/jovenes-con-salud/server"
 else
   echo "⚠️ No se encontró la ruta estándar. Buscando repositorio..."
-  DIR=$(find / -name "server.js" -path "*/jovenes-con-salud/*" 2>/dev/null | head -n 1)
+  DIR=$(find / -name "server.js" -path "*/server/*" 2>/dev/null | head -n 1)
   if [ -n "$DIR" ]; then
     cd "$(dirname "$DIR")"
   else
@@ -31,11 +33,11 @@ fi
 
 # Traer últimos cambios de imágenes y scripts
 echo "➔ Actualizando repositorio..."
-git pull origin master || true
+git pull origin main || git pull origin master || true
 
 # 3. Levantar backend con PM2
 echo "➔ Reactivando servicio de Node.js en PM2..."
-pm2 restart jcs-backend || pm2 start server.js --name "jcs-backend"
+pm2 restart heartbiss-api || pm2 restart jcs-backend || pm2 start server.js --name "heartbiss-api"
 pm2 save
 
 # 4. Habilitar PM2 en systemd para que NUNCA vuelva a caerse al reiniciar la VM

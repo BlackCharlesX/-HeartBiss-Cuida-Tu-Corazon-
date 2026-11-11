@@ -4,16 +4,29 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 // Database configuration
-// Supports both DATABASE_URL (for cloud) and individual env vars (for local)
+// Supports DATABASE_URL (Neon, Supabase, Cloud SQL TCP) and individual env vars (local or Cloud SQL Unix Socket)
+const dbHost = process.env.INSTANCE_UNIX_SOCKET || process.env.DB_HOST || 'localhost'
+const isUnixSocket = dbHost.startsWith('/cloudsql/')
+const useSsl = !isUnixSocket && (
+  process.env.DB_SSL === 'true' ||
+  (Boolean(process.env.DATABASE_URL) && process.env.DB_SSL !== 'false' && !process.env.DATABASE_URL.includes('localhost'))
+)
+
 const sequelize = process.env.DATABASE_URL
   ? new Sequelize(process.env.DATABASE_URL, {
       dialect: 'postgres',
       logging: process.env.NODE_ENV === 'development' ? console.log : false,
       dialectOptions: {
-        ssl: process.env.DB_SSL === 'true' ? {
+        ssl: useSsl ? {
           require: true,
           rejectUnauthorized: false,
         } : false,
+      },
+      pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000,
       },
     })
   : new Sequelize(
@@ -21,10 +34,19 @@ const sequelize = process.env.DATABASE_URL
       process.env.DB_USER || 'postgres',
       process.env.DB_PASSWORD || 'postgres',
       {
-        host: process.env.DB_HOST || 'localhost',
-        port: process.env.DB_PORT || 5432,
+        host: dbHost,
+        port: isUnixSocket ? undefined : (process.env.DB_PORT || 5432),
         dialect: 'postgres',
         logging: process.env.NODE_ENV === 'development' ? console.log : false,
+        dialectOptions: {
+          ...(isUnixSocket ? { socketPath: dbHost } : {}),
+          ...(useSsl ? {
+            ssl: {
+              require: true,
+              rejectUnauthorized: false,
+            },
+          } : {}),
+        },
         pool: {
           max: 5,
           min: 0,

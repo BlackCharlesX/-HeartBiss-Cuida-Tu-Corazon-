@@ -1,0 +1,78 @@
+name: Despliegue CI/CD (Vercel + Google Cloud VM)
+
+on:
+  # 1. Despliegue AUTOMÁTICO cada vez que se hace push a la rama main
+  push:
+    branches:
+      - main
+      - master
+  # 2. Despliegue MANUAL desde GitHub -> pestaña "Actions" -> botón "Run workflow"
+  workflow_dispatch:
+    inputs:
+      target:
+        description: '¿Qué deseas actualizar?'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - backend-vm
+          - frontend-vercel
+
+jobs:
+  # ==========================================================
+  # Verificación de compilación del Frontend (Client)
+  # Vercel despliega automáticamente al detectar push en main,
+  # y opcionalmente por CLI si se configuran los secrets de Vercel.
+  # ==========================================================
+  build-frontend:
+    name: Build & Verify Frontend (Vercel)
+    if: github.event_name == 'push' || github.event.inputs.target == 'all' || github.event.inputs.target == 'frontend-vercel'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./client
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: client/package-lock.json
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Compilar proyecto Vite
+        env:
+          VITE_API_URL: ${{ vars.VITE_API_URL || secrets.VITE_API_URL || 'https://35.202.222.119.nip.io/api' }}
+        run: npm run build
+
+  # ==========================================================
+  # Actualización Automática/Manual del Backend en la VM de Google Cloud
+  # Se conecta por SSH a tu VM e2-micro, hace git pull, instala
+  # dependencias nuevas y reinicia PM2 sin tiempo de inactividad.
+  # ==========================================================
+  deploy-backend-vm:
+    name: Deploy Backend to Google Cloud VM (SSH)
+    if: (github.event_name == 'push' || github.event.inputs.target == 'all' || github.event.inputs.target == 'backend-vm') && secrets.GCP_VM_SSH_KEY != ''
+    runs-on: ubuntu-latest
+    steps:
+      - name: Actualizar código y reiniciar servidor en VM de Google Cloud
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.GCP_VM_HOST || '35.202.222.119' }}
+          username: ${{ secrets.GCP_VM_USER || 'carlosguadaluperamirezvallejo' }}
+          key: ${{ secrets.GCP_VM_SSH_KEY }}
+          script: |
+            cd ~/app
+            git fetch origin main
+            git reset --hard origin/main
+            cd ~/app/server
+            mkdir -p public/uploads public/images/uploads
+            npm install --omit=dev
+            pm2 restart heartbiss-api
+            echo "✅ Backend actualizado correctamente en la VM de Google Cloud"

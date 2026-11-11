@@ -46,22 +46,26 @@ app.use('/images', express.static('public/images'))
 app.use('/uploads', express.static('public/uploads'))
 
 // CORS configuration
-const allowedOrigins = [
-  process.env.CLIENT_URL,
-  'http://localhost:5173',
-  'http://localhost',
-  'capacitor://localhost'
-].filter(Boolean)
+const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173')
+  .split(',')
+  .map((url) => url.trim().replace(/\/+$/, ''))
+  .concat(['http://localhost:5173', 'http://localhost', 'https://localhost', 'capacitor://localhost'])
+  .filter(Boolean)
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Permitir peticiones sin origen (como herramientas de prueba o llamadas internas)
-    if (!origin) return callback(null, true)
-    if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV !== 'production') {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
+    // Permitir peticiones sin origen (como herramientas de prueba, apps nativas o llamadas internas)
+    if (!origin || process.env.NODE_ENV !== 'production' || allowedOrigins.includes('*')) {
+      return callback(null, true)
     }
+    const cleanOrigin = origin.replace(/\/+$/, '')
+    if (
+      allowedOrigins.includes(cleanOrigin) ||
+      cleanOrigin.endsWith('.vercel.app')
+    ) {
+      return callback(null, true)
+    }
+    return callback(new Error(`Not allowed by CORS: ${origin}`))
   },
   credentials: true,
 }))

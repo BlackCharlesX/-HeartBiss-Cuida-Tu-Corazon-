@@ -39,9 +39,9 @@ EOF
 
 # 4. Clonar el repositorio
 echo "➔ Clonando repositorio desde GitHub..."
-rm -rf jovenes-con-salud
-git clone https://github.com/MajoTorres12/jovenes-con-salud.git
-cd jovenes-con-salud/server
+rm -rf app
+git clone https://github.com/BlackCharlesX/-HeartBiss-Cuida-Tu-Corazon-.git app
+cd app/server
 
 # 5. Instalar dependencias del servidor
 echo "➔ Instalando dependencias de Node..."

@@ -4,21 +4,33 @@ import { getCachedData, setCachedData, addToSyncQueue } from './offlineDb'
 import { initOfflineSyncListeners } from './offlineSync'
 
 const LOCAL_SERVER_PORT = '3001'
-const PRODUCTION_GCP_URL = 'https://34-26-57-247.sslip.io'
+const PRODUCTION_GCP_URL = 'https://35.202.222.119.nip.io'
 
+function normalizeEnvUrl(rawUrl) {
+  if (!rawUrl) return null
+  return rawUrl.trim().replace(/\/+$/, '')
+}
 
 function getApiUrl() {
-  if (Capacitor.isNativePlatform()) {
+  const envUrl = normalizeEnvUrl(import.meta.env.VITE_API_URL)
+  if (envUrl) {
+    return envUrl.endsWith('/api') ? envUrl : `${envUrl}/api`
+  }
+  if (Capacitor.isNativePlatform() || import.meta.env.PROD) {
     return `${PRODUCTION_GCP_URL}/api`
   }
-  return import.meta.env.VITE_API_URL || `http://localhost:${LOCAL_SERVER_PORT}/api`
+  return `http://localhost:${LOCAL_SERVER_PORT}/api`
 }
 
 export function getApiBaseUrl() {
-  if (Capacitor.isNativePlatform()) {
+  const envUrl = normalizeEnvUrl(import.meta.env.VITE_API_URL)
+  if (envUrl) {
+    return envUrl.replace(/\/api$/, '')
+  }
+  if (Capacitor.isNativePlatform() || import.meta.env.PROD) {
     return PRODUCTION_GCP_URL
   }
-  return import.meta.env.VITE_API_URL?.replace('/api', '') || `http://localhost:${LOCAL_SERVER_PORT}`
+  return `http://localhost:${LOCAL_SERVER_PORT}`
 }
 
 const API_URL = getApiUrl()
