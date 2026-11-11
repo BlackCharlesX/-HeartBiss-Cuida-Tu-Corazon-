@@ -95,23 +95,42 @@ pm2 start server.js --name heartbiss-api
 pm2 save
 sudo env PATH=$PATH:/usr/bin pm2 startup systemd -u "$USER" --hp "$HOME" | tail -n 1 | sudo bash || true
 
-# Crear script de auto-actualización desde GitHub (cron cada 2 minutos como respaldo adicional a GitHub Actions)
+# Crear script de auto-actualización desde GitHub (cron cada 1 minuto + soporte SSH para GitHub Actions)
+sudo apt-get install -y cron || true
+sudo systemctl enable cron || true
+sudo systemctl start cron || true
+
 cat << 'EOF' > "$HOME/auto-update.sh"
 #!/usr/bin/env bash
+export PATH=$PATH:/usr/bin:/usr/local/bin
 cd "$HOME/app" || exit 0
 git fetch origin main --quiet
 LOCAL=$(git rev-parse HEAD)
 REMOTE=$(git rev-parse origin/main)
 if [ "$LOCAL" != "$REMOTE" ]; then
+  echo "[$(date)] Detectada nueva versión ($REMOTE). Actualizando..."
   git reset --hard origin/main
   cd "$HOME/app/server"
   mkdir -p public/uploads public/images/uploads
   npm install --omit=dev
   pm2 restart heartbiss-api
+  echo "[$(date)] Actualización completada."
 fi
 EOF
 chmod +x "$HOME/auto-update.sh"
-(crontab -l 2>/dev/null | grep -v "auto-update.sh"; echo "*/2 * * * * $HOME/auto-update.sh >> $HOME/auto-update.log 2>&1") | crontab -
+(crontab -l 2>/dev/null | grep -v "auto-update.sh"; echo "* * * * * $HOME/auto-update.sh >> $HOME/auto-update.log 2>&1") | crontab -
+
+# Asegurar que Google Cloud OS Login / Guest Agent permita la llave SSH de GitHub Actions
+if [ -f "$HOME/.ssh/github_actions.pub" ]; then
+  cp "$HOME/.ssh/github_actions.pub" "$HOME/.ssh/authorized_keys_github"
+  chmod 600 "$HOME/.ssh/authorized_keys_github"
+  chmod 700 "$HOME/.ssh"
+  sudo tee /etc/ssh/sshd_config.d/99-github-actions.conf > /dev/null <<EOF
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys .ssh/authorized_keys_github
+EOF
+  sudo systemctl reload ssh || sudo systemctl reload sshd || true
+fi
 
 echo "🔒 [7/7] Instalando Caddy para HTTPS gratuito automático (requerido por Vercel)..."
 if ! command -v caddy &> /dev/null; then
