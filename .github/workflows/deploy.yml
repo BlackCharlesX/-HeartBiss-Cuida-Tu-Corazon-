@@ -74,6 +74,10 @@ jobs:
             cd ~/app/server
             mkdir -p public/uploads/apk public/images/uploads
             npm install --omit=dev
+            if [ -f public/uploads/apk/debug/app-debug.apk ]; then
+              mv -f public/uploads/apk/debug/app-debug.apk public/uploads/apk/jovenes-con-salud-latest.apk
+              node scripts/register-apk.js public/uploads/apk/jovenes-con-salud-latest.apk "2.0.${{ github.run_number }}" || true
+            fi
             pm2 restart heartbiss-api
             echo "✅ Backend actualizado correctamente en la VM de Google Cloud"
 
@@ -137,7 +141,7 @@ jobs:
           key: ${{ secrets.GCP_VM_SSH_KEY }}
           source: "client/android/app/build/outputs/apk/debug/app-debug.apk"
           target: "/home/carlosguadaluperamirezvallejo/app/server/public/uploads/apk"
-          strip_components: 6
+          strip_components: 7
 
       - name: Activar el nuevo APK automáticamente en la plataforma
         if: env.SSH_KEY != ''
@@ -148,5 +152,9 @@ jobs:
           key: ${{ secrets.GCP_VM_SSH_KEY }}
           script: |
             cd ~/app/server
-            mv -f public/uploads/apk/app-debug.apk public/uploads/apk/jovenes-con-salud-latest.apk
+            if [ -f public/uploads/apk/debug/app-debug.apk ]; then
+              mv -f public/uploads/apk/debug/app-debug.apk public/uploads/apk/jovenes-con-salud-latest.apk
+            elif [ -f public/uploads/apk/app-debug.apk ]; then
+              mv -f public/uploads/apk/app-debug.apk public/uploads/apk/jovenes-con-salud-latest.apk
+            fi
             node scripts/register-apk.js public/uploads/apk/jovenes-con-salud-latest.apk "2.0.${{ github.run_number }}"
