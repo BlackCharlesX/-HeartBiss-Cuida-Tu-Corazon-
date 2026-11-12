@@ -149,7 +149,16 @@ body {
   max-width: 100%;
 }
 
-p, span, a, li, h1, h2, h3, h4, h5, h6 {
+p,
+span,
+a,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
@@ -189,6 +198,7 @@ p, span, a, li, h1, h2, h3, h4, h5, h6 {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -196,8 +206,13 @@ p, span, a, li, h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideInRight {
@@ -205,6 +220,7 @@ p, span, a, li, h1, h2, h3, h4, h5, h6 {
     opacity: 0;
     transform: translateX(20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -212,8 +228,15 @@ p, span, a, li, h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes pulse-soft {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
 }
 
 .animate-fade-in-up {
@@ -229,14 +252,27 @@ p, span, a, li, h1, h2, h3, h4, h5, h6 {
 }
 
 /* Staggered animations */
-.stagger-1 { animation-delay: 0.1s; }
-.stagger-2 { animation-delay: 0.2s; }
-.stagger-3 { animation-delay: 0.3s; }
-.stagger-4 { animation-delay: 0.4s; }
+.stagger-1 {
+  animation-delay: 0.1s;
+}
+
+.stagger-2 {
+  animation-delay: 0.2s;
+}
+
+.stagger-3 {
+  animation-delay: 0.3s;
+}
+
+.stagger-4 {
+  animation-delay: 0.4s;
+}
 
 /* Loading Spinner */
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .spinner {
@@ -254,16 +290,26 @@ p, span, a, li, h1, h2, h3, h4, h5, h6 {
 
 .dark {
   /* Superficies — Fondo Principal (#1F1210) y Tarjetas/Secciones (#2B1815) */
-  --color-surface-50: #1F1210;   /* Fondo Principal Modo Oscuro */
-  --color-surface-100: #2B1815;  /* Tarjetas / Secciones Modo Oscuro */
-  --color-surface-200: #38211D;  /* Superficie secundaria / inputs */
-  --color-surface-300: #4A2D28;  /* Bordes / hover */
-  --color-surface-400: #6B4740;  /* Elementos atenuados */
-  --color-surface-500: #A38A7C;  /* Subtítulos / etiquetas */
-  --color-surface-600: #CBB9AA;  /* Párrafos estándar */
-  --color-surface-700: #E2D4C6;  /* Textos destacados */
-  --color-surface-800: #EFE4D8;  /* Subtítulos altos */
-  --color-surface-900: #F5ECE1;  /* Corazón / Branding / Texto Principal (#F5ECE1) */
+  --color-surface-50: #1F1210;
+  /* Fondo Principal Modo Oscuro */
+  --color-surface-100: #2B1815;
+  /* Tarjetas / Secciones Modo Oscuro */
+  --color-surface-200: #38211D;
+  /* Superficie secundaria / inputs */
+  --color-surface-300: #4A2D28;
+  /* Bordes / hover */
+  --color-surface-400: #6B4740;
+  /* Elementos atenuados */
+  --color-surface-500: #A38A7C;
+  /* Subtítulos / etiquetas */
+  --color-surface-600: #CBB9AA;
+  /* Párrafos estándar */
+  --color-surface-700: #E2D4C6;
+  /* Textos destacados */
+  --color-surface-800: #EFE4D8;
+  /* Subtítulos altos */
+  --color-surface-900: #F5ECE1;
+  /* Corazón / Branding / Texto Principal (#F5ECE1) */
 
   /* Custom Theme Accent Variables in Dark Mode */
   --color-theme-accent: var(--color-primary-500);
@@ -281,7 +327,8 @@ p, span, a, li, h1, h2, h3, h4, h5, h6 {
   --color-primary-200: #542821;
   --color-primary-300: #7A433A;
   --color-primary-400: #B3843E;
-  --color-primary-500: #C89953;  /* Botón Primario Dorado (#C89953) */
+  --color-primary-500: #C89953;
+  /* Botón Primario Dorado (#C89953) */
   --color-primary-600: #D6AB68;
   --color-primary-700: #E3BE84;
   --color-primary-800: #EFE1B6;
@@ -625,6 +672,7 @@ html:not(.dark) [style*="color: rgb(135, 18, 51)"] {
    ======================================== */
 
 @media (max-width: 768px) {
+
   /* --- Dashboard Metric Cards (Carousel) --- */
   .dashboard-carousel-grid {
     display: flex !important;
@@ -632,14 +680,17 @@ html:not(.dark) [style*="color: rgb(135, 18, 51)"] {
     scroll-snap-type: x mandatory !important;
     gap: 0.75rem !important;
     padding: 0.25rem 0.5rem 0.75rem !important;
-    margin: 0 -0.5rem 1.25rem !important; /* bleed slightly to edges */
+    margin: 0 -0.5rem 1.25rem !important;
+    /* bleed slightly to edges */
     -webkit-overflow-scrolling: touch;
   }
-  .dashboard-carousel-grid > div {
-    flex: 0 0 calc(100% - 1.5rem) !important; /* 1 card visible on mobile portrait */
+
+  .dashboard-carousel-grid>div {
+    flex: 0 0 calc(100% - 1.5rem) !important;
+    /* 1 card visible on mobile portrait */
     scroll-snap-align: center !important;
   }
-  
+
   .carousel-chevron {
     display: none !important;
   }
@@ -657,7 +708,7 @@ html:not(.dark) [style*="color: rgb(135, 18, 51)"] {
     width: 240px !important;
     z-index: 1000 !important;
     transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    box-shadow: 4px 0 20px rgba(0,0,0,0.3) !important;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3) !important;
   }
 
   .admin-sidebar.open {
@@ -693,7 +744,7 @@ html:not(.dark) [style*="color: rgb(135, 18, 51)"] {
     width: 240px !important;
     z-index: 1000 !important;
     transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    box-shadow: 4px 0 20px rgba(0,0,0,0.3) !important;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3) !important;
   }
 
   .doctor-sidebar.open {
@@ -725,7 +776,8 @@ html:not(.dark) [style*="color: rgb(135, 18, 51)"] {
 
   .admin-table-container table,
   .doctor-table-container table {
-    min-width: 650px !important; /* prevent table cells from squishing */
+    min-width: 650px !important;
+    /* prevent table cells from squishing */
   }
 
   /* --- General Spacing and Padding adjustments for mobile --- */
@@ -735,8 +787,9 @@ html:not(.dark) [style*="color: rgb(135, 18, 51)"] {
 }
 
 @media (min-width: 481px) and (max-width: 1024px) {
-  .dashboard-carousel-grid > div {
-    flex: 0 0 calc(50% - 0.75rem) !important; /* 2 cards visible on tablets */
+  .dashboard-carousel-grid>div {
+    flex: 0 0 calc(50% - 0.75rem) !important;
+    /* 2 cards visible on tablets */
   }
 }
 
@@ -833,12 +886,15 @@ html:not(.dark) [style*="color: rgb(135, 18, 51)"] {
   align-items: center;
   gap: 0.5rem;
 }
+
 .wearable-toast--success {
   background: var(--color-success);
 }
+
 .wearable-toast--error {
   background: var(--color-error);
 }
+
 .wearable-toast--info {
   background: var(--color-info);
 }
@@ -953,10 +1009,12 @@ html:not(.dark) [style*="color: rgb(135, 18, 51)"] {
   background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-600));
   color: white;
 }
+
 .wearable-btn--primary:hover:not(:disabled) {
   opacity: 0.95;
   transform: translateY(-1px);
 }
+
 .wearable-btn--primary:disabled {
   opacity: 0.6;
   cursor: not-allowed;
@@ -967,6 +1025,7 @@ html:not(.dark) [style*="color: rgb(135, 18, 51)"] {
   color: var(--color-surface-600);
   border: 1px solid var(--color-surface-300);
 }
+
 .wearable-btn--ghost:hover {
   background: var(--color-surface-200);
   color: var(--color-surface-900);
@@ -976,6 +1035,7 @@ html:not(.dark) [style*="color: rgb(135, 18, 51)"] {
   color: var(--color-surface-300);
   border-color: rgba(255, 255, 255, 0.1);
 }
+
 .dark .wearable-btn--ghost:hover {
   background: rgba(255, 255, 255, 0.05);
   color: white;
@@ -986,6 +1046,7 @@ html:not(.dark) [style*="color: rgb(135, 18, 51)"] {
   color: white;
   width: 100%;
 }
+
 .wearable-btn--connect:hover {
   transform: translateY(-1px);
   box-shadow: var(--shadow-glow);
@@ -1286,6 +1347,7 @@ html:not(.dark) [style*="color: rgb(135, 18, 51)"] {
   border-radius: 50%;
   transition: all 0.2s ease;
 }
+
 .wearable-modal__close:hover {
   background: var(--color-surface-200);
   color: var(--color-surface-800);
@@ -1357,23 +1419,47 @@ html:not(.dark) [style*="color: rgb(135, 18, 51)"] {
 
 /* Animations */
 @keyframes wearable-spin-anim {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes wearable-slide-in {
-  from { transform: translateY(1rem); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes wearable-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes wearable-scale-in {
-  from { transform: scale(0.95); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* ========================================
@@ -1416,3 +1502,205 @@ html:not(.dark) [style*="color: rgb(135, 18, 51)"] {
   opacity: 1 !important;
 }
 
+/* ================================================================
+   THEME 2: ORION N5 / NOVA DYNAMICS (Tactical Aerospace HUD Theme)
+   Paleta Oficial: #FF5A1F (Orange), #88A28E / #C9D6CA (Sage), #1A1A1A (Carbon)
+   ================================================================ */
+
+html[data-theme="orion"]:not(.dark) {
+  /* Superficies Modo Claro — Verde Salvia Técnico (#C9D6CA / #D3DFD4) */
+  --color-surface-50: #C9D6CA;
+  --color-surface-100: #D4E0D5;
+  --color-surface-200: #B5C5B7;
+  --color-surface-300: #9BB09E;
+  --color-surface-400: #6E8472;
+  --color-surface-500: #4A5D4E;
+  --color-surface-600: #334236;
+  --color-surface-700: #242E26;
+  --color-surface-800: #1D231E;
+  --color-surface-900: #1A1A1A;
+
+  /* Primario y Acento — Naranja Aeroespacial (#FF5A1F) y Carbón (#1A1A1A) */
+  --color-primary-50: #E2ECE3;
+  --color-primary-100: #FFEAE2;
+  --color-primary-200: #FFCCB8;
+  --color-primary-300: #FFA27E;
+  --color-primary-400: #FF7847;
+  --color-primary-500: #FF5A1F;
+  --color-primary-600: #E04812;
+  --color-primary-700: #1A1A1A;
+  --color-primary-800: #141715;
+  --color-primary-900: #0E100F;
+
+  --color-accent-50: #E2ECE3;
+  --color-accent-100: #D4E0D5;
+  --color-accent-200: #B5C5B7;
+  --color-accent-300: #88A28E;
+  --color-accent-400: #FF5A1F;
+  --color-accent-500: #FF5A1F;
+  --color-accent-600: #E04812;
+  --color-accent-700: #1A1A1A;
+
+  --color-secondary-500: #4B6352;
+  --color-secondary-600: #394D3F;
+  --color-health-pill: #1A1A1A;
+  --color-admin-pill: #1A1A1A;
+  --color-success: #3B6E4C;
+  --color-warning: #FF5A1F;
+  --color-error: #D9381E;
+
+  --shadow-card: 0 4px 14px rgba(26, 26, 26, 0.10), 0 1px 3px rgba(26, 26, 26, 0.08);
+  --shadow-elevated: 0 14px 30px rgba(26, 26, 26, 0.16);
+  --shadow-glow: 0 6px 22px rgba(255, 90, 31, 0.35);
+
+  --hero-gradient: linear-gradient(135deg, #CEDACE 0%, #C4D2C5 55%, #B8C8BA 100%);
+  --cta-gradient: linear-gradient(135deg, #1A1A1A 0%, #262E28 60%, #1A1A1A 100%);
+  --institutions-gradient: linear-gradient(135deg, #1A1A1A 0%, #242B26 100%);
+}
+
+html[data-theme="orion"].dark {
+  /* Superficies Modo Oscuro — Negro Carbón Stealth (#1A1A1A) y Paneles (#232724) */
+  --color-surface-50: #1A1A1A;
+  --color-surface-100: #222623;
+  --color-surface-200: #2C322E;
+  --color-surface-300: #3B433E;
+  --color-surface-400: #5B675F;
+  --color-surface-500: #88A28E;
+  --color-surface-600: #B4C6B8;
+  --color-surface-700: #D0DDD3;
+  --color-surface-800: #E4EDE6;
+  --color-surface-900: #F4F7F4;
+
+  /* Primario y Acento — Naranja Aeroespacial (#FF5A1F) y Salvia (#88A28E) */
+  --color-primary-50: #2A1D18;
+  --color-primary-100: #3D241B;
+  --color-primary-200: #5C3122;
+  --color-primary-300: #88A28E;
+  --color-primary-400: #FF7645;
+  --color-primary-500: #FF5A1F;
+  --color-primary-600: #FF7442;
+  --color-primary-700: #E04812;
+  --color-primary-800: #C9D6CA;
+  --color-primary-900: #FFFFFF;
+
+  --color-accent-50: #1E2420;
+  --color-accent-100: #28302B;
+  --color-accent-200: #39453D;
+  --color-accent-300: #88A28E;
+  --color-accent-400: #FF5A1F;
+  --color-accent-500: #FF5A1F;
+  --color-accent-600: #FF7847;
+
+  --color-secondary-500: #5C7457;
+  --color-secondary-600: #88A28E;
+  --color-health-pill: #5C7457;
+  --color-admin-pill: #FF5A1F;
+  --color-success: #689F77;
+  --color-warning: #FF5A1F;
+  --color-error: #FF5A1F;
+
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.65);
+  --shadow-elevated: 0 14px 36px rgba(0, 0, 0, 0.82);
+  --shadow-glow: 0 0 28px rgba(255, 90, 31, 0.42);
+
+  --hero-gradient: linear-gradient(135deg, #1A1A1A 0%, #1E2420 55%, #161917 100%);
+  --cta-gradient: linear-gradient(135deg, #1A1A1A 0%, #2C1D17 55%, #161917 100%);
+  --institutions-gradient: linear-gradient(135deg, #141615 0%, #1E2320 100%);
+}
+
+/* Grid técnico aeroespacial de fondo en todo el body para el tema Orion */
+html[data-theme="orion"]:not(.dark) body {
+  background-color: #C9D6CA !important;
+  background-image:
+    linear-gradient(rgba(26, 26, 26, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 26, 26, 0.055) 1px, transparent 1px) !important;
+  background-size: 38px 38px !important;
+  color: #1A1A1A !important;
+}
+
+html[data-theme="orion"].dark body {
+  background-color: #1A1A1A !important;
+  background-image:
+    linear-gradient(rgba(136, 162, 142, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(136, 162, 142, 0.05) 1px, transparent 1px) !important;
+  background-size: 38px 38px !important;
+  color: #F4F7F4 !important;
+}
+
+/* Navbar Glass en tema Orion */
+html[data-theme="orion"]:not(.dark) .glass {
+  background: rgba(201, 214, 202, 0.94) !important;
+  border-bottom: 1.5px solid rgba(26, 26, 26, 0.22) !important;
+}
+
+html[data-theme="orion"].dark .glass {
+  background: rgba(26, 26, 26, 0.94) !important;
+  border-bottom: 1.5px solid rgba(255, 90, 31, 0.28) !important;
+}
+
+/* Superficies y tarjetas con estética HUD en tema Orion */
+html[data-theme="orion"]:not(.dark) div[style*="background: white"],
+html[data-theme="orion"]:not(.dark) div[style*="background: 'white'"],
+html[data-theme="orion"]:not(.dark) div[style*="background: rgb(255, 255, 255)"],
+html[data-theme="orion"]:not(.dark) div[style*="background: #ffffff"],
+html[data-theme="orion"]:not(.dark) div[style*="background: #fff"],
+html[data-theme="orion"]:not(.dark) div[style*="background-color: white"],
+html[data-theme="orion"]:not(.dark) div[style*="background-color: rgb(255, 255, 255)"],
+html[data-theme="orion"]:not(.dark) div[style*="background-color: #ffffff"] {
+  background: #D7E3D8 !important;
+  background-color: #D7E3D8 !important;
+  border-color: #9BB09E !important;
+}
+
+html[data-theme="orion"]:not(.dark) input,
+html[data-theme="orion"]:not(.dark) select,
+html[data-theme="orion"]:not(.dark) textarea {
+  background-color: #E2ECE3 !important;
+  color: #1A1A1A !important;
+  border-color: #88A28E !important;
+}
+
+html[data-theme="orion"] [style*="color: #7A433A"],
+html[data-theme="orion"] [style*="color:#7A433A"],
+html[data-theme="orion"] [style*="color: rgb(122, 67, 58)"] {
+  color: #FF5A1F !important;
+}
+
+/* Botón con franjas diagonales tácticas tipo Orion / Nova Dynamics */
+.orion-hazard-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.orion-hazard-btn::before,
+.orion-hazard-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 14px;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.orion-hazard-btn::before {
+  left: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    #FF5A1F,
+    #FF5A1F 3px,
+    #1A1A1A 3px,
+    #1A1A1A 6px
+  );
+}
+
+.orion-hazard-btn::after {
+  right: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    #FF5A1F,
+    #FF5A1F 3px,
+    #1A1A1A 3px,
+    #1A1A1A 6px
+  );
+}

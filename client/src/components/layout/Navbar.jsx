@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { HiMenu, HiX } from 'react-icons/hi'
-import { FaHeartbeat, FaSignOutAlt, FaChartLine, FaUserCircle, FaUserShield, FaStethoscope, FaChevronDown, FaMoon, FaSun, FaBell, FaTimes, FaPills, FaCheck } from 'react-icons/fa'
+import { FaHeartbeat, FaSignOutAlt, FaChartLine, FaUserCircle, FaUserShield, FaStethoscope, FaChevronDown, FaMoon, FaSun, FaBell, FaTimes, FaPills, FaCheck, FaPalette, FaExclamationTriangle } from 'react-icons/fa'
 import { MdWatch } from 'react-icons/md'
 import { useAuth } from '../../context/AuthContext'
 import WearableSection from '../dashboard/WearableSection'
@@ -87,9 +87,11 @@ export default function Navbar() {
   const location = useLocation()
   const navigate = useNavigate()
   const { user, isAuthenticated, logout } = useAuth()
-  const { dark, toggleDark } = useTheme()
+  const { dark, toggleDark, activeTheme, activePreset, activeThemeObj, themes, selectTheme } = useTheme()
   const { isModuleEnabled } = useModules()
   const [showWearableModal, setShowWearableModal] = useState(false)
+  const [themeMenuOpen, setThemeMenuOpen] = useState(false)
+  const isOrion = activePreset === 'orion'
 
   // Translation support
   const [langOpen, setLangOpen] = useState(false)
@@ -329,8 +331,17 @@ export default function Navbar() {
   }, [])
 
   return (
-    <nav className="glass fixed top-0 left-0 right-0 z-50" style={{ boxShadow: 'var(--shadow-card)' }}>
-      <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 1rem' }}>
+    <nav className="glass fixed top-0 left-0 right-0 z-50" style={{ boxShadow: 'var(--shadow-card)', position: 'fixed' }}>
+      {/* HUD Corner Brackets for Orion Theme */}
+      {isOrion && (
+        <div style={{ position: 'absolute', inset: '5px 10px', pointerEvents: 'none', zIndex: 2 }}>
+          <span style={{ position: 'absolute', top: 0, left: 0, width: '10px', height: '10px', borderTop: `2px solid ${dark ? '#88A28E' : '#1A1A1A'}`, borderLeft: `2px solid ${dark ? '#88A28E' : '#1A1A1A'}` }} />
+          <span style={{ position: 'absolute', top: 0, right: 0, width: '10px', height: '10px', borderTop: `2px solid ${dark ? '#88A28E' : '#1A1A1A'}`, borderRight: `2px solid ${dark ? '#88A28E' : '#1A1A1A'}` }} />
+          <span style={{ position: 'absolute', bottom: 0, left: 0, width: '10px', height: '10px', borderBottom: `2px solid ${dark ? '#88A28E' : '#1A1A1A'}`, borderLeft: `2px solid ${dark ? '#88A28E' : '#1A1A1A'}` }} />
+          <span style={{ position: 'absolute', bottom: 0, right: 0, width: '10px', height: '10px', borderBottom: `2px solid ${dark ? '#88A28E' : '#1A1A1A'}`, borderRight: `2px solid ${dark ? '#88A28E' : '#1A1A1A'}` }} />
+        </div>
+      )}
+      <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 1rem', position: 'relative', zIndex: 3 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '4rem' }}>
           {/* Logo HeartBliss — Cuida tu Corazón */}
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', textDecoration: 'none', flexShrink: 0 }}>
@@ -341,7 +352,9 @@ export default function Navbar() {
                 width: '44px',
                 height: '32px',
                 objectFit: 'contain',
-                filter: dark ? 'drop-shadow(0 2px 6px rgba(200, 153, 83, 0.25))' : 'drop-shadow(0 1px 3px rgba(58, 36, 31, 0.15))',
+                filter: isOrion
+                  ? (dark ? 'drop-shadow(0 2px 6px rgba(255, 90, 31, 0.3))' : 'drop-shadow(0 1px 3px rgba(26, 26, 26, 0.2))')
+                  : (dark ? 'drop-shadow(0 2px 6px rgba(200, 153, 83, 0.25))' : 'drop-shadow(0 1px 3px rgba(58, 36, 31, 0.15))'),
               }}
             />
             <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.06 }}>
@@ -349,7 +362,7 @@ export default function Navbar() {
                 fontSize: '1.02rem',
                 fontWeight: '800',
                 fontFamily: "'Outfit', 'Inter', sans-serif",
-                color: dark ? '#C89953' : '#3A241F',
+                color: isOrion ? (dark ? '#D8A868' : '#1A1A1A') : (dark ? '#C89953' : '#3A241F'),
                 letterSpacing: '-0.02em',
                 whiteSpace: 'nowrap',
               }}>
@@ -359,7 +372,7 @@ export default function Navbar() {
                 fontSize: '1.02rem',
                 fontWeight: '800',
                 fontFamily: "'Outfit', 'Inter', sans-serif",
-                color: dark ? '#C89953' : '#3A241F',
+                color: isOrion ? (dark ? '#D8A868' : '#1A1A1A') : (dark ? '#C89953' : '#3A241F'),
                 letterSpacing: '-0.02em',
                 whiteSpace: 'nowrap',
               }}>
@@ -382,10 +395,10 @@ export default function Navbar() {
                   fontSize: '0.875rem',
                   fontWeight: isActive(link.to) ? '700' : '500',
                   color: isActive(link.to)
-                    ? (dark ? '#C89953' : '#3A241F')
-                    : (dark ? '#E2D4C6' : '#4B322A'),
+                    ? (isOrion ? (dark ? '#FF5A1F' : '#1A1A1A') : (dark ? '#C89953' : '#3A241F'))
+                    : (isOrion ? (dark ? '#D0DDD2' : '#1A1A1A') : (dark ? '#E2D4C6' : '#4B322A')),
                   backgroundColor: isActive(link.to)
-                    ? (dark ? 'rgba(200, 153, 83, 0.14)' : '#E6DBC9')
+                    ? (isOrion ? (dark ? 'rgba(255, 90, 31, 0.14)' : 'rgba(26, 26, 26, 0.1)') : (dark ? 'rgba(200, 153, 83, 0.14)' : '#E6DBC9'))
                     : 'transparent',
                   transition: 'all 0.2s ease',
                   whiteSpace: 'nowrap',
@@ -453,22 +466,28 @@ export default function Navbar() {
                     padding: '0.48rem 1.05rem',
                     borderRadius: '9999px',
                     textDecoration: 'none',
-                    fontSize: '0.84rem',
-                    fontWeight: '700',
+                    fontSize: isOrion ? '0.78rem' : '0.84rem',
+                    fontWeight: '800',
+                    letterSpacing: isOrion ? '0.04em' : 'normal',
+                    textTransform: isOrion ? 'uppercase' : 'none',
                     whiteSpace: 'nowrap',
                     color: '#FFFFFF',
-                    background: dark ? '#4D683E' : '#5A7B43',
-                    boxShadow: isActive('/dashboard')
-                      ? '0 4px 14px rgba(90, 123, 67, 0.45)'
-                      : '0 2px 6px rgba(90, 123, 67, 0.25)',
-                    border: isActive('/dashboard') ? '1.5px solid rgba(255,255,255,0.45)' : '1px solid rgba(255,255,255,0.12)',
+                    background: isOrion
+                      ? (dark ? '#5C7457' : '#1A1A1A')
+                      : (dark ? '#4D683E' : '#5A7B43'),
+                    boxShadow: isOrion
+                      ? (dark ? '0 2px 10px rgba(92, 116, 87, 0.4)' : '0 2px 8px rgba(26, 26, 26, 0.3)')
+                      : (isActive('/dashboard') ? '0 4px 14px rgba(90, 123, 67, 0.45)' : '0 2px 6px rgba(90, 123, 67, 0.25)'),
+                    border: isOrion
+                      ? (dark ? '1.5px solid #88A28E' : '1.5px solid #1A1A1A')
+                      : (isActive('/dashboard') ? '1.5px solid rgba(255,255,255,0.45)' : '1px solid rgba(255,255,255,0.12)'),
                     transition: 'all 0.2s ease',
                   }}
                 >
-                  <FaChartLine size={12} /> Mi Salud
+                  <FaChartLine size={12} /> {isOrion ? 'MI SALUD' : 'Mi Salud'}
                 </Link>
 
-                {/* Admin link — Píldora #7A433A (Claro) / #8B1E18 (Oscuro) como en el boceto */}
+                {/* Admin link — Píldora #7A433A (Claro) / #8B1E18 (Oscuro) o HUD Orion */}
                 {user?.role === 'admin' && (
                   <Link
                     to="/admin"
@@ -478,19 +497,25 @@ export default function Navbar() {
                       padding: '0.48rem 1.05rem',
                       borderRadius: '9999px',
                       textDecoration: 'none',
-                      fontSize: '0.84rem',
-                      fontWeight: '700',
+                      fontSize: isOrion ? '0.78rem' : '0.84rem',
+                      fontWeight: '800',
+                      letterSpacing: isOrion ? '0.04em' : 'normal',
+                      textTransform: isOrion ? 'uppercase' : 'none',
                       whiteSpace: 'nowrap',
-                      color: '#FFFFFF',
-                      background: dark ? '#8B1E18' : '#7A433A',
-                      boxShadow: dark
-                        ? '0 2px 10px rgba(139, 30, 24, 0.45)'
-                        : '0 2px 6px rgba(122, 67, 58, 0.3)',
-                      border: isActive('/admin') ? '1.5px solid rgba(255,255,255,0.45)' : '1px solid rgba(255,255,255,0.12)',
+                      color: isOrion ? (dark ? '#1A1A1A' : '#FF5A1F') : '#FFFFFF',
+                      background: isOrion
+                        ? (dark ? '#FF5A1F' : '#1A1A1A')
+                        : (dark ? '#8B1E18' : '#7A433A'),
+                      boxShadow: isOrion
+                        ? (dark ? '0 2px 12px rgba(255, 90, 31, 0.45)' : '0 2px 8px rgba(26, 26, 26, 0.3)')
+                        : (dark ? '0 2px 10px rgba(139, 30, 24, 0.45)' : '0 2px 6px rgba(122, 67, 58, 0.3)'),
+                      border: isOrion
+                        ? (dark ? '1.5px solid #FF5A1F' : '1.5px solid #FF5A1F')
+                        : (isActive('/admin') ? '1.5px solid rgba(255,255,255,0.45)' : '1px solid rgba(255,255,255,0.12)'),
                       transition: 'all 0.2s ease',
                     }}
                   >
-                    <FaUserShield size={12} /> Admin
+                    {isOrion ? <FaExclamationTriangle size={11} /> : <FaUserShield size={12} />} {isOrion ? 'ADMIN' : 'Admin'}
                   </Link>
                 )}
 
@@ -971,7 +996,7 @@ export default function Navbar() {
                           display: 'inline-block',
                           width: '36px', height: '20px',
                           borderRadius: '10px',
-                          background: dark ? '#C89953' : 'var(--color-surface-300)',
+                          background: dark ? (isOrion ? '#FF5A1F' : '#C89953') : 'var(--color-surface-300)',
                           transition: 'background 0.25s',
                           flexShrink: 0,
                         }}>
@@ -987,6 +1012,122 @@ export default function Navbar() {
                           }} />
                         </span>
                       </button>
+
+                      {/* ── Apartado de Temas (debajo del botón de Modo oscuro) ── */}
+                      <div style={{ marginTop: '0.15rem' }}>
+                        <button
+                          type="button"
+                          onClick={() => setThemeMenuOpen(prev => !prev)}
+                          style={{
+                            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                            width: '100%', padding: '0.6rem 0.75rem', borderRadius: '8px',
+                            border: 'none', background: themeMenuOpen ? 'var(--color-surface-100)' : 'transparent',
+                            cursor: 'pointer', fontSize: '0.85rem', fontWeight: '500',
+                            color: 'var(--color-surface-700)', transition: 'background 0.15s',
+                          }}
+                          onMouseEnter={e => { if (!themeMenuOpen) e.currentTarget.style.background = 'var(--color-surface-50)' }}
+                          onMouseLeave={e => { if (!themeMenuOpen) e.currentTarget.style.background = 'transparent' }}
+                        >
+                          <span style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                            <FaPalette style={{ color: isOrion ? '#FF5A1F' : 'var(--color-primary-500)', fontSize: '0.9rem' }} />
+                            <span>Temas</span>
+                          </span>
+                          <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                            <span style={{
+                              fontSize: '0.68rem',
+                              fontWeight: '700',
+                              padding: '2px 7px',
+                              borderRadius: '9999px',
+                              background: isOrion
+                                ? 'rgba(255, 90, 31, 0.15)'
+                                : 'var(--color-surface-100)',
+                              color: isOrion ? '#FF5A1F' : 'var(--color-primary-500)',
+                              border: `1px solid ${isOrion ? 'rgba(255, 90, 31, 0.35)' : 'var(--color-surface-200)'}`,
+                              maxWidth: '90px',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap',
+                            }}>
+                              {activeThemeObj?.name || 'Principal'}
+                            </span>
+                            <FaChevronDown size={10} style={{ color: 'var(--color-surface-400)', transform: themeMenuOpen ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }} />
+                          </span>
+                        </button>
+
+                        {themeMenuOpen && (
+                          <div style={{
+                            margin: '0.2rem 0.35rem 0.3rem',
+                            padding: '0.35rem',
+                            borderRadius: '10px',
+                            background: dark ? 'rgba(0,0,0,0.22)' : 'var(--color-surface-100)',
+                            border: '1px solid var(--color-surface-200)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '0.2rem',
+                          }}>
+                            {themes.map(t => {
+                              const isSelected = activeTheme === t.key
+                              const swatches = t.colors || (t.preset === 'orion' ? ['#FF5A1F', '#88A28E', '#1A1A1A'] : ['#7A433A', '#C89953', '#5A7B43'])
+                              return (
+                                <button
+                                  key={t.key}
+                                  type="button"
+                                  onClick={() => selectTheme(t.key)}
+                                  style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    gap: '0.5rem',
+                                    width: '100%',
+                                    padding: '0.45rem 0.6rem',
+                                    borderRadius: '7px',
+                                    border: isSelected
+                                      ? `1.5px solid ${t.preset === 'orion' ? '#FF5A1F' : 'var(--color-primary-500)'}`
+                                      : '1px solid transparent',
+                                    background: isSelected
+                                      ? (dark ? 'rgba(255,255,255,0.08)' : 'var(--color-surface-50)')
+                                      : 'transparent',
+                                    cursor: 'pointer',
+                                    textAlign: 'left',
+                                    transition: 'all 0.15s ease',
+                                  }}
+                                >
+                                  <span style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', minWidth: 0 }}>
+                                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '2px', flexShrink: 0 }}>
+                                      {swatches.slice(0, 3).map((hex, idx) => (
+                                        <span
+                                          key={idx}
+                                          style={{
+                                            width: '9px',
+                                            height: '9px',
+                                            borderRadius: '50%',
+                                            background: hex,
+                                            border: '1px solid rgba(128,128,128,0.35)',
+                                            display: 'inline-block',
+                                          }}
+                                        />
+                                      ))}
+                                    </span>
+                                    <span style={{
+                                      fontSize: '0.78rem',
+                                      fontWeight: isSelected ? '700' : '600',
+                                      color: 'var(--color-surface-800)',
+                                      overflow: 'hidden',
+                                      textOverflow: 'ellipsis',
+                                      whiteSpace: 'nowrap',
+                                    }}>
+                                      {t.name}
+                                    </span>
+                                  </span>
+                                  {isSelected && (
+                                    <FaCheck size={10} style={{ color: t.preset === 'orion' ? '#FF5A1F' : 'var(--color-primary-500)', flexShrink: 0 }} />
+                                  )}
+                                </button>
+                              )
+                            })}
+                          </div>
+                        )}
+                      </div>
 
                       <div style={{ height: '1px', background: 'var(--color-surface-100)', margin: '0.2rem 0.5rem' }} />
                       <button
@@ -1342,7 +1483,7 @@ export default function Navbar() {
                   <span style={{
                     position: 'relative', display: 'inline-block',
                     width: '40px', height: '22px', borderRadius: '11px',
-                    background: dark ? '#C89953' : 'var(--color-surface-300)',
+                    background: dark ? (isOrion ? '#FF5A1F' : '#C89953') : 'var(--color-surface-300)',
                     transition: 'background 0.25s', flexShrink: 0,
                   }}>
                     <span style={{
@@ -1354,6 +1495,61 @@ export default function Navbar() {
                     }} />
                   </span>
                 </button>
+
+                {/* Selector de Temas — mobile (debajo de Modo oscuro) */}
+                <div style={{
+                  padding: '0.75rem 1rem',
+                  borderRadius: 'var(--radius-md)',
+                  background: dark ? 'var(--color-surface-100)' : 'var(--color-surface-50)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.5rem',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.92rem', fontWeight: '600', color: 'var(--color-surface-700)' }}>
+                      <FaPalette size={14} style={{ color: isOrion ? '#FF5A1F' : 'var(--color-primary-500)' }} />
+                      Temas
+                    </span>
+                    <span style={{ fontSize: '0.72rem', fontWeight: '700', color: isOrion ? '#FF5A1F' : 'var(--color-primary-500)' }}>
+                      {activeThemeObj?.name || 'Principal'}
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                    {themes.map(t => {
+                      const isSelected = activeTheme === t.key
+                      const swatches = t.colors || (t.preset === 'orion' ? ['#FF5A1F', '#88A28E', '#1A1A1A'] : ['#7A433A', '#C89953', '#5A7B43'])
+                      return (
+                        <button
+                          key={t.key}
+                          type="button"
+                          onClick={() => selectTheme(t.key)}
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.4rem',
+                            padding: '0.4rem 0.7rem',
+                            borderRadius: '9999px',
+                            border: isSelected
+                              ? `1.5px solid ${t.preset === 'orion' ? '#FF5A1F' : 'var(--color-primary-500)'}`
+                              : '1px solid var(--color-surface-200)',
+                            background: isSelected ? 'var(--color-surface-200)' : 'transparent',
+                            color: 'var(--color-surface-800)',
+                            fontSize: '0.78rem',
+                            fontWeight: isSelected ? '700' : '600',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          <span style={{ display: 'inline-flex', gap: '2px' }}>
+                            {swatches.slice(0, 3).map((hex, i) => (
+                              <span key={i} style={{ width: '8px', height: '8px', borderRadius: '50%', background: hex }} />
+                            ))}
+                          </span>
+                          <span>{t.name}</span>
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
                 <button
                   onClick={handleLogout}
                   style={{

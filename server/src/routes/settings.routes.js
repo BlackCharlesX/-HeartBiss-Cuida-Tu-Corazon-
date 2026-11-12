@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import ModuleVisibility, { DEFAULT_MODULES, ensureDefaultModules } from '../models/ModuleVisibility.js'
+import PlatformTheme, { DEFAULT_THEMES, ensureDefaultThemes } from '../models/PlatformTheme.js'
 
 const router = Router()
 
@@ -45,6 +46,28 @@ router.get('/modules', async (_req, res, next) => {
       modules: fallbackMap,
       list: DEFAULT_MODULES,
     })
+  }
+})
+
+// GET /api/settings/themes — public endpoint to get active platform themes
+router.get('/themes', async (_req, res) => {
+  try {
+    let rows = await PlatformTheme.findAll({
+      where: { isActive: true },
+      order: [['sortOrder', 'ASC'], ['createdAt', 'ASC']],
+    })
+
+    if (rows.length === 0) {
+      await ensureDefaultThemes()
+      rows = await PlatformTheme.findAll({
+        where: { isActive: true },
+        order: [['sortOrder', 'ASC'], ['createdAt', 'ASC']],
+      })
+    }
+
+    res.json({ themes: rows })
+  } catch (err) {
+    res.json({ themes: DEFAULT_THEMES })
   }
 })
 

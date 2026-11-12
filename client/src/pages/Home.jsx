@@ -8,6 +8,8 @@ import { useModules } from '../context/ModuleContext'
 import api, { getApiBaseUrl } from '../services/api'
 import logoLight from '../assets/logo-light.png'
 import logoDark from '../assets/logo-dark.png'
+import logoOrionLight from '../assets/logo-orion-light.png'
+import logoOrionDark from '../assets/logo-orion-dark.png'
 
 
 
@@ -60,7 +62,8 @@ const statsTamaulipas = [
 
 export default function Home() {
   const { isAuthenticated, user } = useAuth()
-  const { dark } = useTheme()
+  const { dark, activePreset } = useTheme()
+  const isOrion = activePreset === 'orion'
   const { isModuleEnabled } = useModules()
   const [featuredNews, setFeaturedNews] = useState([])
   const [apkInfo, setApkInfo] = useState(null)
@@ -111,18 +114,76 @@ export default function Home() {
 
   return (
     <div>
-      {/* Hero Section — HeartBliss Cuida tu Corazón (Modo Claro & Modo Oscuro) */}
+      {/* Hero Section — HeartBliss Cuida tu Corazón (Principal & Orion HUD Themes) */}
       <section style={{
         position: 'relative',
         minHeight: '86vh',
         display: 'flex',
         alignItems: 'center',
-        background: dark
-          ? 'radial-gradient(circle at 76% 32%, rgba(77, 104, 62, 0.28) 0%, transparent 42%), radial-gradient(circle at 82% 84%, rgba(139, 30, 24, 0.36) 0%, transparent 45%), radial-gradient(circle at 18% 82%, rgba(200, 153, 83, 0.16) 0%, transparent 38%), linear-gradient(135deg, #1F1210 0%, #2B1815 58%, #1F1210 100%)'
-          : 'radial-gradient(circle at 76% 32%, rgba(90, 123, 67, 0.16) 0%, transparent 44%), radial-gradient(circle at 18% 82%, rgba(200, 153, 83, 0.20) 0%, transparent 42%), linear-gradient(135deg, #F8F4EB 0%, #F3ECDC 55%, #E6DBC9 100%)',
+        background: isOrion
+          ? (dark
+            ? 'linear-gradient(rgba(136, 162, 142, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(136, 162, 142, 0.06) 1px, transparent 1px), radial-gradient(circle at 76% 36%, rgba(46, 92, 64, 0.25) 0%, transparent 45%), radial-gradient(circle at 22% 80%, rgba(255, 90, 31, 0.12) 0%, transparent 40%), linear-gradient(135deg, #161816 0%, #1E2420 55%, #161816 100%)'
+            : 'linear-gradient(rgba(26, 26, 26, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(26, 26, 26, 0.06) 1px, transparent 1px), radial-gradient(circle at 76% 36%, rgba(136, 162, 142, 0.35) 0%, transparent 48%), linear-gradient(135deg, #C9D6CA 0%, #BFCF C0 55%, #B8C8B9 100%)'.replace('#BFCF C0', '#BFCFC0'))
+          : (dark
+            ? 'radial-gradient(circle at 76% 32%, rgba(77, 104, 62, 0.28) 0%, transparent 42%), radial-gradient(circle at 82% 84%, rgba(139, 30, 24, 0.36) 0%, transparent 45%), radial-gradient(circle at 18% 82%, rgba(200, 153, 83, 0.16) 0%, transparent 38%), linear-gradient(135deg, #1F1210 0%, #2B1815 58%, #1F1210 100%)'
+            : 'radial-gradient(circle at 76% 32%, rgba(90, 123, 67, 0.16) 0%, transparent 44%), radial-gradient(circle at 18% 82%, rgba(200, 153, 83, 0.20) 0%, transparent 42%), linear-gradient(135deg, #F8F4EB 0%, #F3ECDC 55%, #E6DBC9 100%)'),
+        backgroundSize: isOrion ? '38px 38px, 38px 38px, 100% 100%, 100% 100%, 100% 100%' : 'auto',
         overflow: 'hidden',
-        borderBottom: `1px solid ${dark ? '#38211D' : '#E6DBC9'}`,
+        borderBottom: `1px solid ${isOrion ? (dark ? '#38423B' : '#9EB2A0') : (dark ? '#38211D' : '#E6DBC9')}`,
       }}>
+        {/* Orion Tactical HUD Frame & Corner Brackets (matching Image 2) */}
+        {isOrion && (
+          <div style={{
+            position: 'absolute',
+            inset: '20px 24px',
+            border: `1px solid ${dark ? 'rgba(136, 162, 142, 0.22)' : 'rgba(26, 26, 26, 0.22)'}`,
+            borderRadius: '18px',
+            pointerEvents: 'none',
+            zIndex: 2,
+          }}>
+            {/* Top-left bracket */}
+            <span style={{
+              position: 'absolute', top: '-2px', left: '-2px', width: '26px', height: '26px',
+              borderTop: `3.5px solid ${dark ? '#88A28E' : '#1A1A1A'}`,
+              borderLeft: `3.5px solid ${dark ? '#88A28E' : '#1A1A1A'}`,
+              borderTopLeftRadius: '10px',
+            }} />
+            {/* Top-right bracket */}
+            <span style={{
+              position: 'absolute', top: '-2px', right: '-2px', width: '26px', height: '26px',
+              borderTop: `3.5px solid ${dark ? '#88A28E' : '#1A1A1A'}`,
+              borderRight: `3.5px solid ${dark ? '#88A28E' : '#1A1A1A'}`,
+              borderTopRightRadius: '10px',
+            }} />
+            {/* Bottom-left bracket */}
+            <span style={{
+              position: 'absolute', bottom: '-2px', left: '-2px', width: '26px', height: '26px',
+              borderBottom: `3.5px solid ${dark ? '#FF5A1F' : '#1A1A1A'}`,
+              borderLeft: `3.5px solid ${dark ? '#FF5A1F' : '#1A1A1A'}`,
+              borderBottomLeftRadius: '10px',
+            }} />
+            {/* Bottom-right bracket */}
+            <span style={{
+              position: 'absolute', bottom: '-2px', right: '-2px', width: '26px', height: '26px',
+              borderBottom: `3.5px solid ${dark ? '#FF5A1F' : '#1A1A1A'}`,
+              borderRight: `3.5px solid ${dark ? '#FF5A1F' : '#1A1A1A'}`,
+              borderBottomRightRadius: '10px',
+            }} />
+            {/* Telemetry status blocks ■■■■ at bottom right */}
+            <div style={{
+              position: 'absolute', bottom: '-12px', right: '28px',
+              display: 'flex', gap: '3px', alignItems: 'center',
+            }}>
+              {[0, 1, 2, 3].map(idx => (
+                <span key={idx} style={{
+                  width: '5px', height: '5px',
+                  background: dark ? '#88A28E' : '#1A1A1A',
+                  opacity: 0.75,
+                }} />
+              ))}
+            </div>
+          </div>
+        )}
         {/* Ambient organic glow blobs */}
         <div style={{
           position: 'absolute',
@@ -183,7 +244,7 @@ export default function Home() {
           />
         </svg>
 
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '3.5rem 1.5rem', width: '100%', position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '3rem', flexWrap: 'wrap' }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '3.5rem 2.25rem', width: '100%', position: 'relative', zIndex: 3, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '3rem', flexWrap: 'wrap' }}>
           <div style={{ maxWidth: '640px', flex: '1 1 480px' }}>
             {/* Top Pill Badge: ♥ HeartBliss */}
             <div className="animate-fade-in-up" style={{
@@ -192,35 +253,47 @@ export default function Home() {
               gap: '0.5rem',
               padding: '0.42rem 1.1rem',
               borderRadius: '9999px',
-              background: dark ? '#2B1815' : '#E6DBC9',
-              border: `1px solid ${dark ? 'rgba(200, 153, 83, 0.28)' : 'rgba(122, 67, 58, 0.16)'}`,
+              background: isOrion
+                ? (dark ? '#2A2F2B' : '#B5C5B7')
+                : (dark ? '#2B1815' : '#E6DBC9'),
+              border: `1px solid ${isOrion ? (dark ? 'rgba(136, 162, 142, 0.3)' : 'rgba(26, 26, 26, 0.18)') : (dark ? 'rgba(200, 153, 83, 0.28)' : 'rgba(122, 67, 58, 0.16)')}`,
               marginBottom: '1.5rem',
-              fontSize: '0.88rem',
-              fontWeight: '700',
-              color: dark ? '#C89953' : '#7A433A',
+              fontSize: isOrion ? '0.8rem' : '0.88rem',
+              fontWeight: '800',
+              letterSpacing: isOrion ? '0.06em' : 'normal',
+              textTransform: isOrion ? 'uppercase' : 'none',
+              color: isOrion
+                ? (dark ? '#D8A868' : '#1A1A1A')
+                : (dark ? '#C89953' : '#7A433A'),
               boxShadow: dark ? '0 2px 10px rgba(0,0,0,0.3)' : '0 2px 8px rgba(58, 36, 31, 0.06)',
             }}>
-              <FaHeart size={13} style={{ color: dark ? '#C89953' : '#7A433A' }} />
-              HeartBliss
+              <FaHeart size={13} style={{ color: isOrion ? (dark ? '#D8A868' : '#1A1A1A') : (dark ? '#C89953' : '#7A433A') }} />
+              {isOrion ? 'HEARTBLISS' : 'HeartBliss'}
             </div>
 
             <h1 className="animate-fade-in-up stagger-1" style={{
               fontSize: 'clamp(2.5rem, 5vw, 4.1rem)',
               fontWeight: '800',
               fontFamily: "'Outfit', 'Inter', sans-serif",
-              color: dark ? '#F5ECE1' : '#3A241F',
+              color: isOrion ? (dark ? '#FFFFFF' : '#1A1A1A') : (dark ? '#F5ECE1' : '#3A241F'),
               lineHeight: '1.08',
               letterSpacing: '-0.025em',
               marginBottom: '1.5rem',
             }}>
               Tu salud importa,
               <br />
-              <span style={{ color: dark ? '#C89953' : '#4E241C' }}>infórmate y actúa</span>
+              <span style={{
+                color: isOrion
+                  ? (dark ? '#FF5A1F' : '#1A1A1A')
+                  : (dark ? '#C89953' : '#4E241C'),
+              }}>
+                infórmate y actúa
+              </span>
             </h1>
 
             <p className="animate-fade-in-up stagger-2" style={{
               fontSize: '1.1rem',
-              color: dark ? '#D9C8B8' : '#4B322A',
+              color: isOrion ? (dark ? '#D0DDD2' : '#263028') : (dark ? '#D9C8B8' : '#4B322A'),
               lineHeight: '1.75',
               marginBottom: '2.25rem',
               maxWidth: '560px',
@@ -233,42 +306,64 @@ export default function Home() {
 
             <div className="animate-fade-in-up stagger-3" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center' }}>
               {isAuthenticated ? (
-                <Link to={user?.role === 'admin' ? '/admin' : user?.role === 'doctor' ? '/doctor' : '/dashboard'} style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.55rem',
-                  padding: '0.9rem 2rem',
-                  borderRadius: '9999px',
-                  background: 'linear-gradient(135deg, #D6AA65 0%, #C89953 55%, #B0803B 100%)',
-                  color: dark ? '#1F1210' : '#FFFFFF',
-                  textDecoration: 'none',
-                  fontWeight: '700',
-                  fontSize: '0.98rem',
-                  boxShadow: dark
-                    ? '0 8px 25px rgba(200, 153, 83, 0.45), 0 0 15px rgba(200, 153, 83, 0.25)'
-                    : '0 8px 22px rgba(200, 153, 83, 0.42)',
-                  transition: 'all 0.25s ease',
-                }}>
+                <Link
+                  to={user?.role === 'admin' ? '/admin' : user?.role === 'doctor' ? '/doctor' : '/dashboard'}
+                  className={isOrion ? 'orion-hazard-btn' : ''}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.55rem',
+                    padding: '0.9rem 2rem',
+                    borderRadius: '9999px',
+                    background: isOrion
+                      ? (dark ? '#FF5A1F' : '#1A1A1A')
+                      : 'linear-gradient(135deg, #D6AA65 0%, #C89953 55%, #B0803B 100%)',
+                    color: isOrion
+                      ? (dark ? '#1A1A1A' : '#FFFFFF')
+                      : (dark ? '#1F1210' : '#FFFFFF'),
+                    textDecoration: 'none',
+                    fontWeight: '700',
+                    fontSize: '0.98rem',
+                    border: isOrion ? `1.5px solid ${dark ? '#FF5A1F' : '#1A1A1A'}` : 'none',
+                    boxShadow: isOrion
+                      ? (dark ? '0 8px 25px rgba(255, 90, 31, 0.45)' : '0 8px 22px rgba(26, 26, 26, 0.32)')
+                      : (dark
+                        ? '0 8px 25px rgba(200, 153, 83, 0.45), 0 0 15px rgba(200, 153, 83, 0.25)'
+                        : '0 8px 22px rgba(200, 153, 83, 0.42)'),
+                    transition: 'all 0.25s ease',
+                  }}
+                >
                   {user?.role === 'admin' ? 'Ir al Panel Admin' : user?.role === 'doctor' ? 'Ir al Panel Médico' : 'Ir a Mi Salud'}
                   <HiArrowRight />
                 </Link>
               ) : (
-                <Link to="/registro" style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.55rem',
-                  padding: '0.9rem 2rem',
-                  borderRadius: '9999px',
-                  background: 'linear-gradient(135deg, #D6AA65 0%, #C89953 55%, #B0803B 100%)',
-                  color: dark ? '#1F1210' : '#FFFFFF',
-                  textDecoration: 'none',
-                  fontWeight: '700',
-                  fontSize: '0.98rem',
-                  boxShadow: dark
-                    ? '0 8px 25px rgba(200, 153, 83, 0.45), 0 0 15px rgba(200, 153, 83, 0.25)'
-                    : '0 8px 22px rgba(200, 153, 83, 0.42)',
-                  transition: 'all 0.25s ease',
-                }}>
+                <Link
+                  to="/registro"
+                  className={isOrion ? 'orion-hazard-btn' : ''}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.55rem',
+                    padding: '0.9rem 2rem',
+                    borderRadius: '9999px',
+                    background: isOrion
+                      ? (dark ? '#FF5A1F' : '#1A1A1A')
+                      : 'linear-gradient(135deg, #D6AA65 0%, #C89953 55%, #B0803B 100%)',
+                    color: isOrion
+                      ? (dark ? '#1A1A1A' : '#FFFFFF')
+                      : (dark ? '#1F1210' : '#FFFFFF'),
+                    textDecoration: 'none',
+                    fontWeight: '700',
+                    fontSize: '0.98rem',
+                    border: isOrion ? `1.5px solid ${dark ? '#FF5A1F' : '#1A1A1A'}` : 'none',
+                    boxShadow: isOrion
+                      ? (dark ? '0 8px 25px rgba(255, 90, 31, 0.45)' : '0 8px 22px rgba(26, 26, 26, 0.32)')
+                      : (dark
+                        ? '0 8px 25px rgba(200, 153, 83, 0.45), 0 0 15px rgba(200, 153, 83, 0.25)'
+                        : '0 8px 22px rgba(200, 153, 83, 0.42)'),
+                    transition: 'all 0.25s ease',
+                  }}
+                >
                   Crear Cuenta Gratis
                   <HiArrowRight />
                 </Link>
@@ -281,25 +376,31 @@ export default function Home() {
                 gap: '0.55rem',
                 padding: '0.88rem 1.85rem',
                 borderRadius: '9999px',
-                background: dark ? 'rgba(43, 24, 21, 0.55)' : 'rgba(248, 244, 235, 0.65)',
+                background: isOrion
+                  ? 'transparent'
+                  : (dark ? 'rgba(43, 24, 21, 0.55)' : 'rgba(248, 244, 235, 0.65)'),
                 backdropFilter: 'blur(8px)',
-                border: `1.5px solid ${dark ? '#C89953' : '#3A241F'}`,
-                color: dark ? '#F5ECE1' : '#3A241F',
+                border: `1.5px solid ${isOrion ? (dark ? '#D0DDD2' : '#1A1A1A') : (dark ? '#C89953' : '#3A241F')}`,
+                color: isOrion ? (dark ? '#F4F6F4' : '#1A1A1A') : (dark ? '#F5ECE1' : '#3A241F'),
                 textDecoration: 'none',
                 fontWeight: '600',
                 fontSize: '0.98rem',
                 transition: 'all 0.25s ease',
               }}
                 onMouseEnter={e => {
-                  e.currentTarget.style.background = dark ? 'rgba(200, 153, 83, 0.15)' : '#E6DBC9'
+                  e.currentTarget.style.background = isOrion
+                    ? (dark ? 'rgba(255, 90, 31, 0.14)' : 'rgba(26, 26, 26, 0.08)')
+                    : (dark ? 'rgba(200, 153, 83, 0.15)' : '#E6DBC9')
                   e.currentTarget.style.transform = 'translateY(-2px)'
                 }}
                 onMouseLeave={e => {
-                  e.currentTarget.style.background = dark ? 'rgba(43, 24, 21, 0.55)' : 'rgba(248, 244, 235, 0.65)'
+                  e.currentTarget.style.background = isOrion
+                    ? 'transparent'
+                    : (dark ? 'rgba(43, 24, 21, 0.55)' : 'rgba(248, 244, 235, 0.65)')
                   e.currentTarget.style.transform = 'translateY(0)'
                 }}
               >
-                <FaRegHeart size={15} style={{ color: dark ? '#C89953' : '#7A433A' }} />
+                <FaRegHeart size={15} style={{ color: isOrion ? (dark ? '#F4F6F4' : '#1A1A1A') : (dark ? '#C89953' : '#7A433A') }} />
                 Explorar Información
               </Link>
 
@@ -370,17 +471,25 @@ export default function Home() {
               aspectRatio: '1/1',
               borderRadius: '2.25rem',
               overflow: 'hidden',
-              boxShadow: dark
-                ? '0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(77, 104, 62, 0.25), 0 0 40px rgba(139, 30, 24, 0.28)'
-                : '0 22px 45px -12px rgba(58, 36, 31, 0.16), 0 0 35px rgba(90, 123, 67, 0.15)',
-              border: `1.5px solid ${dark ? 'rgba(200, 153, 83, 0.32)' : 'rgba(122, 67, 58, 0.18)'}`,
+              boxShadow: isOrion
+                ? (dark
+                  ? '0 25px 50px -12px rgba(0, 0, 0, 0.78), 0 0 38px rgba(136, 162, 142, 0.22)'
+                  : '0 22px 45px -12px rgba(26, 26, 26, 0.22), 0 0 30px rgba(136, 162, 142, 0.25)')
+                : (dark
+                  ? '0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(77, 104, 62, 0.25), 0 0 40px rgba(139, 30, 24, 0.28)'
+                  : '0 22px 45px -12px rgba(58, 36, 31, 0.16), 0 0 35px rgba(90, 123, 67, 0.15)'),
+              border: isOrion
+                ? 'none'
+                : `1.5px solid ${dark ? 'rgba(200, 153, 83, 0.32)' : 'rgba(122, 67, 58, 0.18)'}`,
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              background: dark
-                ? 'radial-gradient(circle at 75% 25%, rgba(77, 104, 62, 0.32), rgba(43, 24, 21, 0.92) 70%)'
-                : 'radial-gradient(circle at 75% 25%, rgba(90, 123, 67, 0.15), #F8F4EB 70%)',
+              background: isOrion
+                ? 'transparent'
+                : (dark
+                  ? 'radial-gradient(circle at 75% 25%, rgba(77, 104, 62, 0.32), rgba(43, 24, 21, 0.92) 70%)'
+                  : 'radial-gradient(circle at 75% 25%, rgba(90, 123, 67, 0.15), #F8F4EB 70%)'),
             }}
             onMouseEnter={e => {
               e.currentTarget.style.transform = 'translateY(-6px) scale(1.02)'
@@ -390,12 +499,12 @@ export default function Home() {
             }}
             >
               <img
-                src={dark ? logoDark : logoLight}
+                src={isOrion ? (dark ? logoOrionDark : logoOrionLight) : (dark ? logoDark : logoLight)}
                 alt="HeartBliss — Cuida tu Corazón"
                 style={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'contain',
+                  objectFit: isOrion ? 'cover' : 'contain',
                   display: 'block',
                 }}
               />

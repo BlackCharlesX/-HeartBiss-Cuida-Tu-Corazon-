@@ -1,9 +1,38 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react'
+import api from '../services/api'
 
 const ThemeContext = createContext(null)
 
+export const DEFAULT_PLATFORM_THEMES = [
+  {
+    key: 'principal',
+    name: 'Principal',
+    description: 'Diseño cálido natural HeartBliss — Crema suave (#F8F4EB), Cacao profundo (#3A241F), Dorado miel (#C89953) y Verde hoja (#5A7B43).',
+    preset: 'principal',
+    swatches: ['#F8F4EB', '#7A433A', '#C89953', '#5A7B43', '#1F1210'],
+    customVariables: null,
+    isProtected: true,
+    isActive: true,
+    sortOrder: 1,
+  },
+  {
+    key: 'orion',
+    name: 'Orion N5',
+    description: 'Sistema táctico aeroespacial HUD (Nova Dynamics / ID350) — Verde salvia técnico (#C9D6CA / #88A28E), Naranja aeroespacial (#FF5A1F) y Carbón (#1A1A1A).',
+    preset: 'orion',
+    swatches: ['#C9D6CA', '#FF5A1F', '#88A28E', '#1A1A1A'],
+    customVariables: null,
+    isProtected: false,
+    isActive: true,
+    sortOrder: 2,
+  },
+]
+
+const STORAGE_THEMES_LIST_KEY = 'jcs_platform_themes_list'
+const STORAGE_ACTIVE_THEME_KEY = 'jcs_active_theme'
+
 export function ThemeProvider({ children }) {
-  // Read persisted preference; default = false (light mode)
+  // 1. Dark Mode state
   const [dark, setDark] = useState(() => {
     try {
       return localStorage.getItem('jcs_dark_mode') === 'true'
@@ -12,7 +41,66 @@ export function ThemeProvider({ children }) {
     }
   })
 
-  // Apply / remove 'dark' class on <html> whenever state changes
+  // 2. Available Themes list (persisted in DB + cached in localStorage)
+  const [themes, setThemes] = useState(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_THEMES_LIST_KEY)
+      if (saved) {
+        const parsed = JSON.parse(saved)
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          // Ensure 'principal' is always present
+          if (!parsed.some(t => t.key === 'principal')) {
+            return [DEFAULT_PLATFORM_THEMES[0], ...parsed]
+          }
+          return parsed
+        }
+      }
+    } catch { /* ignore */ }
+    return DEFAULT_PLATFORM_THEMES
+  })
+
+  // 3. Active Theme key ('principal', 'orion', etc.)
+  const [activeTheme, setActiveTheme] = useState(() => {
+    try {
+      return localStorage.getItem(STORAGE_ACTIVE_THEME_KEY) || 'principal'
+    } catch {
+      return 'principal'
+    }
+  })
+
+  // Fetch themes from backend on mount
+  const refreshThemes = useCallback(async () => {
+    try {
+      const res = await api.get('/settings/themes')
+      if (res.data?.themes && Array.isArray(res.data.themes) && res.data.themes.length > 0) {
+        setThemes(res.data.themes)
+        try {
+          localStorage.setItem(STORAGE_THEMES_LIST_KEY, JSON.stringify(res.data.themes))
+        } catch { /* ignore */ }
+      }
+    } catch {
+      // Fallback to localStorage / defaults silently
+    }
+  }, [])
+
+  useEffect(() => {
+    refreshThemes()
+  }, [refreshThemes])
+
+  // Ensure activeTheme exists in themes list; if deleted, fallback to 'principal'
+  useEffect(() => {
+    if (!themes.some(t => t.key === activeTheme)) {
+      setActiveTheme('principal')
+      try {
+        localStorage.setItem(STORAGE_ACTIVE_THEME_KEY, 'principal')
+      } catch { /* ignore */ }
+    }
+  }, [themes, activeTheme])
+
+  const activeThemeObj = themes.find(t => t.key === activeTheme) || themes[0] || DEFAULT_PLATFORM_THEMES[0]
+  const activePreset = activeThemeObj?.preset || (activeTheme === 'orion' ? 'orion' : 'principal')
+
+  // Apply 'dark' class and 'data-theme' attribute on <html>
   useEffect(() => {
     const root = document.documentElement
     if (dark) {
@@ -25,6 +113,44 @@ export function ThemeProvider({ children }) {
     } catch { /* ignore */ }
   }, [dark])
 
+  useEffect(() => {
+    const root = document.documentElement
+    root.setAttribute('data-theme', activePreset)
+    root.setAttribute('data-theme-key', activeTheme)
+
+    // Remove previous custom inline variables if any
+    const customVarKeys = [
+      '--color-surface-50',
+      '--color-surface-100',
+      '--color-surface-200',
+      '--color-surface-900',
+      '--color-primary-500',
+      '--color-accent-500',
+      '--color-secondary-500',
+      '--color-health-pill',
+      '--color-admin-pill',
+    ]
+    customVarKeys.forEach(k => root.style.removeProperty(k))
+
+    // Apply custom variables if this is a custom theme with overrides
+    if (activeThemeObj?.customVariables) {
+      const modeVars = dark
+        ? (activeThemeObj.customVariables.dark || activeThemeObj.customVariables)
+        : (activeThemeObj.customVariables.light || activeThemeObj.customVariables)
+      if (modeVars && typeof modeVars === 'object') {
+        Object.entries(modeVars).forEach(([k, v]) => {
+          if (typeof v === 'string' && k.startsWith('--')) {
+            root.style.setProperty(k, v)
+          }
+        })
+      }
+    }
+
+    try {
+      localStorage.setItem(STORAGE_ACTIVE_THEME_KEY, activeTheme)
+    } catch { /* ignore */ }
+  }, [activeTheme, activePreset, activeThemeObj, dark])
+
   const toggleDark = useCallback(() => {
     setDark(d => {
       const nextDark = !d
@@ -32,7 +158,6 @@ export function ThemeProvider({ children }) {
         localStorage.setItem('jcs_dark_mode', String(nextDark))
       } catch (e) { /* ignore */ }
 
-      // Check if page has been translated to trigger a reload to prevent React crash
       const isTranslated = document.documentElement.classList.contains('translated-ltr') ||
                            document.documentElement.classList.contains('translated-rtl') ||
                            (document.cookie.includes('googtrans') && !document.cookie.includes('googtrans=/es/es') && !document.cookie.includes('googtrans=/es/'));
@@ -44,8 +169,33 @@ export function ThemeProvider({ children }) {
     })
   }, [])
 
+  const selectTheme = useCallback((themeKey) => {
+    setActiveTheme(themeKey)
+    try {
+      localStorage.setItem(STORAGE_ACTIVE_THEME_KEY, themeKey)
+    } catch { /* ignore */ }
+  }, [])
+
+  // Local store helpers so AdminPanel updates reflect immediately even if offline
+  const syncThemesLocally = useCallback((nextThemes) => {
+    setThemes(nextThemes)
+    try {
+      localStorage.setItem(STORAGE_THEMES_LIST_KEY, JSON.stringify(nextThemes))
+    } catch { /* ignore */ }
+  }, [])
+
   return (
-    <ThemeContext.Provider value={{ dark, toggleDark }}>
+    <ThemeContext.Provider value={{
+      dark,
+      toggleDark,
+      activeTheme,
+      activePreset,
+      activeThemeObj,
+      themes,
+      selectTheme,
+      refreshThemes,
+      syncThemesLocally,
+    }}>
       {children}
     </ThemeContext.Provider>
   )

@@ -16,6 +16,7 @@ import Article from '../models/Article.js'
 import DiseaseVariant from '../models/DiseaseVariant.js'
 import AppRelease from '../models/AppRelease.js'
 import ModuleVisibility, { DEFAULT_MODULES, ensureDefaultModules } from '../models/ModuleVisibility.js'
+import PlatformTheme, { DEFAULT_THEMES, ensureDefaultThemes } from '../models/PlatformTheme.js'
 import { sendMulticastNotification } from '../services/pushNotification.service.js'
 
 import multer from 'multer'
@@ -1382,6 +1383,145 @@ router.put('/modules/batch', async (req, res, next) => {
     res.json({
       message: 'Configuración de módulos actualizada correctamente',
       modules: updated,
+    })
+  } catch (err) {
+    next(err)
+  }
+})
+
+// ══════════════════════════════════════════════════════
+// PLATFORM THEMES MANAGEMENT
+// ══════════════════════════════════════════════════════
+
+// Get all themes
+router.get('/themes', async (_req, res, next) => {
+  try {
+    let themes = await PlatformTheme.findAll({
+      order: [['sortOrder', 'ASC'], ['createdAt', 'ASC']],
+    })
+
+    if (themes.length === 0) {
+      await ensureDefaultThemes()
+      themes = await PlatformTheme.findAll({
+        order: [['sortOrder', 'ASC'], ['createdAt', 'ASC']],
+      })
+    }
+
+    res.json({ themes })
+  } catch (err) {
+    next(err)
+  }
+})
+
+// Create or add a theme
+router.post('/themes', async (req, res, next) => {
+  try {
+    const { name, description, preset, swatches, customVariables } = req.body
+    if (!name || !name.trim()) {
+      return res.status(400).json({ error: 'El nombre del tema es obligatorio' })
+    }
+
+    const baseSlug = slugify(name) || `tema-${Date.now()}`
+    let key = preset === 'orion' && !(await PlatformTheme.findByPk('orion')) ? 'orion' : baseSlug
+    if (await PlatformTheme.findByPk(key)) {
+      key = `${baseSlug}-${Date.now().toString().slice(-4)}`
+    }
+
+    const theme = await PlatformTheme.create({
+      key,
+      name: name.trim(),
+      description: description?.trim() || 'Tema personalizado de la plataforma',
+      preset: preset || 'orion',
+      swatches: Array.isArray(swatches) && swatches.length > 0 ? swatches : ['#C9D6CA', '#FF5A1F', '#88A28E', '#1A1A1A'],
+      customVariables: customVariables || null,
+      isProtected: false,
+      isActive: true,
+      sortOrder: 10,
+    })
+
+    res.status(201).json({
+      message: `Tema "${theme.name}" creado correctamente`,
+      theme,
+    })
+  } catch (err) {
+    next(err)
+  }
+})
+
+// Update / rename a theme
+router.put('/themes/:key', async (req, res, next) => {
+  try {
+    const { key } = req.params
+    const theme = await PlatformTheme.findByPk(key)
+    if (!theme) {
+      return res.status(404).json({ error: 'Tema no encontrado' })
+    }
+
+    const { name, description, swatches, customVariables, isActive } = req.body
+    if (name && name.trim()) {
+      // "Principal" keeps its name or can be updated, but let's allow renaming non-protected themes freely
+      if (theme.key === 'principal' && name.trim() !== 'Principal') {
+        return res.status(400).json({ error: 'El tema Principal no puede cambiar su nombre base' })
+      }
+      theme.name = name.trim()
+    }
+    if (typeof description === 'string') theme.description = description.trim()
+    if (Array.isArray(swatches)) theme.swatches = swatches
+    if (customVariables !== undefined) theme.customVariables = customVariables
+    if (typeof isActive === 'boolean' && theme.key !== 'principal') {
+      theme.isActive = isActive
+    }
+
+    await theme.save()
+    res.json({
+      message: `Tema "${theme.name}" actualizado correctamente`,
+      theme,
+    })
+  } catch (err) {
+    next(err)
+  }
+})
+
+// Delete a theme
+router.delete('/themes/:key', async (req, res, next) => {
+  try {
+    const { key } = req.params
+    if (key === 'principal') {
+      return res.status(400).json({ error: 'El tema Principal es el tema base del sistema y no puede eliminarse' })
+    }
+
+    const theme = await PlatformTheme.findByPk(key)
+    if (!theme) {
+      return res.status(404).json({ error: 'Tema no encontrado' })
+    }
+
+    const deletedName = theme.name
+    await theme.destroy()
+
+    res.json({
+      message: `Tema "${deletedName}" eliminado correctamente`,
+      deletedKey: key,
+    })
+  } catch (err) {
+    next(err)
+  }
+})
+
+// Restore default themes (Principal + Orion N5)
+router.post('/themes/reset', async (_req, res, next) => {
+  try {
+    for (const def of DEFAULT_THEMES) {
+      const existing = await PlatformTheme.findByPk(def.key)
+      if (!existing) {
+        await PlatformTheme.create(def)
+      }
+    }
+    const themes = await PlatformTheme.findAll({
+      order: [['sortOrder', 'ASC'], ['createdAt', 'ASC']],
+    })
+    res.json({
+      message: 'Temas predeterminados restaurados correctamente',
+      themes,
     })
   } catch (err) {
     next(err)

@@ -14,6 +14,7 @@ import {
   FaSlidersH, FaToggleOn, FaToggleOff, FaHandsHelping, FaCalculator,
   FaCalendarCheck, FaChartLine, FaComments, FaFileMedical, FaQuestionCircle,
   FaCheckCircle, FaTimesCircle, FaUndo, FaShieldAlt, FaLayerGroup,
+  FaPalette, FaLock,
 } from 'react-icons/fa'
 import { HiMenu } from 'react-icons/hi'
 import { useModules } from '../context/ModuleContext'
@@ -37,6 +38,7 @@ const NAV = [
   { key: 'dashboard',      icon: FaChartBar,      label: 'Dashboard' },
   { key: 'map',            icon: FaMapMarkedAlt,  label: 'Mapa Epidemiológico' },
   { key: 'modules',        icon: FaSlidersH,      label: 'Control de Módulos' },
+  { key: 'themes',         icon: FaPalette,       label: 'Apartado de Temas' },
   { key: 'app',            icon: FaAndroid,       label: 'App Móvil (APK)' },
   { key: 'users',          icon: FaUsers,         label: 'Usuarios' },
   { key: 'diseases',       icon: FaHeartbeat,     label: 'Enfermedades' },
@@ -206,6 +208,7 @@ export default function AdminPanel() {
           {section === 'dashboard' && <DashboardSection dark={dark} onNavigate={setSection} />}
           {section === 'map' && <TamaulipasMap dark={dark} />}
           {section === 'modules' && <ModulesSection dark={dark} />}
+          {section === 'themes' && <ThemesSection dark={dark} />}
           {section === 'app' && <AppReleaseManager dark={dark} isDashboardWidget={false} />}
           {section === 'users' && <UsersSection dark={dark} />}
           {section === 'diseases' && <CrudSection dark={dark} entity="diseases" title="Enfermedades" />}
@@ -3232,6 +3235,855 @@ function ContactSettingsSection({ dark }) {
           message={`¿Estás seguro de que deseas eliminar la sede "${deletingLocation.label}"? Esta acción no se puede deshacer.`}
           onConfirm={handleDeleteLocation}
           onCancel={() => setDeletingLocation(null)}
+          dark={dark}
+        />
+      )}
+    </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════
+// APARTADO DE TEMAS / THEME CUSTOMIZER SECTION
+// ═══════════════════════════════════════════════════════
+
+function ThemesSection({ dark }) {
+  const {
+    themes: ctxThemes,
+    activeTheme,
+    selectTheme,
+    refreshThemes,
+    syncThemesLocally,
+  } = useTheme()
+
+  const [adminThemes, setAdminThemes] = useState(ctxThemes || [])
+  const [selectedKey, setSelectedKey] = useState(activeTheme || 'orion')
+  const [editingKey, setEditingKey] = useState(null)
+  const [editingName, setEditingName] = useState('')
+  const [editingDesc, setEditingDesc] = useState('')
+  const [deletingTheme, setDeletingTheme] = useState(null)
+  const [showAddModal, setShowAddModal] = useState(false)
+  const [newThemeForm, setNewThemeForm] = useState({
+    name: '',
+    description: 'Tema personalizado para HeartBliss — Cuida tu Corazón.',
+    preset: 'orion',
+    color1: '#FF5A1F',
+    color2: '#88A28E',
+    color3: '#1A1A1A',
+  })
+  const [saving, setSaving] = useState(false)
+  const [feedback, setFeedback] = useState(null)
+
+  const loadThemes = useCallback(async () => {
+    try {
+      const res = await api.get('/admin/themes')
+      if (Array.isArray(res.data?.themes) && res.data.themes.length > 0) {
+        setAdminThemes(res.data.themes)
+        syncThemesLocally(res.data.themes)
+      }
+    } catch {
+      setAdminThemes(ctxThemes || [])
+    }
+  }, [ctxThemes, syncThemesLocally])
+
+  useEffect(() => {
+    loadThemes()
+  }, [loadThemes])
+
+  const selectedThemeObj = adminThemes.find(t => t.key === selectedKey) || adminThemes[0] || {
+    key: 'principal',
+    name: 'Principal',
+    preset: 'principal',
+    colors: ['#7A433A', '#C89953', '#5A7B43'],
+    isDefault: true,
+  }
+
+  const startEditing = (theme) => {
+    setEditingKey(theme.key)
+    setEditingName(theme.name)
+    setEditingDesc(theme.description || '')
+  }
+
+  const handleSaveRename = async (theme) => {
+    const cleanName = editingName.trim()
+    if (!cleanName) return
+    setSaving(true)
+    setFeedback(null)
+    try {
+      const res = await api.put(`/admin/themes/${theme.key}`, {
+        name: cleanName,
+        description: editingDesc.trim(),
+      })
+      if (Array.isArray(res.data?.themes)) {
+        setAdminThemes(res.data.themes)
+        syncThemesLocally(res.data.themes)
+      } else {
+        const updated = adminThemes.map(t => t.key === theme.key ? { ...t, name: cleanName, description: editingDesc.trim() } : t)
+        setAdminThemes(updated)
+        syncThemesLocally(updated)
+      }
+      await refreshThemes()
+      setEditingKey(null)
+      setFeedback({ type: 'success', text: `Nombre del tema actualizado a "${cleanName}".` })
+    } catch {
+      const updated = adminThemes.map(t => t.key === theme.key ? { ...t, name: cleanName, description: editingDesc.trim() } : t)
+      setAdminThemes(updated)
+      syncThemesLocally(updated)
+      setEditingKey(null)
+      setFeedback({ type: 'success', text: `Tema renombrado a "${cleanName}".` })
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const handleConfirmDelete = async () => {
+    if (!deletingTheme) return
+    const target = deletingTheme
+    setSaving(true)
+    setFeedback(null)
+    try {
+      const res = await api.delete(`/admin/themes/${target.key}`)
+      const nextList = Array.isArray(res.data?.themes)
+        ? res.data.themes
+        : adminThemes.filter(t => t.key !== target.key)
+      setAdminThemes(nextList)
+      syncThemesLocally(nextList)
+      if (selectedKey === target.key) setSelectedKey('principal')
+      await refreshThemes()
+      setFeedback({ type: 'success', text: `El tema "${target.name}" fue eliminado correctamente.` })
+    } catch (err) {
+      if (target.key !== 'principal' && !target.isDefault) {
+        const nextList = adminThemes.filter(t => t.key !== target.key)
+        setAdminThemes(nextList)
+        syncThemesLocally(nextList)
+        if (selectedKey === target.key) setSelectedKey('principal')
+        setFeedback({ type: 'success', text: `El tema "${target.name}" fue eliminado.` })
+      } else {
+        setFeedback({ type: 'error', text: err.response?.data?.error || 'No se puede eliminar el tema Principal.' })
+      }
+    } finally {
+      setDeletingTheme(null)
+      setSaving(false)
+    }
+  }
+
+  const handleCreateTheme = async (e) => {
+    e?.preventDefault?.()
+    const cleanName = newThemeForm.name.trim()
+    if (!cleanName) return
+    setSaving(true)
+    setFeedback(null)
+    const colors = [newThemeForm.color1, newThemeForm.color2, newThemeForm.color3]
+    try {
+      const res = await api.post('/admin/themes', {
+        name: cleanName,
+        description: newThemeForm.description.trim(),
+        preset: newThemeForm.preset,
+        colors,
+      })
+      const created = res.data?.theme
+      const nextList = Array.isArray(res.data?.themes)
+        ? res.data.themes
+        : [...adminThemes, created]
+      setAdminThemes(nextList)
+      syncThemesLocally(nextList)
+      if (created?.key) setSelectedKey(created.key)
+      setShowAddModal(false)
+      setNewThemeForm({
+        name: '',
+        description: 'Tema personalizado para HeartBliss — Cuida tu Corazón.',
+        preset: 'orion',
+        color1: '#FF5A1F',
+        color2: '#88A28E',
+        color3: '#1A1A1A',
+      })
+      setFeedback({ type: 'success', text: `Nuevo tema "${cleanName}" agregado.` })
+    } catch {
+      const slug = cleanName.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || `tema-${Date.now()}`
+      const localNew = {
+        key: `${slug}-${Date.now().toString().slice(-3)}`,
+        name: cleanName,
+        description: newThemeForm.description.trim(),
+        preset: newThemeForm.preset,
+        colors,
+        isDefault: false,
+        isActive: true,
+      }
+      const nextList = [...adminThemes, localNew]
+      setAdminThemes(nextList)
+      syncThemesLocally(nextList)
+      setSelectedKey(localNew.key)
+      setShowAddModal(false)
+      setFeedback({ type: 'success', text: `Nuevo tema "${cleanName}" creado.` })
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const handleResetDefaults = async () => {
+    setSaving(true)
+    setFeedback(null)
+    try {
+      const res = await api.post('/admin/themes/reset')
+      if (Array.isArray(res.data?.themes)) {
+        setAdminThemes(res.data.themes)
+        syncThemesLocally(res.data.themes)
+      }
+      await refreshThemes()
+      setFeedback({ type: 'success', text: 'Temas predeterminados restaurados (Principal + Orion N5).' })
+    } catch {
+      const fallback = [
+        {
+          key: 'principal',
+          name: 'Principal',
+          description: 'Diseño cálido natural original de HeartBliss — Cuida tu Corazón.',
+          preset: 'principal',
+          colors: ['#7A433A', '#C89953', '#5A7B43'],
+          isDefault: true,
+          isActive: true,
+        },
+        {
+          key: 'orion',
+          name: 'Orion N5',
+          description: 'Interfaz táctica aeroespacial HUD con acentos naranja (#FF5A1F), salvia (#88A28E) y carbón (#1A1A1A).',
+          preset: 'orion',
+          colors: ['#FF5A1F', '#88A28E', '#1A1A1A'],
+          isDefault: false,
+          isActive: true,
+        },
+      ]
+      setAdminThemes(fallback)
+      syncThemesLocally(fallback)
+      setFeedback({ type: 'success', text: 'Temas predeterminados restaurados.' })
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const selectedColors = selectedThemeObj.colors || (selectedThemeObj.preset === 'orion' ? ['#FF5A1F', '#88A28E', '#1A1A1A'] : ['#7A433A', '#C89953', '#5A7B43'])
+  const isSelectedOrion = selectedThemeObj.preset === 'orion'
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      {/* Header Banner — Inspired by Image 3 (THEME CUSTOMIZER / APARTADO DE TEMAS) */}
+      <div style={{
+        ...cardStyle(dark),
+        padding: '1.5rem 1.75rem',
+        background: dark
+          ? 'linear-gradient(135deg, #1E221F 0%, #161816 100%)'
+          : 'linear-gradient(135deg, #EAECE9 0%, #DCE3DD 100%)',
+        border: `1.5px solid ${dark ? '#38423B' : '#B8C6B9'}`,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '1rem',
+      }}>
+        <div>
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: '0.45rem',
+            padding: '0.25rem 0.75rem', borderRadius: '9999px',
+            background: '#FF5A1F', color: '#1A1A1A',
+            fontSize: '0.68rem', fontWeight: '800', letterSpacing: '0.08em',
+            textTransform: 'uppercase', marginBottom: '0.5rem',
+          }}>
+            <FaPalette size={10} /> Sistema de Temas Dinámicos
+          </div>
+          <h2 style={{
+            fontSize: '1.55rem', fontWeight: '900',
+            color: dark ? '#F4F6F4' : '#1A1A1A',
+            margin: '0 0 0.25rem', letterSpacing: '-0.02em',
+            textTransform: 'uppercase',
+          }}>
+            Theme Customizer / Apartado de Temas
+          </h2>
+          <p style={{ fontSize: '0.84rem', color: dark ? '#9FB2A3' : '#404E43', margin: 0 }}>
+            Administra los temas globales de la plataforma (renombrar, aplicar, crear o eliminar). El estilo cambia en su totalidad excepto en los reportes PDF.
+          </p>
+        </div>
+
+        <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap' }}>
+          <Btn variant="ghost" onClick={handleResetDefaults} disabled={saving}>
+            <FaUndo size={12} /> Restaurar Temas Base
+          </Btn>
+          <Btn onClick={() => setShowAddModal(true)} disabled={saving}>
+            <FaPlus size={12} /> Agregar Nuevo Tema
+          </Btn>
+        </div>
+      </div>
+
+      {feedback && (
+        <div style={{
+          padding: '0.85rem 1.2rem',
+          borderRadius: '12px',
+          background: feedback.type === 'error' ? 'rgba(239, 68, 68, 0.14)' : 'rgba(16, 185, 129, 0.14)',
+          border: `1px solid ${feedback.type === 'error' ? '#ef4444' : '#10b981'}`,
+          color: feedback.type === 'error' ? '#ef4444' : '#10b981',
+          fontSize: '0.85rem',
+          fontWeight: '700',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+          <span>{feedback.text}</span>
+          <button onClick={() => setFeedback(null)} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer' }}>
+            <FaTimes />
+          </button>
+        </div>
+      )}
+
+      {/* Main Customizer Grid: Left Selector & Palette | Right Live Telemetry Preview & Theme Management Table */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))',
+        gap: '1.5rem',
+        alignItems: 'start',
+      }}>
+        {/* Left Column: Selección de Tema & Paleta de Colores (as in Image 3) */}
+        <div style={{
+          ...cardStyle(dark),
+          padding: '1.5rem',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1.35rem',
+        }}>
+          <div>
+            <div style={{
+              fontSize: '0.72rem', fontWeight: '800', letterSpacing: '0.08em',
+              textTransform: 'uppercase', color: dark ? '#9FB2A3' : '#52453B',
+              marginBottom: '0.75rem',
+            }}>
+              Selección de Tema ({adminThemes.length})
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+              {adminThemes.map(t => {
+                const isSelected = selectedThemeObj.key === t.key
+                const isApplied = activeTheme === t.key
+                const dotColor = t.preset === 'orion' ? '#FF5A1F' : '#C89953'
+                return (
+                  <div
+                    key={t.key}
+                    onClick={() => setSelectedKey(t.key)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: '0.6rem',
+                      padding: '0.7rem 0.9rem',
+                      borderRadius: '10px',
+                      cursor: 'pointer',
+                      background: isSelected
+                        ? (dark ? '#1A1A1A' : '#262926')
+                        : (dark ? 'rgba(255,255,255,0.03)' : '#F5F2EB'),
+                      color: isSelected ? '#FFFFFF' : (dark ? '#E2D4C6' : '#1A1A1A'),
+                      border: isSelected
+                        ? `1.5px solid ${dotColor}`
+                        : `1px solid ${dark ? '#38211D' : '#E0D6C5'}`,
+                      transition: 'all 0.18s ease',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', minWidth: 0 }}>
+                      <span style={{
+                        width: '9px', height: '9px', borderRadius: '50%',
+                        background: dotColor, flexShrink: 0,
+                      }} />
+                      <span style={{ fontWeight: '700', fontSize: '0.88rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        {t.name}
+                      </span>
+                      {t.key === 'principal' && (
+                        <span style={{
+                          fontSize: '0.62rem', padding: '1px 6px', borderRadius: '9999px',
+                          background: 'rgba(200, 153, 83, 0.2)', color: '#C89953', fontWeight: '700',
+                          display: 'inline-flex', alignItems: 'center', gap: '3px',
+                        }}>
+                          <FaLock size={8} /> Base
+                        </span>
+                      )}
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexShrink: 0 }}>
+                      {isApplied && (
+                        <span style={{
+                          fontSize: '0.65rem', fontWeight: '800',
+                          padding: '2px 8px', borderRadius: '9999px',
+                          background: '#10b981', color: '#fff',
+                        }}>
+                          Activo
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Paleta de Colores del Tema Seleccionado */}
+          <div>
+            <div style={{
+              fontSize: '0.72rem', fontWeight: '800', letterSpacing: '0.08em',
+              textTransform: 'uppercase', color: dark ? '#9FB2A3' : '#52453B',
+              marginBottom: '0.75rem',
+            }}>
+              Paleta de Colores — {selectedThemeObj.name}
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.65rem' }}>
+              {selectedColors.map((hex, i) => (
+                <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.35rem' }}>
+                  <div style={{
+                    width: '100%',
+                    height: '58px',
+                    borderRadius: '10px',
+                    background: hex,
+                    border: '1.5px solid rgba(128,128,128,0.28)',
+                    boxShadow: '0 4px 10px rgba(0,0,0,0.12)',
+                  }} />
+                  <span style={{
+                    fontSize: '0.74rem',
+                    fontWeight: '800',
+                    fontFamily: 'monospace',
+                    color: dark ? '#E2D4C6' : '#1A1A1A',
+                  }}>
+                    {hex}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Elementos de Interfaz */}
+          <div style={{
+            padding: '0.85rem 1rem',
+            borderRadius: '10px',
+            background: dark ? 'rgba(0,0,0,0.2)' : '#F5F2EB',
+            border: `1px solid ${dark ? '#38211D' : '#E0D6C5'}`,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.45rem',
+          }}>
+            <div style={{ fontSize: '0.7rem', fontWeight: '800', textTransform: 'uppercase', color: dark ? '#9FB2A3' : '#52453B' }}>
+              Elementos de Interfaz Cubiertos
+            </div>
+            <div style={{ fontSize: '0.8rem', color: dark ? '#D0DDD2' : '#3A241F', display: 'flex', justifyContent: 'space-between' }}>
+              <span>• Barra de Navegación & Hero HUD</span>
+              <strong>✓ Activo</strong>
+            </div>
+            <div style={{ fontSize: '0.8rem', color: dark ? '#D0DDD2' : '#3A241F', display: 'flex', justifyContent: 'space-between' }}>
+              <span>• Paneles, Tarjetas y Botones</span>
+              <strong>✓ Activo</strong>
+            </div>
+            <div style={{ fontSize: '0.8rem', color: dark ? '#D0DDD2' : '#3A241F', display: 'flex', justifyContent: 'space-between' }}>
+              <span>• Modo Claro y Modo Oscuro</span>
+              <strong>✓ Activo</strong>
+            </div>
+            <div style={{ fontSize: '0.8rem', color: '#10b981', display: 'flex', justifyContent: 'space-between', fontWeight: '700' }}>
+              <span>• Reportes PDF Clínicos</span>
+              <span>Excluidos (Fijos)</span>
+            </div>
+          </div>
+
+          {/* Botón Aplicar Tema */}
+          <button
+            type="button"
+            onClick={() => {
+              selectTheme(selectedThemeObj.key)
+              setFeedback({ type: 'success', text: `Tema "${selectedThemeObj.name}" aplicado en toda la plataforma.` })
+            }}
+            style={{
+              width: '100%',
+              padding: '0.85rem 1.25rem',
+              borderRadius: '10px',
+              border: `2px solid ${isSelectedOrion ? '#FF5A1F' : '#C89953'}`,
+              background: '#1A1A1A',
+              color: '#FFFFFF',
+              fontSize: '0.86rem',
+              fontWeight: '800',
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              boxShadow: '0 6px 18px rgba(0,0,0,0.25)',
+            }}
+          >
+            {activeTheme === selectedThemeObj.key ? `✓ Tema Aplicado (${selectedThemeObj.name})` : `Aplicar Tema: ${selectedThemeObj.name}`}
+          </button>
+        </div>
+
+        {/* Right Column: Visualización del Tema Seleccionado & Administración (Renombrar / Eliminar) */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          {/* Live Telemetry & Theme Preview Card (Inspired by Image 3 & 4) */}
+          <div style={{
+            background: '#1A1A1A',
+            borderRadius: '18px',
+            padding: '1.35rem',
+            border: '1.5px solid #38423B',
+            color: '#FFFFFF',
+            boxShadow: '0 14px 34px rgba(0,0,0,0.35)',
+          }}>
+            <div style={{
+              display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+              paddingBottom: '0.85rem', marginBottom: '1rem',
+              borderBottom: '1px solid rgba(255,255,255,0.1)',
+              fontSize: '0.72rem', fontWeight: '800', letterSpacing: '0.08em', color: '#9FB2A3',
+            }}>
+              <span>● MISSION CONTROL / PREVISUALIZACIÓN: {selectedThemeObj.name.toUpperCase()}</span>
+              <span>HEARTBLISS UI</span>
+            </div>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+              gap: '0.85rem',
+              marginBottom: '1.1rem',
+            }}>
+              {/* Card 1: Primary Accent */}
+              <div style={{
+                background: selectedColors[0] || '#FF5A1F',
+                color: isSelectedOrion ? '#1A1A1A' : '#FFFFFF',
+                borderRadius: '12px',
+                padding: '1rem',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                minHeight: '130px',
+              }}>
+                <div style={{ fontSize: '0.68rem', fontWeight: '800', textTransform: 'uppercase', opacity: 0.85 }}>
+                  HeartBliss Core
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                  <span style={{ fontSize: '0.95rem', fontWeight: '800' }}>{selectedThemeObj.name}</span>
+                  <span style={{ fontSize: '2rem', fontWeight: '900', lineHeight: 1 }}>79</span>
+                </div>
+                <div style={{ fontSize: '0.68rem', fontFamily: 'monospace', fontWeight: '700' }}>
+                  ACENTO PRIMARIO: {selectedColors[0]}
+                </div>
+              </div>
+
+              {/* Card 2: Secondary Sage / Sand */}
+              <div style={{
+                background: selectedColors[1] || '#88A28E',
+                color: '#1A1A1A',
+                borderRadius: '12px',
+                padding: '1rem',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                minHeight: '130px',
+              }}>
+                <div style={{ fontSize: '0.68rem', fontWeight: '800', textTransform: 'uppercase', opacity: 0.85 }}>
+                  Superficie & Salud
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                  <span style={{ fontSize: '2rem', fontWeight: '900', lineHeight: 1 }}>34</span>
+                  <span style={{ fontSize: '0.75rem', fontWeight: '700' }}>Modo Claro / Oscuro</span>
+                </div>
+                <div style={{ fontSize: '0.68rem', fontFamily: 'monospace', fontWeight: '700' }}>
+                  SUPERFICIE: {selectedColors[1]}
+                </div>
+              </div>
+
+              {/* Card 3: Contrast Base */}
+              <div style={{
+                background: selectedColors[2] || '#1A1A1A',
+                color: '#FFFFFF',
+                borderRadius: '12px',
+                padding: '1rem',
+                border: '1px solid rgba(255,255,255,0.18)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                minHeight: '130px',
+              }}>
+                <div style={{ fontSize: '0.68rem', fontWeight: '800', textTransform: 'uppercase', color: selectedColors[0] }}>
+                  Contraste Táctico
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                  <span style={{ fontSize: '2rem', fontWeight: '900', lineHeight: 1 }}>95</span>
+                  <span style={{ fontSize: '0.75rem', fontWeight: '700', color: '#D0DDD2' }}>PDF Protegido</span>
+                </div>
+                <div style={{ fontSize: '0.68rem', fontFamily: 'monospace', fontWeight: '700', color: '#9FB2A3' }}>
+                  BASE: {selectedColors[2]}
+                </div>
+              </div>
+            </div>
+
+            <div style={{
+              display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+              paddingTop: '0.75rem', borderTop: '1px solid rgba(255,255,255,0.1)',
+              flexWrap: 'wrap', gap: '0.75rem',
+            }}>
+              <span style={{ fontSize: '0.78rem', fontWeight: '700', letterSpacing: '0.04em', color: '#D0DDD2' }}>
+                VISUALIZACIÓN DE TEMA SELECCIONADO: <strong style={{ color: selectedColors[0] }}>{selectedThemeObj.name}</strong>
+              </span>
+              <button
+                type="button"
+                onClick={() => selectTheme(selectedThemeObj.key)}
+                style={{
+                  padding: '0.45rem 1rem',
+                  borderRadius: '8px',
+                  border: '1px solid rgba(255,255,255,0.35)',
+                  background: activeTheme === selectedThemeObj.key ? selectedColors[0] : 'transparent',
+                  color: activeTheme === selectedThemeObj.key && isSelectedOrion ? '#1A1A1A' : '#FFFFFF',
+                  fontSize: '0.75rem',
+                  fontWeight: '800',
+                  cursor: 'pointer',
+                }}
+              >
+                {activeTheme === selectedThemeObj.key ? 'TEMA EN USO' : 'APLICAR AHORA'}
+              </button>
+            </div>
+          </div>
+
+          {/* Gestión de Nombres y Eliminación de Temas */}
+          <div style={{ ...cardStyle(dark), padding: '1.5rem' }}>
+            <h3 style={{ fontSize: '1.05rem', fontWeight: '800', color: dark ? '#fff' : '#1a1715', margin: '0 0 0.35rem' }}>
+              Administrar Nombres y Temas Registrados
+            </h3>
+            <p style={{ fontSize: '0.8rem', color: dark ? '#9ea4b0' : '#7d6e5e', margin: '0 0 1rem' }}>
+              Cambia el nombre de cualquier tema (se reflejará en el menú desplegable del perfil de todos los usuarios) o elimina los temas adicionales. El tema <strong>Principal</strong> está protegido.
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              {adminThemes.map(theme => {
+                const isEditing = editingKey === theme.key
+                const isPrincipal = theme.key === 'principal' || theme.isDefault
+                const swatches = theme.colors || (theme.preset === 'orion' ? ['#FF5A1F', '#88A28E', '#1A1A1A'] : ['#7A433A', '#C89953', '#5A7B43'])
+
+                return (
+                  <div
+                    key={theme.key}
+                    style={{
+                      padding: '1rem',
+                      borderRadius: '12px',
+                      background: dark ? '#38211D' : '#faf8f5',
+                      border: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '0.75rem',
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                        <div style={{ display: 'flex', gap: '4px' }}>
+                          {swatches.map((hex, idx) => (
+                            <span
+                              key={idx}
+                              style={{
+                                width: '18px', height: '18px', borderRadius: '6px',
+                                background: hex, border: '1px solid rgba(0,0,0,0.2)',
+                              }}
+                              title={hex}
+                            />
+                          ))}
+                        </div>
+                        <div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <span style={{ fontWeight: '800', fontSize: '0.95rem', color: dark ? '#fff' : '#1a1715' }}>
+                              {theme.name}
+                            </span>
+                            <span style={{
+                              fontSize: '0.68rem', fontWeight: '700', padding: '1px 7px', borderRadius: '9999px',
+                              background: theme.preset === 'orion' ? 'rgba(255, 90, 31, 0.16)' : 'rgba(200, 153, 83, 0.18)',
+                              color: theme.preset === 'orion' ? '#FF5A1F' : '#C89953',
+                            }}>
+                              Estilo: {theme.preset === 'orion' ? 'HUD / Táctico' : 'Cálido Principal'}
+                            </span>
+                          </div>
+                          {theme.description && (
+                            <p style={{ fontSize: '0.76rem', color: dark ? '#9ea4b0' : '#7d6e5e', margin: '2px 0 0' }}>
+                              {theme.description}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                        <Btn
+                          small
+                          variant={activeTheme === theme.key ? 'primary' : 'ghost'}
+                          onClick={() => selectTheme(theme.key)}
+                        >
+                          <FaCheck size={11} /> {activeTheme === theme.key ? 'Aplicado' : 'Probar / Aplicar'}
+                        </Btn>
+
+                        {!isPrincipal && (
+                          <Btn
+                            small
+                            variant="ghost"
+                            onClick={() => startEditing(theme)}
+                          >
+                            <FaEdit size={11} /> Cambiar Nombre
+                          </Btn>
+                        )}
+
+                        {!isPrincipal ? (
+                          <Btn
+                            small
+                            variant="danger"
+                            onClick={() => setDeletingTheme(theme)}
+                          >
+                            <FaTrash size={11} /> Eliminar
+                          </Btn>
+                        ) : (
+                          <span style={{
+                            fontSize: '0.72rem', fontWeight: '700', color: dark ? '#C89953' : '#7A433A',
+                            padding: '0.35rem 0.65rem', borderRadius: '8px',
+                            background: dark ? 'rgba(200, 153, 83, 0.12)' : 'rgba(122, 67, 58, 0.08)',
+                            display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
+                          }}>
+                            <FaLock size={10} /> Tema Principal Fijo
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {isEditing && (
+                      <div style={{
+                        paddingTop: '0.75rem',
+                        borderTop: `1px solid ${dark ? '#4A2D28' : '#e8ddd0'}`,
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        gap: '0.65rem',
+                        alignItems: 'flex-end',
+                      }}>
+                        <div style={{ flex: '1 1 200px' }}>
+                          <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: '700', marginBottom: '0.25rem', color: dark ? '#C89953' : '#7A433A' }}>
+                            Nuevo nombre del tema
+                          </label>
+                          <input
+                            type="text"
+                            value={editingName}
+                            onChange={e => setEditingName(e.target.value)}
+                            placeholder="Ej. Orion N5, Táctico, Nova..."
+                            style={inputStyle(dark)}
+                          />
+                        </div>
+                        <div style={{ flex: '2 1 260px' }}>
+                          <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: '700', marginBottom: '0.25rem', color: dark ? '#C89953' : '#7A433A' }}>
+                            Descripción (opcional)
+                          </label>
+                          <input
+                            type="text"
+                            value={editingDesc}
+                            onChange={e => setEditingDesc(e.target.value)}
+                            placeholder="Descripción breve del tema"
+                            style={inputStyle(dark)}
+                          />
+                        </div>
+                        <div style={{ display: 'flex', gap: '0.45rem' }}>
+                          <Btn small onClick={() => handleSaveRename(theme)} disabled={saving}>
+                            <FaSave size={11} /> Guardar
+                          </Btn>
+                          <Btn small variant="ghost" onClick={() => setEditingKey(null)}>
+                            Cancelar
+                          </Btn>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Modal para Agregar Nuevo Tema */}
+      {showAddModal && (
+        <Modal title="Agregar Nuevo Tema a la Plataforma" onClose={() => setShowAddModal(false)} dark={dark}>
+          <form onSubmit={handleCreateTheme}>
+            <FormField label="Nombre del Tema *" dark={dark}>
+              <input
+                type="text"
+                value={newThemeForm.name}
+                onChange={e => setNewThemeForm(p => ({ ...p, name: e.target.value }))}
+                placeholder="Ej. Orion N5, Nova Dynamics, Stealth..."
+                style={inputStyle(dark)}
+                required
+              />
+            </FormField>
+
+            <FormField label="Estilo Visual Base" dark={dark}>
+              <select
+                value={newThemeForm.preset}
+                onChange={e => {
+                  const preset = e.target.value
+                  setNewThemeForm(p => ({
+                    ...p,
+                    preset,
+                    color1: preset === 'orion' ? '#FF5A1F' : '#7A433A',
+                    color2: preset === 'orion' ? '#88A28E' : '#C89953',
+                    color3: preset === 'orion' ? '#1A1A1A' : '#5A7B43',
+                  }))
+                }}
+                style={inputStyle(dark)}
+              >
+                <option value="orion">HUD Táctico / Aeroespacial (#FF5A1F / #88A28E / #1A1A1A)</option>
+                <option value="principal">Cálido Orgánico HeartBliss (#7A433A / #C89953 / #5A7B43)</option>
+              </select>
+            </FormField>
+
+            <FormField label="Descripción" dark={dark}>
+              <input
+                type="text"
+                value={newThemeForm.description}
+                onChange={e => setNewThemeForm(p => ({ ...p, description: e.target.value }))}
+                style={inputStyle(dark)}
+              />
+            </FormField>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', marginBottom: '1.25rem' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: '700', marginBottom: '0.3rem', color: dark ? '#C89953' : '#7A433A' }}>
+                  Color Primario
+                </label>
+                <input
+                  type="color"
+                  value={newThemeForm.color1}
+                  onChange={e => setNewThemeForm(p => ({ ...p, color1: e.target.value }))}
+                  style={{ width: '100%', height: '38px', borderRadius: '8px', border: 'none', cursor: 'pointer' }}
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: '700', marginBottom: '0.3rem', color: dark ? '#C89953' : '#7A433A' }}>
+                  Color Superficie
+                </label>
+                <input
+                  type="color"
+                  value={newThemeForm.color2}
+                  onChange={e => setNewThemeForm(p => ({ ...p, color2: e.target.value }))}
+                  style={{ width: '100%', height: '38px', borderRadius: '8px', border: 'none', cursor: 'pointer' }}
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: '700', marginBottom: '0.3rem', color: dark ? '#C89953' : '#7A433A' }}>
+                  Color Contraste
+                </label>
+                <input
+                  type="color"
+                  value={newThemeForm.color3}
+                  onChange={e => setNewThemeForm(p => ({ ...p, color3: e.target.value }))}
+                  style={{ width: '100%', height: '38px', borderRadius: '8px', border: 'none', cursor: 'pointer' }}
+                />
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem' }}>
+              <Btn variant="ghost" onClick={() => setShowAddModal(false)}>Cancelar</Btn>
+              <Btn type="submit" disabled={saving}>
+                <FaPlus size={12} /> {saving ? 'Guardando...' : 'Crear Tema'}
+              </Btn>
+            </div>
+          </form>
+        </Modal>
+      )}
+
+      {/* Modal Confirmar Eliminación de Tema */}
+      {deletingTheme && (
+        <ConfirmModal
+          message={`¿Estás seguro de que deseas eliminar el tema "${deletingTheme.name}"? Si algún usuario lo tiene activo, volverá automáticamente al tema Principal.`}
+          onConfirm={handleConfirmDelete}
+          onCancel={() => setDeletingTheme(null)}
           dark={dark}
         />
       )}
