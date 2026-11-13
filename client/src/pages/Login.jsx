@@ -8,10 +8,13 @@ import logoLight from '../assets/logo-light.png'
 import logoDark from '../assets/logo-dark.png'
 import logoOrionLight from '../assets/logo-orion-light.png'
 import logoOrionDark from '../assets/logo-orion-dark.png'
+import logoYakusaLight from '../assets/logo-yakusa-light.png'
+import logoYakusaDark from '../assets/logo-yakusa-dark.png'
 
 export default function Login() {
   const { dark, activePreset } = useTheme()
   const isOrion = activePreset === 'orion'
+  const isYakusa = activePreset === 'yakusa'
 
   const [showPassword, setShowPassword] = useState(false)
   const [apiError, setApiError] = useState('')
@@ -56,8 +59,8 @@ export default function Login() {
       }}>
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <img src={isOrion ? (dark ? logoOrionDark : logoOrionLight) : (dark ? logoDark : logoLight)} alt="HeartBliss — Cuida tu Corazón" style={{
-            height: isOrion ? '110px' : '82px',
+          <img src={isOrion ? (dark ? logoOrionDark : logoOrionLight) : isYakusa ? (dark ? logoYakusaDark : logoYakusaLight) : (dark ? logoDark : logoLight)} alt="HeartBliss — Cuida tu Corazón" style={{
+            height: isOrion || isYakusa ? '115px' : '82px',
             width: 'auto',
             maxWidth: '180px',
             margin: '0 auto 1rem',

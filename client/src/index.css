@@ -1704,3 +1704,178 @@ html[data-theme="orion"] [style*="color: rgb(122, 67, 58)"] {
     #1A1A1A 6px
   );
 }
+
+/* ================================================================
+   THEME 3: YAKUSA (Sakura de Día & Yozakura de Noche — Tema Japonés)
+   Modo Claro: #FFF3F3, #FAD5D5, #D14D6B, #3C1C22, #EAA05E, #789048
+   Modo Oscuro: #1D1120, #2D1A33, #FF3D73, #FFD4E5, #F8B14B, #52A65E
+   ================================================================ */
+
+html[data-theme="yakusa"]:not(.dark) {
+  /* Superficies Modo Claro — Sakura de Día (#FFF3F3 y #FAD5D5) */
+  --color-surface-50: #FFF3F3;
+  --color-surface-100: #FAD5D5;
+  --color-surface-200: #F2BFC2;
+  --color-surface-300: #EAA05E;
+  --color-surface-400: #B3707A;
+  --color-surface-500: #874753;
+  --color-surface-600: #66313B;
+  --color-surface-700: #4F242C;
+  --color-surface-800: #3C1C22;
+  --color-surface-900: #3C1C22;
+
+  /* Primario y Acento — Rosa Cerezo (#D14D6B), Dorado (#EAA05E) y Hojas (#789048) */
+  --color-primary-50: #FFF3F3;
+  --color-primary-100: #FAD5D5;
+  --color-primary-200: #F4B3BE;
+  --color-primary-300: #EA869A;
+  --color-primary-400: #DE6780;
+  --color-primary-500: #D14D6B;
+  --color-primary-600: #B83A57;
+  --color-primary-700: #962B44;
+  --color-primary-800: #6E1F32;
+  --color-primary-900: #3C1C22;
+
+  --color-accent-50: #FFF7EE;
+  --color-accent-100: #FDE8D0;
+  --color-accent-200: #F7CFA3;
+  --color-accent-300: #F0B679;
+  --color-accent-400: #EAA05E;
+  --color-accent-500: #D14D6B;
+  --color-accent-600: #B83A57;
+  --color-accent-700: #3C1C22;
+
+  --color-secondary-500: #789048;
+  --color-secondary-600: #617638;
+  --color-health-pill: #FAD5D5;
+  --color-admin-pill: #D14D6B;
+  --color-success: #789048;
+  --color-warning: #EAA05E;
+  --color-error: #D14D6B;
+
+  --shadow-card: 0 4px 16px rgba(60, 28, 34, 0.08), 0 1px 4px rgba(209, 77, 107, 0.08);
+  --shadow-elevated: 0 14px 32px rgba(60, 28, 34, 0.14);
+  --shadow-glow: 0 8px 24px rgba(209, 77, 107, 0.32);
+
+  --hero-gradient: linear-gradient(135deg, #FFF3F3 0%, #FCE4E4 55%, #FAD5D5 100%);
+  --cta-gradient: linear-gradient(135deg, #D14D6B 0%, #7A283B 55%, #3C1C22 100%);
+  --institutions-gradient: linear-gradient(135deg, #3C1C22 0%, #2A1217 100%);
+}
+
+html[data-theme="yakusa"].dark {
+  /* Superficies Modo Oscuro — Yozakura de Noche (#1D1120 y #2D1A33) */
+  --color-surface-50: #1D1120;
+  --color-surface-100: #2D1A33;
+  --color-surface-200: #3D2445;
+  --color-surface-300: #573463;
+  --color-surface-400: #8B5E99;
+  --color-surface-500: #C493B8;
+  --color-surface-600: #E3B4CE;
+  --color-surface-700: #F5C6DD;
+  --color-surface-800: #FFD4E5;
+  --color-surface-900: #FFD4E5;
+
+  /* Primario y Acento — Rosa Yozakura (#FF3D73), Dorado (#F8B14B) y Hojas (#52A65E) */
+  --color-primary-50: #2D1A33;
+  --color-primary-100: #421D38;
+  --color-primary-200: #662448;
+  --color-primary-300: #FF85A6;
+  --color-primary-400: #FF5C8A;
+  --color-primary-500: #FF3D73;
+  --color-primary-600: #E62E62;
+  --color-primary-700: #C21F4E;
+  --color-primary-800: #FFD4E5;
+  --color-primary-900: #FFFFFF;
+
+  --color-accent-50: #2B2018;
+  --color-accent-100: #3D2B1D;
+  --color-accent-200: #614326;
+  --color-accent-300: #F8B14B;
+  --color-accent-400: #F8B14B;
+  --color-accent-500: #FF3D73;
+  --color-accent-600: #F8B14B;
+
+  --color-secondary-500: #52A65E;
+  --color-secondary-600: #68BC74;
+  --color-health-pill: #F8B14B;
+  --color-admin-pill: #FF3D73;
+  --color-success: #52A65E;
+  --color-warning: #F8B14B;
+  --color-error: #FF3D73;
+
+  --shadow-card: 0 4px 20px rgba(12, 6, 15, 0.65);
+  --shadow-elevated: 0 14px 36px rgba(12, 6, 15, 0.85);
+  --shadow-glow: 0 0 28px rgba(255, 61, 115, 0.48);
+
+  --hero-gradient: linear-gradient(135deg, #1D1120 0%, #2D1A33 55%, #1D1120 100%);
+  --cta-gradient: linear-gradient(135deg, #2D1A33 0%, #4A1936 55%, #1D1120 100%);
+  --institutions-gradient: linear-gradient(135deg, #170D1A 0%, #2D1A33 100%);
+}
+
+html[data-theme="yakusa"]:not(.dark) body {
+  background-color: #FFF3F3 !important;
+  color: #3C1C22 !important;
+}
+
+html[data-theme="yakusa"].dark body {
+  background-color: #1D1120 !important;
+  color: #FFD4E5 !important;
+}
+
+/* Navbar Glass en tema Yakusa */
+html[data-theme="yakusa"]:not(.dark) .glass {
+  background: rgba(255, 243, 243, 0.94) !important;
+  border-bottom: 1.5px solid #F2BFC2 !important;
+}
+
+html[data-theme="yakusa"].dark .glass {
+  background: rgba(29, 17, 32, 0.94) !important;
+  border-bottom: 1.5px solid rgba(248, 177, 75, 0.28) !important;
+}
+
+/* Superficies y tarjetas en tema Yakusa */
+html[data-theme="yakusa"]:not(.dark) div[style*="background: white"],
+html[data-theme="yakusa"]:not(.dark) div[style*="background: 'white'"],
+html[data-theme="yakusa"]:not(.dark) div[style*="background: rgb(255, 255, 255)"],
+html[data-theme="yakusa"]:not(.dark) div[style*="background: #ffffff"],
+html[data-theme="yakusa"]:not(.dark) div[style*="background: #fff"],
+html[data-theme="yakusa"]:not(.dark) div[style*="background-color: white"],
+html[data-theme="yakusa"]:not(.dark) div[style*="background-color: rgb(255, 255, 255)"],
+html[data-theme="yakusa"]:not(.dark) div[style*="background-color: #ffffff"] {
+  background: #FFF8F8 !important;
+  background-color: #FFF8F8 !important;
+  border-color: #FAD5D5 !important;
+}
+
+html[data-theme="yakusa"].dark div[style*="background: #2B1815"],
+html[data-theme="yakusa"].dark div[style*="background: rgb(43, 24, 21)"] {
+  background: #2D1A33 !important;
+  border-color: #42264A !important;
+}
+
+html[data-theme="yakusa"]:not(.dark) input,
+html[data-theme="yakusa"]:not(.dark) select,
+html[data-theme="yakusa"]:not(.dark) textarea {
+  background-color: #FFF9F9 !important;
+  color: #3C1C22 !important;
+  border-color: #F2BFC2 !important;
+}
+
+html[data-theme="yakusa"].dark input,
+html[data-theme="yakusa"].dark select,
+html[data-theme="yakusa"].dark textarea {
+  background-color: #2D1A33 !important;
+  color: #FFD4E5 !important;
+  border-color: #573463 !important;
+}
+
+html[data-theme="yakusa"]:not(.dark) [style*="color: #7A433A"],
+html[data-theme="yakusa"]:not(.dark) [style*="color:#7A433A"],
+html[data-theme="yakusa"]:not(.dark) [style*="color: rgb(122, 67, 58)"] {
+  color: #D14D6B !important;
+}
+
+html[data-theme="yakusa"].dark [style*="color: #C89953"],
+html[data-theme="yakusa"].dark [style*="color:#C89953"] {
+  color: #FF3D73 !important;
+}

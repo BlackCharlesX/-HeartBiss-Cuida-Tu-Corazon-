@@ -2,10 +2,14 @@ import { Link } from 'react-router-dom'
 import { FaHeartbeat, FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa'
 import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi'
 import { useModules } from '../../context/ModuleContext'
+import { useTheme } from '../../context/ThemeContext'
 import heartEmblem from '../../assets/heart-emblem.png'
+import heartEmblemYakusa from '../../assets/heart-emblem-yakusa.png'
 
 export default function Footer() {
   const { isModuleEnabled } = useModules()
+  const { activePreset } = useTheme()
+  const isYakusa = activePreset === 'yakusa'
 
   const footerLinks = [
     { to: '/enfermedades', label: 'Enfermedades Crónicas', key: 'diseases' },
@@ -32,7 +36,7 @@ export default function Footer() {
           {/* About */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1rem' }}>
-              <img src={heartEmblem} alt="Cuida tu Corazón" style={{ width: '44px', height: '32px', objectFit: 'contain' }} />
+              <img src={isYakusa ? heartEmblemYakusa : heartEmblem} alt="Cuida tu Corazón" style={{ width: '44px', height: '32px', objectFit: 'contain' }} />
               <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.1 }}>
                 <span style={{ fontSize: '1.1rem', fontWeight: '800', color: '#C89953' }}>
                   Cuida tu Corazón

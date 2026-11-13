@@ -10,8 +10,10 @@ export const DEFAULT_PLATFORM_THEMES = [
     description: 'Diseño cálido natural HeartBliss — Crema suave (#F8F4EB), Cacao profundo (#3A241F), Dorado miel (#C89953) y Verde hoja (#5A7B43).',
     preset: 'principal',
     swatches: ['#F8F4EB', '#7A433A', '#C89953', '#5A7B43', '#1F1210'],
+    colors: ['#7A433A', '#C89953', '#5A7B43'],
     customVariables: null,
     isProtected: true,
+    isDefault: true,
     isActive: true,
     sortOrder: 1,
   },
@@ -21,15 +23,31 @@ export const DEFAULT_PLATFORM_THEMES = [
     description: 'Sistema táctico aeroespacial HUD (Nova Dynamics / ID350) — Verde salvia técnico (#C9D6CA / #88A28E), Naranja aeroespacial (#FF5A1F) y Carbón (#1A1A1A).',
     preset: 'orion',
     swatches: ['#C9D6CA', '#FF5A1F', '#88A28E', '#1A1A1A'],
+    colors: ['#FF5A1F', '#88A28E', '#1A1A1A'],
     customVariables: null,
     isProtected: false,
+    isDefault: false,
     isActive: true,
     sortOrder: 2,
+  },
+  {
+    key: 'yakusa',
+    name: 'Yakusa',
+    description: 'Tema Sakura / Japonés (Sakura de Día & Yozakura de Noche) — Rosa cerezo (#D14D6B / #FF3D73), Crema sakura (#FFF3F3 / #FAD5D5), Ciruela nocturno (#1D1120 / #2D1A33) y Dorado japonés (#EAA05E / #F8B14B).',
+    preset: 'yakusa',
+    swatches: ['#D14D6B', '#FAD5D5', '#3C1C22', '#FF3D73', '#1D1120', '#F8B14B'],
+    colors: ['#D14D6B', '#FAD5D5', '#3C1C22'],
+    customVariables: null,
+    isProtected: false,
+    isDefault: false,
+    isActive: true,
+    sortOrder: 3,
   },
 ]
 
 const STORAGE_THEMES_LIST_KEY = 'jcs_platform_themes_list'
 const STORAGE_ACTIVE_THEME_KEY = 'jcs_active_theme'
+const STORAGE_YAKUSA_SEEDED_KEY = 'jcs_yakusa_theme_seeded_v1'
 
 export function ThemeProvider({ children }) {
   // 1. Dark Mode state
@@ -45,16 +63,25 @@ export function ThemeProvider({ children }) {
   const [themes, setThemes] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_THEMES_LIST_KEY)
+      const yakusaSeeded = localStorage.getItem(STORAGE_YAKUSA_SEEDED_KEY) === 'true'
       if (saved) {
-        const parsed = JSON.parse(saved)
+        let parsed = JSON.parse(saved)
         if (Array.isArray(parsed) && parsed.length > 0) {
           // Ensure 'principal' is always present
           if (!parsed.some(t => t.key === 'principal')) {
-            return [DEFAULT_PLATFORM_THEMES[0], ...parsed]
+            parsed = [DEFAULT_PLATFORM_THEMES[0], ...parsed]
+          }
+          // Auto-seed 'yakusa' once if upgrading from an earlier local cache
+          if (!yakusaSeeded && !parsed.some(t => t.key === 'yakusa')) {
+            const yakusaTheme = DEFAULT_PLATFORM_THEMES.find(t => t.key === 'yakusa')
+            if (yakusaTheme) parsed = [...parsed, yakusaTheme]
+            localStorage.setItem(STORAGE_YAKUSA_SEEDED_KEY, 'true')
+            localStorage.setItem(STORAGE_THEMES_LIST_KEY, JSON.stringify(parsed))
           }
           return parsed
         }
       }
+      localStorage.setItem(STORAGE_YAKUSA_SEEDED_KEY, 'true')
     } catch { /* ignore */ }
     return DEFAULT_PLATFORM_THEMES
   })
@@ -98,7 +125,7 @@ export function ThemeProvider({ children }) {
   }, [themes, activeTheme])
 
   const activeThemeObj = themes.find(t => t.key === activeTheme) || themes[0] || DEFAULT_PLATFORM_THEMES[0]
-  const activePreset = activeThemeObj?.preset || (activeTheme === 'orion' ? 'orion' : 'principal')
+  const activePreset = activeThemeObj?.preset || (activeTheme === 'orion' ? 'orion' : activeTheme === 'yakusa' ? 'yakusa' : 'principal')
 
   // Apply 'dark' class and 'data-theme' attribute on <html>
   useEffect(() => {

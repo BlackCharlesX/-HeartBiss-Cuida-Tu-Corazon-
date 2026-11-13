@@ -24,6 +24,17 @@ export const DEFAULT_THEMES = [
     isActive: true,
     sortOrder: 2,
   },
+  {
+    key: 'yakusa',
+    name: 'Yakusa',
+    description: 'Tema Sakura / Japonés (Sakura de Día & Yozakura de Noche) — Rosa cerezo (#D14D6B / #FF3D73), Crema sakura (#FFF3F3 / #FAD5D5), Ciruela nocturno (#1D1120 / #2D1A33) y Dorado japonés (#EAA05E / #F8B14B).',
+    preset: 'yakusa',
+    swatches: ['#D14D6B', '#FAD5D5', '#3C1C22', '#FF3D73', '#1D1120', '#F8B14B'],
+    customVariables: null,
+    isProtected: false,
+    isActive: true,
+    sortOrder: 3,
+  },
 ]
 
 const PlatformTheme = sequelize.define('PlatformTheme', {
@@ -82,6 +93,12 @@ export async function ensureDefaultThemes() {
       const principal = await PlatformTheme.findByPk('principal')
       if (!principal) {
         await PlatformTheme.create(DEFAULT_THEMES[0])
+      }
+      // Ensure 'yakusa' is seeded if not yet created
+      const yakusa = await PlatformTheme.findByPk('yakusa')
+      if (!yakusa) {
+        const yakusaDef = DEFAULT_THEMES.find(t => t.key === 'yakusa')
+        if (yakusaDef) await PlatformTheme.create(yakusaDef)
       }
     }
   } catch (err) {

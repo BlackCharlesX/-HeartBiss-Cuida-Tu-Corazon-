@@ -12,6 +12,7 @@ import api, { getApiBaseUrl } from '../../services/api'
 import logoLight from '../../assets/logo-light.png'
 import logoDark from '../../assets/logo-dark.png'
 import heartEmblem from '../../assets/heart-emblem.png'
+import heartEmblemYakusa from '../../assets/heart-emblem-yakusa.png'
 
 
 
@@ -92,6 +93,7 @@ export default function Navbar() {
   const [showWearableModal, setShowWearableModal] = useState(false)
   const [themeMenuOpen, setThemeMenuOpen] = useState(false)
   const isOrion = activePreset === 'orion'
+  const isYakusa = activePreset === 'yakusa'
 
   // Translation support
   const [langOpen, setLangOpen] = useState(false)
@@ -346,7 +348,7 @@ export default function Navbar() {
           {/* Logo HeartBliss — Cuida tu Corazón */}
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', textDecoration: 'none', flexShrink: 0 }}>
             <img
-              src={heartEmblem}
+              src={isYakusa ? heartEmblemYakusa : heartEmblem}
               alt="Cuida tu Corazón"
               style={{
                 width: '44px',
@@ -354,6 +356,8 @@ export default function Navbar() {
                 objectFit: 'contain',
                 filter: isOrion
                   ? (dark ? 'drop-shadow(0 2px 6px rgba(255, 90, 31, 0.3))' : 'drop-shadow(0 1px 3px rgba(26, 26, 26, 0.2))')
+                  : isYakusa
+                  ? (dark ? 'drop-shadow(0 2px 6px rgba(255, 61, 115, 0.35))' : 'drop-shadow(0 1px 3px rgba(209, 77, 107, 0.2))')
                   : (dark ? 'drop-shadow(0 2px 6px rgba(200, 153, 83, 0.25))' : 'drop-shadow(0 1px 3px rgba(58, 36, 31, 0.15))'),
               }}
             />
@@ -362,7 +366,11 @@ export default function Navbar() {
                 fontSize: '1.02rem',
                 fontWeight: '800',
                 fontFamily: "'Outfit', 'Inter', sans-serif",
-                color: isOrion ? (dark ? '#D8A868' : '#1A1A1A') : (dark ? '#C89953' : '#3A241F'),
+                color: isOrion
+                  ? (dark ? '#D8A868' : '#1A1A1A')
+                  : isYakusa
+                  ? (dark ? '#FFD4E5' : '#3C1C22')
+                  : (dark ? '#C89953' : '#3A241F'),
                 letterSpacing: '-0.02em',
                 whiteSpace: 'nowrap',
               }}>
@@ -372,7 +380,11 @@ export default function Navbar() {
                 fontSize: '1.02rem',
                 fontWeight: '800',
                 fontFamily: "'Outfit', 'Inter', sans-serif",
-                color: isOrion ? (dark ? '#D8A868' : '#1A1A1A') : (dark ? '#C89953' : '#3A241F'),
+                color: isOrion
+                  ? (dark ? '#D8A868' : '#1A1A1A')
+                  : isYakusa
+                  ? (dark ? '#FFD4E5' : '#3C1C22')
+                  : (dark ? '#C89953' : '#3A241F'),
                 letterSpacing: '-0.02em',
                 whiteSpace: 'nowrap',
               }}>
@@ -395,10 +407,10 @@ export default function Navbar() {
                   fontSize: '0.875rem',
                   fontWeight: isActive(link.to) ? '700' : '500',
                   color: isActive(link.to)
-                    ? (isOrion ? (dark ? '#FF5A1F' : '#1A1A1A') : (dark ? '#C89953' : '#3A241F'))
-                    : (isOrion ? (dark ? '#D0DDD2' : '#1A1A1A') : (dark ? '#E2D4C6' : '#4B322A')),
+                    ? (isOrion ? (dark ? '#FF5A1F' : '#1A1A1A') : isYakusa ? (dark ? '#FF3D73' : '#D14D6B') : (dark ? '#C89953' : '#3A241F'))
+                    : (isOrion ? (dark ? '#D0DDD2' : '#1A1A1A') : isYakusa ? (dark ? '#FFD4E5' : '#3C1C22') : (dark ? '#E2D4C6' : '#4B322A')),
                   backgroundColor: isActive(link.to)
-                    ? (isOrion ? (dark ? 'rgba(255, 90, 31, 0.14)' : 'rgba(26, 26, 26, 0.1)') : (dark ? 'rgba(200, 153, 83, 0.14)' : '#E6DBC9'))
+                    ? (isOrion ? (dark ? 'rgba(255, 90, 31, 0.14)' : 'rgba(26, 26, 26, 0.1)') : isYakusa ? (dark ? 'rgba(255, 61, 115, 0.16)' : '#FAD5D5') : (dark ? 'rgba(200, 153, 83, 0.14)' : '#E6DBC9'))
                     : 'transparent',
                   transition: 'all 0.2s ease',
                   whiteSpace: 'nowrap',
@@ -471,15 +483,23 @@ export default function Navbar() {
                     letterSpacing: isOrion ? '0.04em' : 'normal',
                     textTransform: isOrion ? 'uppercase' : 'none',
                     whiteSpace: 'nowrap',
-                    color: '#FFFFFF',
+                    color: isYakusa
+                      ? (dark ? '#1D1120' : '#6E1F32')
+                      : '#FFFFFF',
                     background: isOrion
                       ? (dark ? '#5C7457' : '#1A1A1A')
+                      : isYakusa
+                      ? (dark ? 'linear-gradient(135deg, #F8B14B, #D99538)' : '#FAD5D5')
                       : (dark ? '#4D683E' : '#5A7B43'),
                     boxShadow: isOrion
                       ? (dark ? '0 2px 10px rgba(92, 116, 87, 0.4)' : '0 2px 8px rgba(26, 26, 26, 0.3)')
+                      : isYakusa
+                      ? (dark ? '0 2px 12px rgba(248, 177, 75, 0.38)' : '0 2px 8px rgba(209, 77, 107, 0.18)')
                       : (isActive('/dashboard') ? '0 4px 14px rgba(90, 123, 67, 0.45)' : '0 2px 6px rgba(90, 123, 67, 0.25)'),
                     border: isOrion
                       ? (dark ? '1.5px solid #88A28E' : '1.5px solid #1A1A1A')
+                      : isYakusa
+                      ? (dark ? '1.5px solid #F8B14B' : '1.5px solid #E5A4B1')
                       : (isActive('/dashboard') ? '1.5px solid rgba(255,255,255,0.45)' : '1px solid rgba(255,255,255,0.12)'),
                     transition: 'all 0.2s ease',
                   }}
@@ -487,7 +507,7 @@ export default function Navbar() {
                   <FaChartLine size={12} /> {isOrion ? 'MI SALUD' : 'Mi Salud'}
                 </Link>
 
-                {/* Admin link — Píldora #7A433A (Claro) / #8B1E18 (Oscuro) o HUD Orion */}
+                {/* Admin link — Píldora #7A433A (Claro) / #8B1E18 (Oscuro), HUD Orion o Sakura Yakusa */}
                 {user?.role === 'admin' && (
                   <Link
                     to="/admin"
@@ -505,12 +525,18 @@ export default function Navbar() {
                       color: isOrion ? (dark ? '#1A1A1A' : '#FF5A1F') : '#FFFFFF',
                       background: isOrion
                         ? (dark ? '#FF5A1F' : '#1A1A1A')
+                        : isYakusa
+                        ? (dark ? 'linear-gradient(135deg, #FF3D73, #D14D6B)' : '#D14D6B')
                         : (dark ? '#8B1E18' : '#7A433A'),
                       boxShadow: isOrion
                         ? (dark ? '0 2px 12px rgba(255, 90, 31, 0.45)' : '0 2px 8px rgba(26, 26, 26, 0.3)')
+                        : isYakusa
+                        ? (dark ? '0 2px 12px rgba(255, 61, 115, 0.45)' : '0 2px 8px rgba(209, 77, 107, 0.32)')
                         : (dark ? '0 2px 10px rgba(139, 30, 24, 0.45)' : '0 2px 6px rgba(122, 67, 58, 0.3)'),
                       border: isOrion
                         ? (dark ? '1.5px solid #FF5A1F' : '1.5px solid #FF5A1F')
+                        : isYakusa
+                        ? (dark ? '1.5px solid #FF3D73' : '1.5px solid #B83A57')
                         : (isActive('/admin') ? '1.5px solid rgba(255,255,255,0.45)' : '1px solid rgba(255,255,255,0.12)'),
                       transition: 'all 0.2s ease',
                     }}
@@ -1067,7 +1093,7 @@ export default function Navbar() {
                           }}>
                             {themes.map(t => {
                               const isSelected = activeTheme === t.key
-                              const swatches = t.colors || (t.preset === 'orion' ? ['#FF5A1F', '#88A28E', '#1A1A1A'] : ['#7A433A', '#C89953', '#5A7B43'])
+                              const swatches = t.colors || (t.preset === 'orion' ? ['#FF5A1F', '#88A28E', '#1A1A1A'] : t.preset === 'yakusa' ? ['#D14D6B', '#FAD5D5', '#3C1C22'] : ['#7A433A', '#C89953', '#5A7B43'])
                               return (
                                 <button
                                   key={t.key}
@@ -1517,7 +1543,7 @@ export default function Navbar() {
                   <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
                     {themes.map(t => {
                       const isSelected = activeTheme === t.key
-                      const swatches = t.colors || (t.preset === 'orion' ? ['#FF5A1F', '#88A28E', '#1A1A1A'] : ['#7A433A', '#C89953', '#5A7B43'])
+                      const swatches = t.colors || (t.preset === 'orion' ? ['#FF5A1F', '#88A28E', '#1A1A1A'] : t.preset === 'yakusa' ? ['#D14D6B', '#FAD5D5', '#3C1C22'] : ['#7A433A', '#C89953', '#5A7B43'])
                       return (
                         <button
                           key={t.key}

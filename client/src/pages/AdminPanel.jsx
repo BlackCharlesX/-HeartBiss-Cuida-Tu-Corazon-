@@ -3429,7 +3429,7 @@ function ThemesSection({ dark }) {
         syncThemesLocally(res.data.themes)
       }
       await refreshThemes()
-      setFeedback({ type: 'success', text: 'Temas predeterminados restaurados (Principal + Orion N5).' })
+      setFeedback({ type: 'success', text: 'Temas predeterminados restaurados (Principal, Orion N5 y Yakusa).' })
     } catch {
       const fallback = [
         {
@@ -3450,17 +3450,33 @@ function ThemesSection({ dark }) {
           isDefault: false,
           isActive: true,
         },
+        {
+          key: 'yakusa',
+          name: 'Yakusa',
+          description: 'Tema Sakura / Japonés (Sakura de Día & Yozakura de Noche) con rosa cerezo (#D14D6B / #FF3D73), crema sakura (#FAD5D5), ciruela nocturno (#1D1120) y detalles dorados (#EAA05E / #F8B14B).',
+          preset: 'yakusa',
+          colors: ['#D14D6B', '#FAD5D5', '#3C1C22'],
+          isDefault: false,
+          isActive: true,
+        },
       ]
       setAdminThemes(fallback)
       syncThemesLocally(fallback)
-      setFeedback({ type: 'success', text: 'Temas predeterminados restaurados.' })
+      setFeedback({ type: 'success', text: 'Temas predeterminados restaurados (Principal, Orion N5 y Yakusa).' })
     } finally {
       setSaving(false)
     }
   }
 
-  const selectedColors = selectedThemeObj.colors || (selectedThemeObj.preset === 'orion' ? ['#FF5A1F', '#88A28E', '#1A1A1A'] : ['#7A433A', '#C89953', '#5A7B43'])
+  const selectedColors = selectedThemeObj.colors || selectedThemeObj.swatches?.slice(0, 3) || (
+    selectedThemeObj.preset === 'orion'
+      ? ['#FF5A1F', '#88A28E', '#1A1A1A']
+      : selectedThemeObj.preset === 'yakusa'
+      ? ['#D14D6B', '#FAD5D5', '#3C1C22']
+      : ['#7A433A', '#C89953', '#5A7B43']
+  )
   const isSelectedOrion = selectedThemeObj.preset === 'orion'
+  const isSelectedYakusa = selectedThemeObj.preset === 'yakusa'
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -3559,7 +3575,7 @@ function ThemesSection({ dark }) {
               {adminThemes.map(t => {
                 const isSelected = selectedThemeObj.key === t.key
                 const isApplied = activeTheme === t.key
-                const dotColor = t.preset === 'orion' ? '#FF5A1F' : '#C89953'
+                const dotColor = t.preset === 'orion' ? '#FF5A1F' : t.preset === 'yakusa' ? '#D14D6B' : '#C89953'
                 return (
                   <div
                     key={t.key}
@@ -3847,7 +3863,13 @@ function ThemesSection({ dark }) {
               {adminThemes.map(theme => {
                 const isEditing = editingKey === theme.key
                 const isPrincipal = theme.key === 'principal' || theme.isDefault
-                const swatches = theme.colors || (theme.preset === 'orion' ? ['#FF5A1F', '#88A28E', '#1A1A1A'] : ['#7A433A', '#C89953', '#5A7B43'])
+                const swatches = theme.colors || theme.swatches?.slice(0, 3) || (
+                  theme.preset === 'orion'
+                    ? ['#FF5A1F', '#88A28E', '#1A1A1A']
+                    : theme.preset === 'yakusa'
+                    ? ['#D14D6B', '#FAD5D5', '#3C1C22']
+                    : ['#7A433A', '#C89953', '#5A7B43']
+                )
 
                 return (
                   <div
@@ -3883,10 +3905,18 @@ function ThemesSection({ dark }) {
                             </span>
                             <span style={{
                               fontSize: '0.68rem', fontWeight: '700', padding: '1px 7px', borderRadius: '9999px',
-                              background: theme.preset === 'orion' ? 'rgba(255, 90, 31, 0.16)' : 'rgba(200, 153, 83, 0.18)',
-                              color: theme.preset === 'orion' ? '#FF5A1F' : '#C89953',
+                              background: theme.preset === 'orion'
+                                ? 'rgba(255, 90, 31, 0.16)'
+                                : theme.preset === 'yakusa'
+                                ? 'rgba(209, 77, 107, 0.18)'
+                                : 'rgba(200, 153, 83, 0.18)',
+                              color: theme.preset === 'orion'
+                                ? '#FF5A1F'
+                                : theme.preset === 'yakusa'
+                                ? '#D14D6B'
+                                : '#C89953',
                             }}>
-                              Estilo: {theme.preset === 'orion' ? 'HUD / Táctico' : 'Cálido Principal'}
+                              Estilo: {theme.preset === 'orion' ? 'HUD / Táctico' : theme.preset === 'yakusa' ? 'Sakura / Japonés' : 'Cálido Principal'}
                             </span>
                           </div>
                           {theme.description && (
@@ -4011,13 +4041,14 @@ function ThemesSection({ dark }) {
                   setNewThemeForm(p => ({
                     ...p,
                     preset,
-                    color1: preset === 'orion' ? '#FF5A1F' : '#7A433A',
-                    color2: preset === 'orion' ? '#88A28E' : '#C89953',
-                    color3: preset === 'orion' ? '#1A1A1A' : '#5A7B43',
+                    color1: preset === 'orion' ? '#FF5A1F' : preset === 'yakusa' ? '#D14D6B' : '#7A433A',
+                    color2: preset === 'orion' ? '#88A28E' : preset === 'yakusa' ? '#FAD5D5' : '#C89953',
+                    color3: preset === 'orion' ? '#1A1A1A' : preset === 'yakusa' ? '#3C1C22' : '#5A7B43',
                   }))
                 }}
                 style={inputStyle(dark)}
               >
+                <option value="yakusa">Sakura / Japonés (#D14D6B / #FAD5D5 / #3C1C22)</option>
                 <option value="orion">HUD Táctico / Aeroespacial (#FF5A1F / #88A28E / #1A1A1A)</option>
                 <option value="principal">Cálido Orgánico HeartBliss (#7A433A / #C89953 / #5A7B43)</option>
               </select>

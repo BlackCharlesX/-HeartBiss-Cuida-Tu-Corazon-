@@ -1416,32 +1416,51 @@ router.get('/themes', async (_req, res, next) => {
 // Create or add a theme
 router.post('/themes', async (req, res, next) => {
   try {
-    const { name, description, preset, swatches, customVariables } = req.body
+    const { name, description, preset, swatches, colors, customVariables } = req.body
     if (!name || !name.trim()) {
       return res.status(400).json({ error: 'El nombre del tema es obligatorio' })
     }
 
     const baseSlug = slugify(name) || `tema-${Date.now()}`
-    let key = preset === 'orion' && !(await PlatformTheme.findByPk('orion')) ? 'orion' : baseSlug
+    let key = preset === 'orion' && !(await PlatformTheme.findByPk('orion'))
+      ? 'orion'
+      : preset === 'yakusa' && !(await PlatformTheme.findByPk('yakusa'))
+      ? 'yakusa'
+      : baseSlug
     if (await PlatformTheme.findByPk(key)) {
       key = `${baseSlug}-${Date.now().toString().slice(-4)}`
     }
+
+    const resolvedSwatches = Array.isArray(colors) && colors.length > 0
+      ? colors
+      : Array.isArray(swatches) && swatches.length > 0
+      ? swatches
+      : preset === 'yakusa'
+      ? ['#D14D6B', '#FAD5D5', '#3C1C22']
+      : preset === 'orion'
+      ? ['#FF5A1F', '#88A28E', '#1A1A1A']
+      : ['#7A433A', '#C89953', '#5A7B43']
 
     const theme = await PlatformTheme.create({
       key,
       name: name.trim(),
       description: description?.trim() || 'Tema personalizado de la plataforma',
       preset: preset || 'orion',
-      swatches: Array.isArray(swatches) && swatches.length > 0 ? swatches : ['#C9D6CA', '#FF5A1F', '#88A28E', '#1A1A1A'],
+      swatches: resolvedSwatches,
       customVariables: customVariables || null,
       isProtected: false,
       isActive: true,
       sortOrder: 10,
     })
 
+    const themes = await PlatformTheme.findAll({
+      order: [['sortOrder', 'ASC'], ['createdAt', 'ASC']],
+    })
+
     res.status(201).json({
       message: `Tema "${theme.name}" creado correctamente`,
       theme,
+      themes,
     })
   } catch (err) {
     next(err)
@@ -1457,25 +1476,29 @@ router.put('/themes/:key', async (req, res, next) => {
       return res.status(404).json({ error: 'Tema no encontrado' })
     }
 
-    const { name, description, swatches, customVariables, isActive } = req.body
+    const { name, description, swatches, colors, customVariables, isActive } = req.body
     if (name && name.trim()) {
-      // "Principal" keeps its name or can be updated, but let's allow renaming non-protected themes freely
       if (theme.key === 'principal' && name.trim() !== 'Principal') {
         return res.status(400).json({ error: 'El tema Principal no puede cambiar su nombre base' })
       }
       theme.name = name.trim()
     }
     if (typeof description === 'string') theme.description = description.trim()
-    if (Array.isArray(swatches)) theme.swatches = swatches
+    if (Array.isArray(colors)) theme.swatches = colors
+    else if (Array.isArray(swatches)) theme.swatches = swatches
     if (customVariables !== undefined) theme.customVariables = customVariables
     if (typeof isActive === 'boolean' && theme.key !== 'principal') {
       theme.isActive = isActive
     }
 
     await theme.save()
+    const themes = await PlatformTheme.findAll({
+      order: [['sortOrder', 'ASC'], ['createdAt', 'ASC']],
+    })
     res.json({
       message: `Tema "${theme.name}" actualizado correctamente`,
       theme,
+      themes,
     })
   } catch (err) {
     next(err)
@@ -1498,9 +1521,14 @@ router.delete('/themes/:key', async (req, res, next) => {
     const deletedName = theme.name
     await theme.destroy()
 
+    const themes = await PlatformTheme.findAll({
+      order: [['sortOrder', 'ASC'], ['createdAt', 'ASC']],
+    })
+
     res.json({
       message: `Tema "${deletedName}" eliminado correctamente`,
       deletedKey: key,
+      themes,
     })
   } catch (err) {
     next(err)

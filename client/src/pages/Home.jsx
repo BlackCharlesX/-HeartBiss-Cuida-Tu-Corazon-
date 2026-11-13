@@ -10,6 +10,8 @@ import logoLight from '../assets/logo-light.png'
 import logoDark from '../assets/logo-dark.png'
 import logoOrionLight from '../assets/logo-orion-light.png'
 import logoOrionDark from '../assets/logo-orion-dark.png'
+import logoYakusaLight from '../assets/logo-yakusa-light.png'
+import logoYakusaDark from '../assets/logo-yakusa-dark.png'
 
 
 
@@ -64,6 +66,7 @@ export default function Home() {
   const { isAuthenticated, user } = useAuth()
   const { dark, activePreset } = useTheme()
   const isOrion = activePreset === 'orion'
+  const isYakusa = activePreset === 'yakusa'
   const { isModuleEnabled } = useModules()
   const [featuredNews, setFeaturedNews] = useState([])
   const [apkInfo, setApkInfo] = useState(null)
@@ -114,7 +117,7 @@ export default function Home() {
 
   return (
     <div>
-      {/* Hero Section — HeartBliss Cuida tu Corazón (Principal & Orion HUD Themes) */}
+      {/* Hero Section — HeartBliss Cuida tu Corazón (Principal, Orion HUD & Yakusa Sakura Themes) */}
       <section style={{
         position: 'relative',
         minHeight: '86vh',
@@ -123,14 +126,71 @@ export default function Home() {
         background: isOrion
           ? (dark
             ? 'linear-gradient(rgba(136, 162, 142, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(136, 162, 142, 0.06) 1px, transparent 1px), radial-gradient(circle at 76% 36%, rgba(46, 92, 64, 0.25) 0%, transparent 45%), radial-gradient(circle at 22% 80%, rgba(255, 90, 31, 0.12) 0%, transparent 40%), linear-gradient(135deg, #161816 0%, #1E2420 55%, #161816 100%)'
-            : 'linear-gradient(rgba(26, 26, 26, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(26, 26, 26, 0.06) 1px, transparent 1px), radial-gradient(circle at 76% 36%, rgba(136, 162, 142, 0.35) 0%, transparent 48%), linear-gradient(135deg, #C9D6CA 0%, #BFCF C0 55%, #B8C8B9 100%)'.replace('#BFCF C0', '#BFCFC0'))
+            : 'linear-gradient(rgba(26, 26, 26, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(26, 26, 26, 0.06) 1px, transparent 1px), radial-gradient(circle at 76% 36%, rgba(136, 162, 142, 0.35) 0%, transparent 48%), linear-gradient(135deg, #C9D6CA 0%, #BFCFC0 55%, #B8C8B9 100%)')
+          : isYakusa
+          ? (dark
+            ? 'radial-gradient(circle at 78% 34%, rgba(255, 61, 115, 0.24) 0%, transparent 46%), radial-gradient(circle at 20% 82%, rgba(248, 177, 75, 0.14) 0%, transparent 40%), linear-gradient(135deg, #1D1120 0%, #2D1A33 56%, #1D1120 100%)'
+            : 'radial-gradient(circle at 78% 34%, rgba(209, 77, 107, 0.16) 0%, transparent 46%), radial-gradient(circle at 18% 82%, rgba(234, 160, 94, 0.18) 0%, transparent 42%), linear-gradient(135deg, #FFF3F3 0%, #FCE5E5 55%, #FAD5D5 100%)')
           : (dark
             ? 'radial-gradient(circle at 76% 32%, rgba(77, 104, 62, 0.28) 0%, transparent 42%), radial-gradient(circle at 82% 84%, rgba(139, 30, 24, 0.36) 0%, transparent 45%), radial-gradient(circle at 18% 82%, rgba(200, 153, 83, 0.16) 0%, transparent 38%), linear-gradient(135deg, #1F1210 0%, #2B1815 58%, #1F1210 100%)'
             : 'radial-gradient(circle at 76% 32%, rgba(90, 123, 67, 0.16) 0%, transparent 44%), radial-gradient(circle at 18% 82%, rgba(200, 153, 83, 0.20) 0%, transparent 42%), linear-gradient(135deg, #F8F4EB 0%, #F3ECDC 55%, #E6DBC9 100%)'),
         backgroundSize: isOrion ? '38px 38px, 38px 38px, 100% 100%, 100% 100%, 100% 100%' : 'auto',
         overflow: 'hidden',
-        borderBottom: `1px solid ${isOrion ? (dark ? '#38423B' : '#9EB2A0') : (dark ? '#38211D' : '#E6DBC9')}`,
+        borderBottom: `1px solid ${isOrion ? (dark ? '#38423B' : '#9EB2A0') : isYakusa ? (dark ? '#3D2445' : '#F2BFC2') : (dark ? '#38211D' : '#E6DBC9')}`,
       }}>
+        {/* Yakusa Japanese Seigaiha Waves & Sakura Petals Overlay (matching Image 1 & 2) */}
+        {isYakusa && (
+          <svg
+            viewBox="0 0 1440 720"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              pointerEvents: 'none',
+              zIndex: 2,
+            }}
+            preserveAspectRatio="xMidYMid slice"
+          >
+            <defs>
+              <pattern id="seigaiha-pattern" width="80" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 0 40 A 40 40 0 0 1 80 40 M 10 40 A 30 30 0 0 1 70 40 M 20 40 A 20 20 0 0 1 60 40 M 30 40 A 10 10 0 0 1 50 40" stroke={dark ? '#F8B14B' : '#EAA05E'} strokeWidth="1.2" fill="none" opacity={dark ? '0.22' : '0.32'} />
+                <path d="M -40 20 A 40 40 0 0 1 40 20 M -30 20 A 30 30 0 0 1 30 20 M -20 20 A 20 20 0 0 1 20 20 M 40 20 A 40 40 0 0 1 120 20 M 50 20 A 30 30 0 0 1 110 20 M 60 20 A 20 20 0 0 1 100 20" stroke={dark ? '#F8B14B' : '#EAA05E'} strokeWidth="1.2" fill="none" opacity={dark ? '0.22' : '0.32'} />
+              </pattern>
+            </defs>
+            {/* Top-left & Bottom-left Seigaiha traditional wave clouds */}
+            <ellipse cx="110" cy="40" rx="220" ry="110" fill="url(#seigaiha-pattern)" />
+            <ellipse cx="140" cy="690" rx="280" ry="120" fill="url(#seigaiha-pattern)" />
+            <ellipse cx="1280" cy="690" rx="260" ry="115" fill="url(#seigaiha-pattern)" />
+
+            {/* Floating Sakura Petals across Hero */}
+            {[
+              { x: 280, y: 85, r: 25, s: 1 },
+              { x: 420, y: 55, r: -18, s: 0.85 },
+              { x: 350, y: 145, r: 42, s: 1.1 },
+              { x: 580, y: 95, r: -30, s: 0.9 },
+              { x: 740, y: 70, r: 15, s: 1 },
+              { x: 88, y: 390, r: -25, s: 0.95 },
+              { x: 260, y: 635, r: 35, s: 0.9 },
+              { x: 540, y: 615, r: -20, s: 0.85 },
+              { x: 830, y: 585, r: 28, s: 1 },
+              { x: 1320, y: 120, r: -35, s: 1.05 },
+              { x: 1240, y: 540, r: 22, s: 0.95 },
+            ].map((p, idx) => (
+              <g key={idx} transform={`translate(${p.x}, ${p.y}) rotate(${p.r}) scale(${p.s})`}>
+                <path
+                  d="M0,0 C6,-10 18,-10 22,0 C18,8 8,12 0,0 Z"
+                  fill={dark ? '#FF5C8A' : '#F49DB0'}
+                  stroke={dark ? '#FFD4E5' : '#D14D6B'}
+                  strokeWidth="0.8"
+                  opacity={dark ? '0.85' : '0.8'}
+                />
+              </g>
+            ))}
+          </svg>
+        )}
         {/* Orion Tactical HUD Frame & Corner Brackets (matching Image 2) */}
         {isOrion && (
           <div style={{
@@ -255,8 +315,14 @@ export default function Home() {
               borderRadius: '9999px',
               background: isOrion
                 ? (dark ? '#2A2F2B' : '#B5C5B7')
+                : isYakusa
+                ? (dark ? '#2D1A33' : '#FAD5D5')
                 : (dark ? '#2B1815' : '#E6DBC9'),
-              border: `1px solid ${isOrion ? (dark ? 'rgba(136, 162, 142, 0.3)' : 'rgba(26, 26, 26, 0.18)') : (dark ? 'rgba(200, 153, 83, 0.28)' : 'rgba(122, 67, 58, 0.16)')}`,
+              border: isOrion
+                ? `1px solid ${dark ? 'rgba(136, 162, 142, 0.3)' : 'rgba(26, 26, 26, 0.18)'}`
+                : isYakusa
+                ? `2px double ${dark ? '#F8B14B' : '#D14D6B'}`
+                : `1px solid ${dark ? 'rgba(200, 153, 83, 0.28)' : 'rgba(122, 67, 58, 0.16)'}`,
               marginBottom: '1.5rem',
               fontSize: isOrion ? '0.8rem' : '0.88rem',
               fontWeight: '800',
@@ -264,10 +330,12 @@ export default function Home() {
               textTransform: isOrion ? 'uppercase' : 'none',
               color: isOrion
                 ? (dark ? '#D8A868' : '#1A1A1A')
+                : isYakusa
+                ? (dark ? '#FFD4E5' : '#3C1C22')
                 : (dark ? '#C89953' : '#7A433A'),
               boxShadow: dark ? '0 2px 10px rgba(0,0,0,0.3)' : '0 2px 8px rgba(58, 36, 31, 0.06)',
             }}>
-              <FaHeart size={13} style={{ color: isOrion ? (dark ? '#D8A868' : '#1A1A1A') : (dark ? '#C89953' : '#7A433A') }} />
+              <FaHeart size={13} style={{ color: isOrion ? (dark ? '#D8A868' : '#1A1A1A') : isYakusa ? (dark ? '#F8B14B' : '#3C1C22') : (dark ? '#C89953' : '#7A433A') }} />
               {isOrion ? 'HEARTBLISS' : 'HeartBliss'}
             </div>
 
@@ -275,7 +343,11 @@ export default function Home() {
               fontSize: 'clamp(2.5rem, 5vw, 4.1rem)',
               fontWeight: '800',
               fontFamily: "'Outfit', 'Inter', sans-serif",
-              color: isOrion ? (dark ? '#FFFFFF' : '#1A1A1A') : (dark ? '#F5ECE1' : '#3A241F'),
+              color: isOrion
+                ? (dark ? '#FFFFFF' : '#1A1A1A')
+                : isYakusa
+                ? (dark ? '#FFFFFF' : '#3C1C22')
+                : (dark ? '#F5ECE1' : '#3A241F'),
               lineHeight: '1.08',
               letterSpacing: '-0.025em',
               marginBottom: '1.5rem',
@@ -285,6 +357,8 @@ export default function Home() {
               <span style={{
                 color: isOrion
                   ? (dark ? '#FF5A1F' : '#1A1A1A')
+                  : isYakusa
+                  ? (dark ? '#FF3D73' : '#4E1F28')
                   : (dark ? '#C89953' : '#4E241C'),
               }}>
                 infórmate y actúa
@@ -293,7 +367,11 @@ export default function Home() {
 
             <p className="animate-fade-in-up stagger-2" style={{
               fontSize: '1.1rem',
-              color: isOrion ? (dark ? '#D0DDD2' : '#263028') : (dark ? '#D9C8B8' : '#4B322A'),
+              color: isOrion
+                ? (dark ? '#D0DDD2' : '#263028')
+                : isYakusa
+                ? (dark ? '#FFD4E5' : '#4F242C')
+                : (dark ? '#D9C8B8' : '#4B322A'),
               lineHeight: '1.75',
               marginBottom: '2.25rem',
               maxWidth: '560px',
@@ -317,16 +395,30 @@ export default function Home() {
                     borderRadius: '9999px',
                     background: isOrion
                       ? (dark ? '#FF5A1F' : '#1A1A1A')
+                      : isYakusa
+                      ? (dark
+                        ? 'linear-gradient(135deg, #FF5C8A 0%, #FF3D73 55%, #D14D6B 100%)'
+                        : 'linear-gradient(135deg, #FAD5D5 0%, #F4B3BE 55%, #EA869A 100%)')
                       : 'linear-gradient(135deg, #D6AA65 0%, #C89953 55%, #B0803B 100%)',
                     color: isOrion
                       ? (dark ? '#1A1A1A' : '#FFFFFF')
+                      : isYakusa
+                      ? (dark ? '#FFFFFF' : '#3C1C22')
                       : (dark ? '#1F1210' : '#FFFFFF'),
                     textDecoration: 'none',
                     fontWeight: '700',
                     fontSize: '0.98rem',
-                    border: isOrion ? `1.5px solid ${dark ? '#FF5A1F' : '#1A1A1A'}` : 'none',
+                    border: isOrion
+                      ? `1.5px solid ${dark ? '#FF5A1F' : '#1A1A1A'}`
+                      : isYakusa
+                      ? (dark ? '1.5px solid #FF85A6' : '2px double #D14D6B')
+                      : 'none',
                     boxShadow: isOrion
                       ? (dark ? '0 8px 25px rgba(255, 90, 31, 0.45)' : '0 8px 22px rgba(26, 26, 26, 0.32)')
+                      : isYakusa
+                      ? (dark
+                        ? '0 8px 28px rgba(255, 61, 115, 0.55), 0 0 16px rgba(255, 61, 115, 0.32)'
+                        : '0 8px 22px rgba(209, 77, 107, 0.28)')
                       : (dark
                         ? '0 8px 25px rgba(200, 153, 83, 0.45), 0 0 15px rgba(200, 153, 83, 0.25)'
                         : '0 8px 22px rgba(200, 153, 83, 0.42)'),
@@ -348,16 +440,30 @@ export default function Home() {
                     borderRadius: '9999px',
                     background: isOrion
                       ? (dark ? '#FF5A1F' : '#1A1A1A')
+                      : isYakusa
+                      ? (dark
+                        ? 'linear-gradient(135deg, #FF5C8A 0%, #FF3D73 55%, #D14D6B 100%)'
+                        : 'linear-gradient(135deg, #FAD5D5 0%, #F4B3BE 55%, #EA869A 100%)')
                       : 'linear-gradient(135deg, #D6AA65 0%, #C89953 55%, #B0803B 100%)',
                     color: isOrion
                       ? (dark ? '#1A1A1A' : '#FFFFFF')
+                      : isYakusa
+                      ? (dark ? '#FFFFFF' : '#3C1C22')
                       : (dark ? '#1F1210' : '#FFFFFF'),
                     textDecoration: 'none',
                     fontWeight: '700',
                     fontSize: '0.98rem',
-                    border: isOrion ? `1.5px solid ${dark ? '#FF5A1F' : '#1A1A1A'}` : 'none',
+                    border: isOrion
+                      ? `1.5px solid ${dark ? '#FF5A1F' : '#1A1A1A'}`
+                      : isYakusa
+                      ? (dark ? '1.5px solid #FF85A6' : '2px double #D14D6B')
+                      : 'none',
                     boxShadow: isOrion
                       ? (dark ? '0 8px 25px rgba(255, 90, 31, 0.45)' : '0 8px 22px rgba(26, 26, 26, 0.32)')
+                      : isYakusa
+                      ? (dark
+                        ? '0 8px 28px rgba(255, 61, 115, 0.55), 0 0 16px rgba(255, 61, 115, 0.32)'
+                        : '0 8px 22px rgba(209, 77, 107, 0.28)')
                       : (dark
                         ? '0 8px 25px rgba(200, 153, 83, 0.45), 0 0 15px rgba(200, 153, 83, 0.25)'
                         : '0 8px 22px rgba(200, 153, 83, 0.42)'),
@@ -378,10 +484,12 @@ export default function Home() {
                 borderRadius: '9999px',
                 background: isOrion
                   ? 'transparent'
+                  : isYakusa
+                  ? (dark ? 'rgba(45, 26, 51, 0.65)' : 'rgba(255, 243, 243, 0.72)')
                   : (dark ? 'rgba(43, 24, 21, 0.55)' : 'rgba(248, 244, 235, 0.65)'),
                 backdropFilter: 'blur(8px)',
-                border: `1.5px solid ${isOrion ? (dark ? '#D0DDD2' : '#1A1A1A') : (dark ? '#C89953' : '#3A241F')}`,
-                color: isOrion ? (dark ? '#F4F6F4' : '#1A1A1A') : (dark ? '#F5ECE1' : '#3A241F'),
+                border: `1.5px solid ${isOrion ? (dark ? '#D0DDD2' : '#1A1A1A') : isYakusa ? (dark ? '#F8B14B' : '#3C1C22') : (dark ? '#C89953' : '#3A241F')}`,
+                color: isOrion ? (dark ? '#F4F6F4' : '#1A1A1A') : isYakusa ? (dark ? '#FFD4E5' : '#3C1C22') : (dark ? '#F5ECE1' : '#3A241F'),
                 textDecoration: 'none',
                 fontWeight: '600',
                 fontSize: '0.98rem',
@@ -390,17 +498,21 @@ export default function Home() {
                 onMouseEnter={e => {
                   e.currentTarget.style.background = isOrion
                     ? (dark ? 'rgba(255, 90, 31, 0.14)' : 'rgba(26, 26, 26, 0.08)')
+                    : isYakusa
+                    ? (dark ? 'rgba(255, 61, 115, 0.16)' : '#FAD5D5')
                     : (dark ? 'rgba(200, 153, 83, 0.15)' : '#E6DBC9')
                   e.currentTarget.style.transform = 'translateY(-2px)'
                 }}
                 onMouseLeave={e => {
                   e.currentTarget.style.background = isOrion
                     ? 'transparent'
+                    : isYakusa
+                    ? (dark ? 'rgba(45, 26, 51, 0.65)' : 'rgba(255, 243, 243, 0.72)')
                     : (dark ? 'rgba(43, 24, 21, 0.55)' : 'rgba(248, 244, 235, 0.65)')
                   e.currentTarget.style.transform = 'translateY(0)'
                 }}
               >
-                <FaRegHeart size={15} style={{ color: isOrion ? (dark ? '#F4F6F4' : '#1A1A1A') : (dark ? '#C89953' : '#7A433A') }} />
+                <FaRegHeart size={15} style={{ color: isOrion ? (dark ? '#F4F6F4' : '#1A1A1A') : isYakusa ? (dark ? '#FFD4E5' : '#D14D6B') : (dark ? '#C89953' : '#7A433A') }} />
                 Explorar Información
               </Link>
 
@@ -467,25 +579,29 @@ export default function Home() {
             <div style={{
               position: 'relative',
               width: '100%',
-              maxWidth: isOrion ? '360px' : '370px',
-              aspectRatio: isOrion ? '821 / 1024' : '1 / 1',
-              borderRadius: isOrion ? '2.4rem' : '2.25rem',
+              maxWidth: isOrion ? '360px' : isYakusa ? '345px' : '370px',
+              aspectRatio: isOrion ? '821 / 1024' : isYakusa ? '422 / 601' : '1 / 1',
+              borderRadius: isOrion ? '2.4rem' : isYakusa ? '1.6rem' : '2.25rem',
               overflow: 'hidden',
               boxShadow: isOrion
                 ? (dark
                   ? '0 25px 50px -12px rgba(0, 0, 0, 0.78), 0 0 38px rgba(136, 162, 142, 0.22)'
                   : '0 22px 45px -12px rgba(26, 26, 26, 0.22), 0 0 30px rgba(136, 162, 142, 0.25)')
+                : isYakusa
+                ? (dark
+                  ? '0 25px 50px -12px rgba(12, 6, 15, 0.85), 0 0 42px rgba(255, 61, 115, 0.32)'
+                  : '0 22px 45px -12px rgba(60, 28, 34, 0.22), 0 0 35px rgba(209, 77, 107, 0.22)')
                 : (dark
                   ? '0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(77, 104, 62, 0.25), 0 0 40px rgba(139, 30, 24, 0.28)'
                   : '0 22px 45px -12px rgba(58, 36, 31, 0.16), 0 0 35px rgba(90, 123, 67, 0.15)'),
-              border: isOrion
+              border: isOrion || isYakusa
                 ? 'none'
                 : `1.5px solid ${dark ? 'rgba(200, 153, 83, 0.32)' : 'rgba(122, 67, 58, 0.18)'}`,
               transition: 'transform 0.3s ease, box-shadow 0.3s ease',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              background: isOrion
+              background: isOrion || isYakusa
                 ? 'transparent'
                 : (dark
                   ? 'radial-gradient(circle at 75% 25%, rgba(77, 104, 62, 0.32), rgba(43, 24, 21, 0.92) 70%)'
@@ -499,12 +615,12 @@ export default function Home() {
             }}
             >
               <img
-                src={isOrion ? (dark ? logoOrionDark : logoOrionLight) : (dark ? logoDark : logoLight)}
+                src={isOrion ? (dark ? logoOrionDark : logoOrionLight) : isYakusa ? (dark ? logoYakusaDark : logoYakusaLight) : (dark ? logoDark : logoLight)}
                 alt="HeartBliss — Cuida tu Corazón"
                 style={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'contain',
+                  objectFit: isYakusa ? 'cover' : 'contain',
                   display: 'block',
                 }}
               />
