@@ -467,9 +467,9 @@ export default function Home() {
             <div style={{
               position: 'relative',
               width: '100%',
-              maxWidth: '370px',
-              aspectRatio: '1/1',
-              borderRadius: '2.25rem',
+              maxWidth: isOrion ? '360px' : '370px',
+              aspectRatio: isOrion ? '821 / 1024' : '1 / 1',
+              borderRadius: isOrion ? '2.4rem' : '2.25rem',
               overflow: 'hidden',
               boxShadow: isOrion
                 ? (dark
@@ -504,7 +504,7 @@ export default function Home() {
                 style={{
                   width: '100%',
                   height: '100%',
-                  objectFit: isOrion ? 'cover' : 'contain',
+                  objectFit: 'contain',
                   display: 'block',
                 }}
               />

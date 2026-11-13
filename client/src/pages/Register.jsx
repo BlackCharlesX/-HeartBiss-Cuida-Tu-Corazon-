@@ -6,9 +6,12 @@ import { useAuth } from '../context/AuthContext'
 import { useTheme } from '../context/ThemeContext'
 import logoLight from '../assets/logo-light.png'
 import logoDark from '../assets/logo-dark.png'
+import logoOrionLight from '../assets/logo-orion-light.png'
+import logoOrionDark from '../assets/logo-orion-dark.png'
 
 export default function Register() {
-  const { dark } = useTheme()
+  const { dark, activePreset } = useTheme()
+  const isOrion = activePreset === 'orion'
 
   const [showPassword, setShowPassword] = useState(false)
   const [apiError, setApiError] = useState('')
@@ -82,8 +85,8 @@ export default function Register() {
         boxShadow: 'var(--shadow-elevated)', border: '1px solid var(--color-surface-200)',
       }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <img src={dark ? logoDark : logoLight} alt="HeartBliss — Cuida tu Corazón" style={{
-            height: '82px',
+          <img src={isOrion ? (dark ? logoOrionDark : logoOrionLight) : (dark ? logoDark : logoLight)} alt="HeartBliss — Cuida tu Corazón" style={{
+            height: isOrion ? '110px' : '82px',
             width: 'auto',
             maxWidth: '180px',
             margin: '0 auto 1rem',
